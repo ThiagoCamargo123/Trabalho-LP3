@@ -1,0 +1,21 @@
+PRIMEIRO É NECESSARIO CONFIGURAR A SSH KEY (UMA UNICA VEZ) PARA QUE SEMPRE QUE USAR SUA MÁQUINA NAO 
+SEJA NECESSARIO DIGITAR SENHA NO GIT BASH.
+
+---------------------------------------------------------------------------------------------------
+Video para criar a SSH KEY: https://www.youtube.com/watch?v=tjZEplICR5g
+
+---------------------------------------------------------------------------------------------------
+1º clonem o repositorio online do git para algum local da maquina de voces
+	comando: git clone git@github.com:ThiCamargo18/Trabalho-LP3.git
+
+2º depois faca as alteracoes do projeto, e mova para a pasta do repositorio
+
+3º suba as alteracoes para o git
+
+4º comandos (SEMPRE) seguir a ordem:
+
+	git add.
+	git commit -m "escreva a versao"
+	git push origin thiago
+
+	**nota: digite seu nome, pois assim o projeto ficara na sua pasta com as alteracoes feitas

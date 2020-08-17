@@ -1,0 +1,31 @@
+Primeira tela
+-Gerente
+-Funcionario
+-Cliente
+
+Tela Gerente
+Gerenciar Produtos:
+-Editar produto
+
+Cadastro de Produtos:
+-ID auto incremente
+-Volume (Largura,Altura,Profundidade)
+-Mascara valor
+
+{Bug}Cadastro de novo funcionario fechando a tela sozinho
+
+
+Tela estoquista:
+{Bug}Botão Menu>sair ->Precisa atribuir
+
+
+
+Tela Cliente:
+Venda:
+-Buscar CPF automatico
+
+Cadastro produto:
+-Alterar campos
+
+Add produtos no estoque
+

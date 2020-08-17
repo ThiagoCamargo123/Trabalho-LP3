@@ -1,0 +1,44 @@
+Quarto: 100.000.000 cm³
+altura:10
+largura:10
+produndidade:10
+
+1.000.000.000 cm³
+
+Corredor: 2
+altura:10
+largura:2
+profundidade:8
+160m³
+160.000.000
+
+
+	A		B		C		D		E
+1--------------------------------------------------------------------------------
+1		-		-		-		-		-
+										
+										
+2		-		-		-		-		-
+2		-		-		-		-		-
+										
+										
+3		-		-		-		-		-
+3--------------------------------------------------------------------------------
+
+
+altura: 3
+largura: 6
+profundidade: 10
+180m²
+
+Estante:
+altura: 3
+largura: 2
+profundidade: 2
+12m²
+
+estante localidade
+profundidade: 5
+15 estantes
+
+produto + vendido - volume + lucro

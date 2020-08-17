@@ -1,0 +1,15 @@
+Host
+ec2-34-195-115-225.compute-1.amazonaws.com
+Database
+d7gbh9tbts0r7j
+User
+zuidrqukwykbwd
+Port
+5432
+Password
+8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69
+URI
+postgres://zuidrqukwykbwd:8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69@ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j
+Heroku CLI
+heroku pg:psql postgresql-cubed-20268 --app trab-ifsp
+
