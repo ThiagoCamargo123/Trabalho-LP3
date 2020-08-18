@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3-20200814T210319Z-001/Trabalho-LP3/ecommerce/src/ecommerce/aplicacao/Main.java</file>
-            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3-20200814T210319Z-001/Trabalho-LP3/ecommerce/src/ecommerce/usuario/session.java</file>
-            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3-20200814T210319Z-001/Trabalho-LP3/ecommerce/src/ecommerce/produto/MostrarProdutos.java</file>
-            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3-20200814T210319Z-001/Trabalho-LP3/ecommerce/src/ecommerce/cliente/TelaInicialCliente.java</file>
+            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/ComprarTeste.java</file>
+            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/Carrinho.java</file>
+            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/cliente/TelaInicialCliente.java</file>
+            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/Historico.java</file>
+            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/cliente/TelaSecundariaCliente.java</file>
+            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/bancoDados/BD.java</file>
         </group>
     </open-files>
 </project-private>

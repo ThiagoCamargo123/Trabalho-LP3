@@ -6,8 +6,10 @@
 package ecommerce.cliente;
 
 import bancoDados.BD;
+import ecommerce.compra.Carrinho;
 import ecommerce.compra.ComprarProduto;
 import ecommerce.compra.ComprarTeste;
+import ecommerce.compra.Historico;
 import ecommerce.usuario.session;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,6 +55,7 @@ public class TelaSecundariaCliente extends javax.swing.JFrame {
         Historico = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         nome = new javax.swing.JLabel();
+        Carrinho = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,6 +74,11 @@ public class TelaSecundariaCliente extends javax.swing.JFrame {
 
         Historico.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         Historico.setText("Histórico de Compras");
+        Historico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HistoricoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -79,6 +87,14 @@ public class TelaSecundariaCliente extends javax.swing.JFrame {
         nome.setFont(new java.awt.Font("Bookman Old Style", 0, 18)); // NOI18N
         nome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         nome.setText("\"Nome cliente\"");
+
+        Carrinho.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        Carrinho.setText("Carrinho de Compras");
+        Carrinho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CarrinhoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,6 +108,10 @@ public class TelaSecundariaCliente extends javax.swing.JFrame {
                 .addGap(106, 106, 106)
                 .addComponent(Historico)
                 .addGap(93, 93, 93))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(216, 216, 216)
+                .addComponent(Carrinho)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +124,9 @@ public class TelaSecundariaCliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Historico)
                     .addComponent(Comprar))
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addGap(55, 55, 55)
+                .addComponent(Carrinho)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
@@ -113,12 +135,23 @@ public class TelaSecundariaCliente extends javax.swing.JFrame {
     private void ComprarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComprarMouseClicked
         ComprarTeste comprar = new ComprarTeste();
         comprar.setVisible(true);
-        dispose();
+        
     }//GEN-LAST:event_ComprarMouseClicked
 
     private void ComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComprarActionPerformed
+
+    private void HistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistoricoActionPerformed
+        Historico h = new Historico();
+        h.setVisible(true);
+    }//GEN-LAST:event_HistoricoActionPerformed
+
+    private void CarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarrinhoActionPerformed
+        Carrinho c = new Carrinho();
+        c.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_CarrinhoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,6 +189,7 @@ public class TelaSecundariaCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Carrinho;
     private javax.swing.JButton Comprar;
     private javax.swing.JButton Historico;
     private javax.swing.JLabel jLabel1;

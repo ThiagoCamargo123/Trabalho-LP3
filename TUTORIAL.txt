@@ -14,7 +14,7 @@ Video para criar a SSH KEY: https://www.youtube.com/watch?v=tjZEplICR5g
 
 4º comandos (SEMPRE) seguir a ordem:
 
-	git add.
+	git add .
 	git commit -m "escreva a versao"
 	git push origin thiago
 

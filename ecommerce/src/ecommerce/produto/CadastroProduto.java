@@ -6,7 +6,7 @@
 package ecommerce.produto;
 
 import bancoDados.BD;
-import ecommerce.usuario.session;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 

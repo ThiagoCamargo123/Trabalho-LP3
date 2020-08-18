@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ecommerce.produto;
+package ecommerce.compra;
 
+import bancoDados.BD;
+import ecommerce.usuario.session;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,19 +15,21 @@ import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 
 /**
  *
- * @author Thiago
+ * @author Ivan Farina
  */
-public class MostrarProdutos extends javax.swing.JFrame {
+public class Historico extends javax.swing.JFrame {
 
     /**
-     * Creates new form MostrarProdutos
+     * Creates new form Historico
      */
-    public MostrarProdutos() {
+    BD bd = new BD();
+    public Historico() {
         initComponents();
+        bd.conecta();
+        
     }
 
     /**
@@ -37,7 +41,8 @@ public class MostrarProdutos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
         Connection con = null;
         Statement st = null;
         ResultSet rs = null; String s;
@@ -48,7 +53,7 @@ public class MostrarProdutos extends javax.swing.JFrame {
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection("jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j","zuidrqukwykbwd","8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69");
             st = con.createStatement();
-            s = "select produto.id,produto.descricao,tipoProduto.descricao,produto.preco_final from produto inner join tipoProduto on (produto.tipo = tipoProduto.id)";
+            s = "select * from compra where cpf_cliente = '"+session.getInstance().getCPF()+"'";
             rs = st.executeQuery(s);
             ResultSetMetaData rsmt = rs.getMetaData();
             int c = rsmt.getColumnCount();
@@ -70,16 +75,18 @@ public class MostrarProdutos extends javax.swing.JFrame {
 
                 data.add(row);
             }
-            jTable2 = new javax.swing.JTable(data,column);
-            jLabel1 = new javax.swing.JLabel();
+            jTable1 = new javax.swing.JTable(data,column);
             Voltar = new javax.swing.JButton();
-            Atualizar = new javax.swing.JButton();
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-            jTable2.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
-            jTable2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-            jScrollPane2.setViewportView(jTable2);
+            jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 24)); // NOI18N
+            jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            jLabel1.setText("Histórico de compras");
+
+            jTable1.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
+            jTable1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+            jScrollPane1.setViewportView(jTable1);
         }
         catch(Exception e){ JOptionPane.showMessageDialog(null, "ERROR"); }
         finally{
@@ -93,23 +100,11 @@ public class MostrarProdutos extends javax.swing.JFrame {
             }
         }
 
-        jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Todos os Produtos");
-
         Voltar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         Voltar.setText("Voltar");
         Voltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 VoltarActionPerformed(evt);
-            }
-        });
-
-        Atualizar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        Atualizar.setText("Atualizar");
-        Atualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AtualizarActionPerformed(evt);
             }
         });
 
@@ -121,11 +116,10 @@ public class MostrarProdutos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 703, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(Voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -133,71 +127,15 @@ public class MostrarProdutos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Voltar)
-                    .addComponent(Atualizar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(Voltar)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void AtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarActionPerformed
-        Connection con = null;
-    Statement st = null; 
-     ResultSet rs = null; String s;
-
-
-    //connect your app to mysql database 
-
-    try{ 
-        Class.forName("org.postgresql.Driver");
-        con = DriverManager.getConnection("jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j","zuidrqukwykbwd","8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69");
-        st = con.createStatement();
-        s = "select * from produto"; 
-        rs = st.executeQuery(s);
-        ResultSetMetaData rsmt = rs.getMetaData(); 
-        int c = rsmt.getColumnCount();
-        Vector column = new Vector(c);
-
-        for(int i = 1; i <= c; i++) {
-            column.add(rsmt.getColumnName(i)); 
-        } 
-
-        Vector data = new Vector(); 
-        Vector row = new Vector(); 
-
-        while(rs.next()) { 
-            row = new Vector(c); 
-
-            for(int i = 1; i <= c; i++){
-                row.add(rs.getString(i)); 
-            } 
-
-            data.add(row); 
-        }
-jTable2 = new javax.swing.JTable(data,column);
-
-jTable2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-
-jScrollPane2.setViewportView(jTable2);
-}
-        catch(Exception e){ JOptionPane.showMessageDialog(null, "ERROR"); }
-        finally{
-            try{
-                st.close(); 
-                rs.close(); 
-                con.close(); 
-            }
-            catch(Exception e){ 
-                JOptionPane.showMessageDialog(null, "ERROR CLOSE"); 
-            } 
-        }
-
-    }//GEN-LAST:event_AtualizarActionPerformed
 
     private void VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarActionPerformed
         dispose();
@@ -220,29 +158,28 @@ jScrollPane2.setViewportView(jTable2);
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MostrarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MostrarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MostrarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MostrarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Historico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MostrarProdutos().setVisible(true);
+                new Historico().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Atualizar;
     private javax.swing.JButton Voltar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

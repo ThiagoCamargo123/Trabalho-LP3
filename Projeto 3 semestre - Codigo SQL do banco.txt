@@ -97,3 +97,13 @@ insert into tipoProduto (descricao) values ('Livros');
 insert into tipoProduto (descricao) values ('Papelaria e escritório');
 insert into tipoProduto (descricao) values ('Pet Shop');
 insert into tipoProduto (descricao) values ('Roupas, calçados e acessórios');
+
+CREATE TABLE Carrinho(
+	id serial primary key,
+	id_produto int not null,
+	cpf_cliente varchar(20) not null,
+	quant INT,
+	aberto varchar(1),
+	FOREIGN KEY(id_produto) REFERENCES Produto(id),
+	FOREIGN KEY(cpf_cliente) REFERENCES Cliente(cpf)
+);
