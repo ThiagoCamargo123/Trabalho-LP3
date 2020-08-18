@@ -39,16 +39,22 @@ CREATE TABLE Estoquista(
 	FOREIGN KEY(cpf_gerente) references Gerente(cpf)
 );
 
+CREATE TABLE tipoProduto(
+	id serial PRIMARY KEY,
+	descricao varchar(100)
+);
+
 CREATE TABLE Produto(
 	id serial PRIMARY KEY,
-	tipo VARCHAR(50),
+	tipo int,
 	descricao varchar(100),
 	altura FLOAT,
 	largura FLOAT,
 	profundidade FLOAT,
 	preco FLOAT NOT NULL,
 	estocado varchar(3) not null,
-	preco_final int
+	preco_final int,
+	FOREIGN KEY(tipo) references tipoProduto(id)
 );
 
 CREATE TABLE Compra(
@@ -75,3 +81,19 @@ CREATE TABLE Produto_Prateleira(
 	localidade varchar(2),
 	FOREIGN KEY(id_produto) REFERENCES Produto(id)
 );
+
+insert into tipoProduto (descricao) values ('Automotivo');
+insert into tipoProduto (descricao) values ('Beleza e cuidados pessoais');
+insert into tipoProduto (descricao) values ('Brinquedos e jogos');
+insert into tipoProduto (descricao) values ('Celulares e comunicação');
+insert into tipoProduto (descricao) values ('Computadores e informática');
+insert into tipoProduto (descricao) values ('Cozinha');
+insert into tipoProduto (descricao) values ('Eletrônicos, TV, áudio');
+insert into tipoProduto (descricao) values ('Esportes, aventura, lazer');
+insert into tipoProduto (descricao) values ('Ferramentas e construção');
+insert into tipoProduto (descricao) values ('Filmes, séries e música');
+insert into tipoProduto (descricao) values ('Games e consoles');
+insert into tipoProduto (descricao) values ('Livros');
+insert into tipoProduto (descricao) values ('Papelaria e escritório');
+insert into tipoProduto (descricao) values ('Pet Shop');
+insert into tipoProduto (descricao) values ('Roupas, calçados e acessórios');

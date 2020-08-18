@@ -9,6 +9,10 @@ package ecommerce.usuario;
  *
  * @author Ivan Farina
  */
+
+
+
+//Usar "session.getInstance().getCPF()" para pegar o CPF
 public class session {
    private static session instance = null;
    private String cpf,tipo;

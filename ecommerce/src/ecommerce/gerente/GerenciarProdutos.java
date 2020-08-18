@@ -63,6 +63,11 @@ public class GerenciarProdutos extends javax.swing.JFrame {
                 CadastrarMouseClicked(evt);
             }
         });
+        Cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CadastrarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel2.setText("Exibir Produtos");
@@ -161,6 +166,10 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         MostrarProdutos mostrar = new MostrarProdutos();
         mostrar.setVisible(true);
     }//GEN-LAST:event_MostrarActionPerformed
+
+    private void CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CadastrarActionPerformed
 
     /**
      * @param args the command line arguments

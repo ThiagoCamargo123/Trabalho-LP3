@@ -6,15 +6,7 @@
 package ecommerce.compra;
 
 import bancoDados.BD;
-import java.awt.BorderLayout;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.Statement;
-import java.util.Vector;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+
 
 /**
  *
@@ -29,6 +21,7 @@ public class ComprarTeste extends javax.swing.JFrame {
     public ComprarTeste() {
         initComponents();
         bd.conecta();
+        
     }
 
     /**
@@ -42,71 +35,22 @@ public class ComprarTeste extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        Connection con = null;
-        Statement st = null;
-        ResultSet rs = null; String s;
+        jLabel1 = new javax.swing.JLabel();
 
-        //connect your app to mysql database
-
-        try{
-            Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection("jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j","zuidrqukwykbwd","8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69");
-            st = con.createStatement();
-            s = "select * from produto";
-            rs = st.executeQuery(s);
-            ResultSetMetaData rsmt = rs.getMetaData();
-            int c = rsmt.getColumnCount();
-            Vector column = new Vector(c);
-
-            for(int i = 1; i <= c; i++) {
-                column.add(rsmt.getColumnName(i));
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
-            Vector data = new Vector();
-            Vector row = new Vector();
-
-            while(rs.next()) {
-                row = new Vector(c);
-
-                for(int i = 1; i <= c; i++){
-                    row.add(rs.getString(i));
-                }
-
-                data.add(row);
-            }
-            jTable2 = new javax.swing.JTable(data,column);
-            jLabel1 = new javax.swing.JLabel();
-
-            jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null},
-                    {null, null, null, null}
-                },
-                new String [] {
-                    "Title 1", "Title 2", "Title 3", "Title 4"
-                }
-            ));
-            jScrollPane1.setViewportView(jTable1);
-
-            setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-            jTable2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-            jScrollPane2.setViewportView(jTable2);
-        }
-        catch(Exception e){ JOptionPane.showMessageDialog(null, "ERROR"); }
-        finally{
-            try{
-                st.close();
-                rs.close();
-                con.close();
-            }
-            catch(Exception e){
-                JOptionPane.showMessageDialog(null, "ERROR CLOSE");
-            }
-        }
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -116,20 +60,14 @@ public class ComprarTeste extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 612, Short.MAX_VALUE)
-                .addContainerGap())
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(317, Short.MAX_VALUE))
         );
 
         pack();
@@ -173,8 +111,6 @@ public class ComprarTeste extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

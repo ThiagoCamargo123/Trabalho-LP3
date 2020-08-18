@@ -6,6 +6,9 @@
 package ecommerce.produto;
 
 import bancoDados.BD;
+import ecommerce.usuario.session;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -19,6 +22,18 @@ public class CadastroProduto extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         bd.conecta();
+        String sql = "select descricao from tipoProduto";
+        ResultSet rs = bd.consulta(sql);
+        
+	try{
+            while(rs.next()){
+		tipo.addItem(rs.getString("descricao"));
+            }   
+            
+        }
+        catch(SQLException e){
+            System.err.println("Excessão: " + e.toString());
+        }
     }
 
     /**
@@ -36,10 +51,8 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         preco = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        quantidade = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         preco_final = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
@@ -78,9 +91,6 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastro de Produtos");
 
-        jLabel7.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        jLabel7.setText("Quantidade ");
-
         preco.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         preco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,13 +100,6 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel8.setText("Preço Pago");
-
-        quantidade.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        quantidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                quantidadeActionPerformed(evt);
-            }
-        });
 
         jLabel9.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel9.setText("Preço Final");
@@ -117,7 +120,6 @@ public class CadastroProduto extends javax.swing.JFrame {
         });
 
         tipo.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Eletrodoméstico", "Celular", "Vídeo Game" }));
 
         jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel4.setText("Altura");
@@ -140,53 +142,44 @@ public class CadastroProduto extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel7))
+                                .addComponent(jLabel8)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(preco, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                                    .addComponent(quantidade))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel9))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(altura, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(preco, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(largura, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel10)
+                                .addComponent(jLabel9)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(profundidade, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(preco_final, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addComponent(preco_final, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(altura, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel5)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(largura, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(profundidade))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel6)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(jButton2)
-                .addGap(88, 88, 88)
-                .addComponent(jButton1)
+                        .addGap(188, 188, 188)
+                        .addComponent(jButton2)
+                        .addGap(88, 88, 88)
+                        .addComponent(jButton1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -214,23 +207,34 @@ public class CadastroProduto extends javax.swing.JFrame {
                     .addComponent(preco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(preco_final, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(75, 75, 75)
+                .addGap(58, 58, 58)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        bd.executa("INSERT INTO produto (tipo,descricao,altura,largura,profundidade,preco,quanttotal,estocado,preco_final) VALUES('"+tipo.getSelectedItem()+"','"+descricao.getText()+"','"+altura.getText()+"','"+largura.getText()+"','"+profundidade.getText()+"','"+preco.getText()+"','"+quantidade.getText()+"','"+"NAO"+"','"+preco_final.getText()+"')");
-        dispose();
+        float vol = Float.parseFloat(altura.getText()) * Float.parseFloat(largura.getText()) * Float.parseFloat(profundidade.getText());
+        String sql = "select id from tipoProduto where descricao = '" + tipo.getSelectedItem() + "'";
+        ResultSet rs = bd.consulta(sql);
+        String nome1 = null;
+	try{
+            while(rs.next()){
+		nome1 = rs.getString("id");
+            }   
+            
+        }
+        catch(SQLException e){
+            System.err.println("Excessão: " + e.toString());
+        }
+            
+        int tipo1 = Integer.parseInt(nome1);
+        bd.executa("INSERT INTO produto (tipo,descricao,altura,largura,profundidade,preco,estocado,preco_final,volume) VALUES('"+tipo1+"','"+descricao.getText()+"','"+altura.getText()+"','"+largura.getText()+"','"+profundidade.getText()+"','"+preco.getText()+"','"+"NAO"+"','"+preco_final.getText()+"','"+vol+"')");
+        
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -240,10 +244,6 @@ public class CadastroProduto extends javax.swing.JFrame {
     private void precoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_precoActionPerformed
-
-    private void quantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quantidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_quantidadeActionPerformed
 
     private void preco_finalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_preco_finalActionPerformed
         // TODO add your handling code here:
@@ -301,14 +301,12 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField largura;
     private javax.swing.JTextField preco;
     private javax.swing.JTextField preco_final;
     private javax.swing.JTextField profundidade;
-    private javax.swing.JTextField quantidade;
     private javax.swing.JComboBox<String> tipo;
     // End of variables declaration//GEN-END:variables
 }

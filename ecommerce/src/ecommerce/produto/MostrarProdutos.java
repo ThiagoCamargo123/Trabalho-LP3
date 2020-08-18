@@ -5,6 +5,7 @@
  */
 package ecommerce.produto;
 
+import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -47,7 +48,7 @@ public class MostrarProdutos extends javax.swing.JFrame {
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection("jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j","zuidrqukwykbwd","8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69");
             st = con.createStatement();
-            s = "select * from produto";
+            s = "select produto.tipo,produto.descricao,tipoProduto.descricao,produto.preco_final from produto inner join tipoProduto on (produto.tipo = tipoProduto.id)";
             rs = st.executeQuery(s);
             ResultSetMetaData rsmt = rs.getMetaData();
             int c = rsmt.getColumnCount();
@@ -76,6 +77,7 @@ public class MostrarProdutos extends javax.swing.JFrame {
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+            jTable2.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
             jTable2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
             jScrollPane2.setViewportView(jTable2);
         }
