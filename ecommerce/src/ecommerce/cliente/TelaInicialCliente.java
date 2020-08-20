@@ -33,6 +33,7 @@ public class TelaInicialCliente extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         bd.conecta();
+        senha1.setEchoChar('*');
     }
 
    
@@ -45,10 +46,11 @@ public class TelaInicialCliente extends javax.swing.JFrame {
         Novo = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         cpf = new javax.swing.JTextField();
-        senha = new javax.swing.JTextField();
         Entrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         Voltar = new javax.swing.JButton();
+        senha1 = new javax.swing.JPasswordField();
+        senhaErrada = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,19 +78,27 @@ public class TelaInicialCliente extends javax.swing.JFrame {
         jLabel4.setText("CPF");
 
         cpf.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cpf.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cpfMouseClicked(evt);
+            }
+        });
         cpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cpfActionPerformed(evt);
             }
         });
 
-        senha.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-
         Entrar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         Entrar.setText("Entrar");
         Entrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 EntrarMouseClicked(evt);
+            }
+        });
+        Entrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EntrarActionPerformed(evt);
             }
         });
 
@@ -103,36 +113,50 @@ public class TelaInicialCliente extends javax.swing.JFrame {
             }
         });
 
+        senha1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        senha1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                senha1MouseClicked(evt);
+            }
+        });
+
+        senhaErrada.setFont(new java.awt.Font("Bookman Old Style", 3, 12)); // NOI18N
+        senhaErrada.setForeground(new java.awt.Color(255, 0, 0));
+        senhaErrada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 158, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addGap(54, 54, 54)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cpf)
-                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(259, 259, 259))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel3)
-                    .addComponent(Novo))
-                .addGap(310, 310, 310))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(327, 327, 327)
-                        .addComponent(Entrar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(645, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(Novo))
+                        .addGap(310, 310, 310))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGap(54, 54, 54)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(senhaErrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cpf, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                            .addComponent(senha1))
+                        .addGap(259, 259, 259))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(Entrar)
+                        .addGap(324, 324, 324))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,12 +168,14 @@ public class TelaInicialCliente extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(senha1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(senhaErrada, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Entrar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Novo)
@@ -175,11 +201,13 @@ public class TelaInicialCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_cpfActionPerformed
 
     private void EntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarMouseClicked
+        boolean r=false;
         try {
             String sql = "select * from cliente where cpf = '" + cpf.getText() + "'";
             ResultSet rs = bd.consulta(sql);
+            String senha = new String (senha1.getPassword());
             while (rs.next()) {
-                if (rs.getString("senha").equals(senha.getText())) {
+                if (senha.equals(rs.getString("senha"))) {
                     session sessao = session.getInstance();
                     sessao.setCPF(cpf.getText());
                     sessao.settipo("Cliente");
@@ -187,17 +215,35 @@ public class TelaInicialCliente extends javax.swing.JFrame {
                     comprar.setVisible(true);
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog((Component) rs, "INVALIDO");
+                    senhaErrada.setText("CPF OU SENHA INCORRETOS");
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(VerificarSenhaEstoquista.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+            if(r==false){
+                senhaErrada.setText("CPF OU SENHA INCORRETOS");
+            }
+        }
+        
     }//GEN-LAST:event_EntrarMouseClicked
 
     private void VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarActionPerformed
         dispose();
     }//GEN-LAST:event_VoltarActionPerformed
+
+    private void EntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EntrarActionPerformed
+
+    private void cpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cpfMouseClicked
+        senhaErrada.setText("");
+    }//GEN-LAST:event_cpfMouseClicked
+
+    private void senha1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_senha1MouseClicked
+        senhaErrada.setText("");
+    }//GEN-LAST:event_senha1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -243,6 +289,7 @@ public class TelaInicialCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField senha;
+    private javax.swing.JPasswordField senha1;
+    private javax.swing.JLabel senhaErrada;
     // End of variables declaration//GEN-END:variables
 }

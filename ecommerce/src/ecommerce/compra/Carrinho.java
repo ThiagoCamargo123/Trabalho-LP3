@@ -50,17 +50,17 @@ public class Carrinho extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         id_item = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        quant = new javax.swing.JTextField();
         Cancelar = new javax.swing.JButton();
         Remover = new javax.swing.JButton();
-        pesquisa = new javax.swing.JButton();
+        quant = new javax.swing.JSpinner();
+        ERRO = new javax.swing.JLabel();
         AreaCliente = new javax.swing.JButton();
         Comprar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         Comprarmais = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         Connection con = null;
         Statement st = null;
         ResultSet rs = null; String s;
@@ -71,7 +71,7 @@ public class Carrinho extends javax.swing.JFrame {
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection("jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j","zuidrqukwykbwd","8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69");
             st = con.createStatement();
-            s = "select id_produto,cpf_cliente,quant,preco_total from carrinho where cpf_cliente = '"+session.getInstance().getCPF()+"' AND aberto = 's'";
+            s = "select id_produto AS ID, SUM(quant) AS Quantidade, SUM(preco_total) AS Preco from carrinho where cpf_cliente = '"+session.getInstance().getCPF()+"' AND aberto = 's' group by id_produto";
             rs = st.executeQuery(s);
             ResultSetMetaData rsmt = rs.getMetaData();
             int c = rsmt.getColumnCount();
@@ -93,7 +93,7 @@ public class Carrinho extends javax.swing.JFrame {
 
                 data.add(row);
             }
-            jTable1 = new javax.swing.JTable(data,column);
+            jTable2 = new javax.swing.JTable(data,column);
 
             setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,11 +111,14 @@ public class Carrinho extends javax.swing.JFrame {
             jLabel3.setText("ID item:");
 
             id_item.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+            id_item.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    id_itemMouseClicked(evt);
+                }
+            });
 
             jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
             jLabel4.setText("Quantidade:");
-
-            quant.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
             Cancelar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
             Cancelar.setText("Cancelar");
@@ -133,12 +136,16 @@ public class Carrinho extends javax.swing.JFrame {
                 }
             });
 
-            pesquisa.setIcon(new javax.swing.ImageIcon("C:\\Users\\Ivan Farina\\Desktop\\IFSP\\3 sem\\LP3\\Trabalho-LP3\\2x\\baseline_search_black_18dp.png")); // NOI18N
-            pesquisa.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    pesquisaActionPerformed(evt);
+            quant.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+            quant.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+            quant.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt) {
+                    quantMouseClicked(evt);
                 }
             });
+
+            ERRO.setFont(new java.awt.Font("Bookman Old Style", 3, 12)); // NOI18N
+            ERRO.setForeground(new java.awt.Color(255, 0, 0));
 
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
             jPanel1.setLayout(jPanel1Layout);
@@ -147,24 +154,27 @@ public class Carrinho extends javax.swing.JFrame {
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(Remover))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(ERRO, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel3)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(id_item, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(quant, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(Remover))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addGap(7, 7, 7)))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(quant)
+                                        .addComponent(id_item, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE))))
+                            .addGap(0, 27, Short.MAX_VALUE)))
+                    .addContainerGap())
             );
             jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,18 +182,15 @@ public class Carrinho extends javax.swing.JFrame {
                     .addContainerGap()
                     .addComponent(jLabel2)
                     .addGap(18, 18, 18)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(id_item, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(8, 8, 8))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(pesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel3)
+                        .addComponent(id_item, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(9, 9, 9)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel4)
                         .addComponent(quant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ERRO, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(Cancelar)
@@ -229,10 +236,10 @@ public class Carrinho extends javax.swing.JFrame {
             jPanel2.setLayout(jPanel2Layout);
             jPanel2Layout.setHorizontalGroup(
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(46, 46, 46)
+                    .addGap(77, 77, 77)
                     .addComponent(Comprarmais)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             );
@@ -248,9 +255,9 @@ public class Carrinho extends javax.swing.JFrame {
                     .addContainerGap(70, Short.MAX_VALUE))
             );
 
-            jTable1.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
-            jTable1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-            jScrollPane1.setViewportView(jTable1);
+            jTable2.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
+            jTable2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+            jScrollPane2.setViewportView(jTable2);
         }
         catch(Exception e){ JOptionPane.showMessageDialog(null, "ERROR"); }
         finally{
@@ -272,7 +279,7 @@ public class Carrinho extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(AreaCliente)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -288,8 +295,8 @@ public class Carrinho extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -318,7 +325,7 @@ public class Carrinho extends javax.swing.JFrame {
 
     private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
         id_item.setText("");
-        quant.setText("");
+        quant.setValue(1);
     }//GEN-LAST:event_CancelarActionPerformed
 
     private void ComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprarActionPerformed
@@ -351,55 +358,70 @@ public class Carrinho extends javax.swing.JFrame {
     }//GEN-LAST:event_ComprarActionPerformed
 
     private void RemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoverActionPerformed
-        if(Integer.parseInt(quant.getText()) == 0){
-            bd.executa("DELETE FROM carrinho where id_produto = '"+id_item.getText()+"'");
-        }
-        else{
-            String sql = "select preco_unit from carrinho where id_produto = '" + id_item.getText() + "'";
-            ResultSet rs = bd.consulta(sql);
-            float preco_unit = 0, preco_total = 0;
-            try{
-                while(rs.next()){
-                    preco_unit = Float.parseFloat(rs.getString("preco_unit"));
-                }   
-                preco_total = preco_unit * Integer.parseInt(quant.getText());
-            }
-            catch(SQLException e){
-                System.err.println("Excessão: " + e.toString());
-            }
-            bd.executa("update carrinho set quant = '"+quant.getText()+"', preco_total = '"+preco_total+"' where id_produto = '"+id_item.getText()+"'");
-        }
-        atualizarTabela();
-        id_item.setText("");
-        quant.setText("");
-    }//GEN-LAST:event_RemoverActionPerformed
-
-    private void pesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pesquisaActionPerformed
-        String sql = "select quant from carrinho where cpf_cliente = '" + session.getInstance().getCPF() + "' AND id_produto = '"+id_item.getText()+"'";
+        boolean r = false;
+        String sql = "select preco_unit from carrinho where id_produto = '" + id_item.getText() + "' AND cpf_cliente = '" + session.getInstance().getCPF() + "' AND aberto = 's'";
         ResultSet rs = bd.consulta(sql);
-        String quant1 = null;
-	try{
+        float preco_unit = 0, preco_total = 0;
+        try{
             while(rs.next()){
-		quant1 = rs.getString("quant");
+                preco_unit = Float.parseFloat(rs.getString("preco_unit"));
+                r=true;
             }   
-            quant.setText(quant1);
-            //quant.enable(true);
+            preco_total = preco_unit * Integer.parseInt(quant.getValue().toString());
         }
         catch(SQLException e){
             System.err.println("Excessão: " + e.toString());
         }
-    }//GEN-LAST:event_pesquisaActionPerformed
+        finally{
+            if(r==false){
+                ERRO.setText("PROBLEMA EM ATUALIZAR ITEM");
+            }else{
+                if(Integer.parseInt(quant.getValue().toString()) == 0){
+                    bd.executa("DELETE FROM carrinho where id_produto = '"+id_item.getText()+"'");
+                }
+                else{
+                    bd.executa("update carrinho set quant = '"+quant.getValue().toString()+"', preco_total = '"+preco_total+"' where id_produto = '"+id_item.getText()+"'");
+                }
+                atualizarTabela();
+                id_item.setText("");
+                quant.setValue(1);
+            }
+        }
+
+    }//GEN-LAST:event_RemoverActionPerformed
+
+    private void quantMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quantMouseClicked
+        String sql = "select quant from carrinho where cpf_cliente = '" + session.getInstance().getCPF() + "' AND id_produto = '"+id_item.getText()+"'";
+        ResultSet rs = bd.consulta(sql);
+        String quant1 = null;
+        try{
+            while(rs.next()){
+                quant1 = rs.getString("quant");
+            }
+            quant.setValue(quant1);
+        }
+        catch(SQLException e){
+            System.err.println("Excessão: " + e.toString());
+        }
+    }//GEN-LAST:event_quantMouseClicked
+
+    private void id_itemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_id_itemMouseClicked
+        ERRO.setText("");
+    }//GEN-LAST:event_id_itemMouseClicked
 
     private void atualizarTabela(){
         Connection con = null;
         Statement st = null; 
         ResultSet rs = null; String s;
 
+
+        //connect your app to mysql database 
+
         try{ 
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection("jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j","zuidrqukwykbwd","8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69");
             st = con.createStatement();
-            s = "select id_produto,cpf_cliente,quant,preco_total from carrinho where cpf_cliente = '"+session.getInstance().getCPF()+"' AND aberto = 's'"; 
+            s = "select id_produto AS ID, SUM(quant) AS Quantidade, SUM(preco_total) AS Preco from carrinho where cpf_cliente = '"+session.getInstance().getCPF()+"' AND aberto = 's' group by id_produto";
             rs = st.executeQuery(s);
             ResultSetMetaData rsmt = rs.getMetaData(); 
             int c = rsmt.getColumnCount();
@@ -421,10 +443,10 @@ public class Carrinho extends javax.swing.JFrame {
 
                 data.add(row); 
             }
-            jTable1 = new javax.swing.JTable(data,column);
-            jTable1.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
-            jTable1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-            jScrollPane1.setViewportView(jTable1);
+            jTable2 = new javax.swing.JTable(data,column);
+            jTable2.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
+            jTable2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+            jScrollPane2.setViewportView(jTable2);
         }
         catch(Exception e){ JOptionPane.showMessageDialog(null, "ERROR"); }
         finally{
@@ -478,6 +500,7 @@ public class Carrinho extends javax.swing.JFrame {
     private javax.swing.JButton Cancelar;
     private javax.swing.JButton Comprar;
     private javax.swing.JButton Comprarmais;
+    private javax.swing.JLabel ERRO;
     private javax.swing.JButton Remover;
     private javax.swing.JTextField id_item;
     private javax.swing.JLabel jLabel1;
@@ -488,9 +511,8 @@ public class Carrinho extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JButton pesquisa;
-    private javax.swing.JTextField quant;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JSpinner quant;
     // End of variables declaration//GEN-END:variables
 }

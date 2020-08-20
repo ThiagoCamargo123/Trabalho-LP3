@@ -98,9 +98,9 @@ public class ComprarTeste extends javax.swing.JFrame {
             jLabel3 = new javax.swing.JLabel();
             id_prod = new javax.swing.JTextField();
             jLabel4 = new javax.swing.JLabel();
-            quant = new javax.swing.JTextField();
             Adicionar = new javax.swing.JButton();
             Limpar = new javax.swing.JButton();
+            quant = new javax.swing.JSpinner();
             Voltar = new javax.swing.JButton();
             jButton2 = new javax.swing.JButton();
 
@@ -167,8 +167,6 @@ public class ComprarTeste extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel4.setText("Quantidade:");
 
-        quant.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-
         Adicionar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         Adicionar.setText("Adicionar");
         Adicionar.addActionListener(new java.awt.event.ActionListener() {
@@ -184,6 +182,9 @@ public class ComprarTeste extends javax.swing.JFrame {
                 LimparActionPerformed(evt);
             }
         });
+
+        quant.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        quant.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -206,7 +207,7 @@ public class ComprarTeste extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(quant, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(quant, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -350,7 +351,7 @@ public class ComprarTeste extends javax.swing.JFrame {
 
     private void LimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimparActionPerformed
         id_prod.setText("");
-        quant.setText("");
+        quant.setValue(1);
     }//GEN-LAST:event_LimparActionPerformed
 
     private void AdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarActionPerformed
@@ -365,10 +366,11 @@ public class ComprarTeste extends javax.swing.JFrame {
         catch(SQLException e){
             System.err.println("Excessão: " + e.toString());
         }
-        preco_total = preco_unit*Integer.parseInt(quant.getText());
-        bd.executa("INSERT INTO Carrinho (id_produto,cpf_cliente,quant,aberto,preco_total,preco_unit) VALUES('"+id_prod.getText()+"','"+session.getInstance().getCPF()+"','"+quant.getText()+"','s','"+preco_total+"','"+preco_unit+"')");
+        int quant1 = Integer.parseInt(quant.getValue().toString());
+        preco_total = preco_unit*quant1;
+        bd.executa("INSERT INTO Carrinho (id_produto,cpf_cliente,quant,aberto,preco_total,preco_unit) VALUES('"+id_prod.getText()+"','"+session.getInstance().getCPF()+"','"+quant.getValue().toString()+"','s','"+preco_total+"','"+preco_unit+"')");
         id_prod.setText("");
-        quant.setText("");
+        quant.setValue(1);
     }//GEN-LAST:event_AdicionarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -429,7 +431,7 @@ public class ComprarTeste extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField quant;
+    private javax.swing.JSpinner quant;
     private javax.swing.JComboBox<String> tipo;
     // End of variables declaration//GEN-END:variables
 }
