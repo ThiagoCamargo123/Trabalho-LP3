@@ -5,6 +5,10 @@
  */
 package ecommerce.usuario;
 
+import bancoDados.BD;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author Ivan Farina
@@ -17,8 +21,9 @@ public class session {
    private static session instance = null;
    private String cpf,tipo;
    
-
+   BD bd = new BD();
    public session(){
+       bd.conecta();
    }
 
    public void setCPF(String cpf){
@@ -37,10 +42,29 @@ public class session {
        return this.tipo;
    }
    
-   public static session getInstance(){
+   public String getnome(){
+        String sql = "select nome from cliente where cpf = '" + this.cpf + "'";
+        ResultSet rs = bd.consulta(sql);
+        String nome = null;
+	try{
+            while(rs.next()){
+		nome = rs.getString("nome");
+            }   
+        }
+        catch(SQLException e){
+            System.err.println("Excessão: " + e.toString());
+        }
+        return nome;
+   }
+   
+    public static session logoff(){
+        instance = null;
+        return instance;
+    }
+    public static session getInstance(){
          if(instance == null){
                instance = new session();
          }
         return instance;
-   }
+    }
 }

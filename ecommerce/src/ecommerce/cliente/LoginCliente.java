@@ -6,7 +6,6 @@
 package ecommerce.cliente;
 
 import bancoDados.BD;
-import ecommerce.compra.ComprarProduto;
 import bancoDados.BD;
 import ecommerce.estoquista.VerificarSenhaEstoquista;
 import ecommerce.prateleira.GerenciarPrateleira;
@@ -22,18 +21,18 @@ import javax.swing.JOptionPane;
  *
  * @author Thiago
  */
-public class TelaInicialCliente extends javax.swing.JFrame {
+public class LoginCliente extends javax.swing.JFrame {
 
     /**
-     * Creates new form TelaInicialCliente
+     * Creates new form LoginCliente
      */
     
     BD bd = new BD();
-    public TelaInicialCliente() {
+    public LoginCliente() {
         initComponents();
         setLocationRelativeTo(null);
         bd.conecta();
-        senha1.setEchoChar('*');
+        txtsenha.setEchoChar('*');
     }
 
    
@@ -43,86 +42,81 @@ public class TelaInicialCliente extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        Novo = new javax.swing.JButton();
+        btCadastrar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        cpf = new javax.swing.JTextField();
-        Entrar = new javax.swing.JButton();
+        btEntrar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        Voltar = new javax.swing.JButton();
-        senha1 = new javax.swing.JPasswordField();
-        senhaErrada = new javax.swing.JLabel();
+        btVoltar = new javax.swing.JButton();
+        txtsenha = new javax.swing.JPasswordField();
+        LabelLoginErrado = new javax.swing.JLabel();
+        txtcpf = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Ficamos feliz por ter escolhido nossa loja!");
+        jLabel1.setText("Ficamos felizes por ter escolhido nossa loja!");
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Ainda não possui?");
 
-        Novo.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        Novo.setText("Cadastrar");
-        Novo.addMouseListener(new java.awt.event.MouseAdapter() {
+        btCadastrar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        btCadastrar.setText("Cadastrar");
+        btCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                NovoMouseClicked(evt);
+                btCadastrarMouseClicked(evt);
             }
         });
-        Novo.addActionListener(new java.awt.event.ActionListener() {
+        btCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NovoActionPerformed(evt);
+                btCadastrarActionPerformed(evt);
             }
         });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel4.setText("CPF");
 
-        cpf.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        cpf.addMouseListener(new java.awt.event.MouseAdapter() {
+        btEntrar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        btEntrar.setText("Entrar");
+        btEntrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cpfMouseClicked(evt);
+                btEntrarMouseClicked(evt);
             }
         });
-        cpf.addActionListener(new java.awt.event.ActionListener() {
+        btEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cpfActionPerformed(evt);
-            }
-        });
-
-        Entrar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        Entrar.setText("Entrar");
-        Entrar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EntrarMouseClicked(evt);
-            }
-        });
-        Entrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EntrarActionPerformed(evt);
+                btEntrarActionPerformed(evt);
             }
         });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         jLabel5.setText("SENHA");
 
-        Voltar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        Voltar.setText("Voltar");
-        Voltar.addActionListener(new java.awt.event.ActionListener() {
+        btVoltar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        btVoltar.setText("Voltar");
+        btVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VoltarActionPerformed(evt);
+                btVoltarActionPerformed(evt);
             }
         });
 
-        senha1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        senha1.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtsenha.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        txtsenha.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                senha1MouseClicked(evt);
+                txtsenhaMouseClicked(evt);
             }
         });
 
-        senhaErrada.setFont(new java.awt.Font("Bookman Old Style", 3, 12)); // NOI18N
-        senhaErrada.setForeground(new java.awt.Color(255, 0, 0));
-        senhaErrada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LabelLoginErrado.setFont(new java.awt.Font("Bookman Old Style", 3, 12)); // NOI18N
+        LabelLoginErrado.setForeground(new java.awt.Color(255, 0, 0));
+        LabelLoginErrado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        try {
+            txtcpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txtcpf.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,13 +127,13 @@ public class TelaInicialCliente extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(645, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
-                            .addComponent(Novo))
+                            .addComponent(btCadastrar))
                         .addGap(310, 310, 310))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -150,12 +144,12 @@ public class TelaInicialCliente extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addGap(54, 54, 54)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(senhaErrada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cpf, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                            .addComponent(senha1))
+                            .addComponent(LabelLoginErrado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtsenha, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                            .addComponent(txtcpf))
                         .addGap(259, 259, 259))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(Entrar)
+                        .addComponent(btEntrar)
                         .addGap(324, 324, 324))))
         );
         layout.setVerticalGroup(
@@ -166,85 +160,80 @@ public class TelaInicialCliente extends javax.swing.JFrame {
                 .addGap(59, 59, 59)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(txtcpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(senha1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(senhaErrada, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtsenha))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                .addComponent(LabelLoginErrado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(Entrar)
+                .addComponent(btEntrar)
                 .addGap(37, 37, 37)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Novo)
+                .addComponent(btCadastrar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Voltar)
+                .addComponent(btVoltar)
                 .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NovoActionPerformed
+    private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NovoActionPerformed
+    }//GEN-LAST:event_btCadastrarActionPerformed
 
-    private void NovoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NovoMouseClicked
+    private void btCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCadastrarMouseClicked
         CadastroCliente cadastro = new CadastroCliente();
         cadastro.setVisible(true);
-    }//GEN-LAST:event_NovoMouseClicked
+    }//GEN-LAST:event_btCadastrarMouseClicked
 
-    private void cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpfActionPerformed
+    private void btEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btEntrarMouseClicked
+        login();
+        dispose();
+    }//GEN-LAST:event_btEntrarMouseClicked
+
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btVoltarActionPerformed
+
+    private void btEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEntrarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cpfActionPerformed
+    }//GEN-LAST:event_btEntrarActionPerformed
 
-    private void EntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EntrarMouseClicked
-        boolean r=false;
+    private void txtsenhaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtsenhaMouseClicked
+        LabelLoginErrado.setText("");
+    }//GEN-LAST:event_txtsenhaMouseClicked
+    private void login(){
+        String cpf = txtcpf.getText().replace(".","").replace("-","");
+        boolean loginerrado=false;
         try {
-            String sql = "select * from cliente where cpf = '" + cpf.getText() + "'";
+            String sql = "select * from cliente where cpf = '" + cpf + "'";
             ResultSet rs = bd.consulta(sql);
-            String senha = new String (senha1.getPassword());
+            String senha = new String (txtsenha.getPassword());
             while (rs.next()) {
                 if (senha.equals(rs.getString("senha"))) {
                     session sessao = session.getInstance();
-                    sessao.setCPF(cpf.getText());
+                    sessao.setCPF(cpf);
                     sessao.settipo("Cliente");
-                    TelaSecundariaCliente comprar = new TelaSecundariaCliente();
-                    comprar.setVisible(true);
+                    AreaCliente ac = new AreaCliente();
+                    ac.setVisible(true);
                     dispose();
                 } else {
-                    senhaErrada.setText("CPF OU SENHA INCORRETOS");
+                    LabelLoginErrado.setText("CPF OU SENHA INCORRETOS");
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(VerificarSenhaEstoquista.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally{
-            if(r==false){
-                senhaErrada.setText("CPF OU SENHA INCORRETOS");
+            if(loginerrado==false){
+                LabelLoginErrado.setText("CPF OU SENHA INCORRETOS");
             }
         }
-        
-    }//GEN-LAST:event_EntrarMouseClicked
-
-    private void VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarActionPerformed
-        dispose();
-    }//GEN-LAST:event_VoltarActionPerformed
-
-    private void EntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_EntrarActionPerformed
-
-    private void cpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cpfMouseClicked
-        senhaErrada.setText("");
-    }//GEN-LAST:event_cpfMouseClicked
-
-    private void senha1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_senha1MouseClicked
-        senhaErrada.setText("");
-    }//GEN-LAST:event_senha1MouseClicked
-
+    }
     /**
      * @param args the command line arguments
      */
@@ -262,34 +251,37 @@ public class TelaInicialCliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TelaInicialCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TelaInicialCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TelaInicialCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TelaInicialCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginCliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaInicialCliente().setVisible(true);
+                new LoginCliente().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Entrar;
-    private javax.swing.JButton Novo;
-    private javax.swing.JButton Voltar;
-    private javax.swing.JTextField cpf;
+    private javax.swing.JLabel LabelLoginErrado;
+    private javax.swing.JButton btCadastrar;
+    private javax.swing.JButton btEntrar;
+    private javax.swing.JButton btVoltar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JPasswordField senha1;
-    private javax.swing.JLabel senhaErrada;
+    private javax.swing.JFormattedTextField txtcpf;
+    private javax.swing.JPasswordField txtsenha;
     // End of variables declaration//GEN-END:variables
 }

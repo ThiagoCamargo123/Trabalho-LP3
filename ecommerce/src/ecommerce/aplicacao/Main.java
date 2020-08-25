@@ -5,7 +5,7 @@
  */
 package ecommerce.aplicacao;
 
-import ecommerce.cliente.TelaInicialCliente;
+import ecommerce.cliente.LoginCliente;
 import ecommerce.aplicacao.Main;
 import ecommerce.estoquista.VerificarSenhaEstoquista;
 import ecommerce.gerente.VerificarSenhaGerente;
@@ -82,6 +82,11 @@ public class Main extends javax.swing.JFrame {
         Clientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ClientesMouseClicked(evt);
+            }
+        });
+        Clientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClientesActionPerformed(evt);
             }
         });
 
@@ -176,9 +181,9 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ClientesMouseClicked
-        TelaInicialCliente telaInicial = new TelaInicialCliente();
+        LoginCliente telaInicial = new LoginCliente();
         telaInicial.setVisible(true);
-        
+        dispose();
     }//GEN-LAST:event_ClientesMouseClicked
 
     private void FuncGerencMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_FuncGerencMouseClicked
@@ -200,6 +205,10 @@ public class Main extends javax.swing.JFrame {
         senha.setVisible(true);
         
     }//GEN-LAST:event_GerenteMouseClicked
+
+    private void ClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClientesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ClientesActionPerformed
 
     /**
      * @param args the command line arguments

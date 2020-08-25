@@ -61,6 +61,7 @@ public class BD {
 		System.err.println("Excessão: " + e.toString());
 	}
     }
+    
     public static void main(String[] args){
     }
 }
