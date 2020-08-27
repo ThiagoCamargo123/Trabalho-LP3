@@ -23,28 +23,32 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane2" alignment="0" max="32767" attributes="0"/>
-          <Component id="jLabel1" alignment="0" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="187" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="154" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="106" max="-2" attributes="0"/>
-              <EmptySpace pref="250" max="32767" attributes="0"/>
+          <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane2" pref="703" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="Voltar" min="-2" pref="109" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="Atualizar" min="-2" pref="109" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="275" max="-2" attributes="0"/>
-              <EmptySpace pref="90" max="32767" attributes="0"/>
+              <EmptySpace pref="37" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Voltar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Atualizar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -67,8 +71,9 @@
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="}&#xa;        catch(Exception e){ JOptionPane.showMessageDialog(null, &quot;ERROR&quot;); }&#xa;        finally{&#xa;            try{&#xa;                st.close(); &#xa;                rs.close(); &#xa;                con.close(); &#xa;            }&#xa;            catch(Exception e){ &#xa;                JOptionPane.showMessageDialog(null, &quot;ERROR CLOSE&quot;); &#xa;            } &#xa;        }"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new JTable(data,column)"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Connection con = null;&#xa;    Statement st = null; &#xa;     ResultSet rs = null; String s;&#xa;&#xa;&#xa;    //connect your app to mysql database &#xa;&#xa;    try{ &#xa;        Class.forName(&quot;org.postgresql.Driver&quot;);&#xa;        con = DriverManager.getConnection(&quot;jdbc:postgresql://localhost:5432/postgres&quot;,&quot;postgres&quot;,&quot;postgres&quot;);&#xa;        st = con.createStatement();&#xa;        s = &quot;select * from produto&quot;; &#xa;        rs = st.executeQuery(s);&#xa;        ResultSetMetaData rsmt = rs.getMetaData(); &#xa;        int c = rsmt.getColumnCount();&#xa;        Vector column = new Vector(c);&#xa;&#xa;        for(int i = 1; i &lt;= c; i++) {&#xa;            column.add(rsmt.getColumnName(i)); &#xa;        } &#xa;&#xa;        Vector data = new Vector(); &#xa;        Vector row = new Vector(); &#xa;&#xa;        while(rs.next()) { &#xa;            row = new Vector(c); &#xa;&#xa;            for(int i = 1; i &lt;= c; i++){&#xa;                row.add(rs.getString(i)); &#xa;            } &#xa;&#xa;            data.add(row); &#xa;        }"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(data,column)"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Connection con = null;&#xa;    Statement st = null; &#xa;     ResultSet rs = null; String s;&#xa;&#xa;&#xa;    //connect your app to mysql database &#xa;&#xa;    try{ &#xa;        Class.forName(&quot;org.postgresql.Driver&quot;);&#xa;        con = DriverManager.getConnection(&quot;jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j&quot;,&quot;zuidrqukwykbwd&quot;,&quot;8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69&quot;);&#xa;        st = con.createStatement();&#xa;        s = &quot;select produto.id,produto.descricao,tipoProduto.descricao,produto.preco_final from produto inner join tipoProduto on (produto.tipo = tipoProduto.id)&quot;; &#xa;        rs = st.executeQuery(s);&#xa;        ResultSetMetaData rsmt = rs.getMetaData(); &#xa;        int c = rsmt.getColumnCount();&#xa;        Vector column = new Vector(c);&#xa;&#xa;        for(int i = 1; i &lt;= c; i++) {&#xa;            column.add(rsmt.getColumnName(i)); &#xa;        } &#xa;&#xa;        Vector data = new Vector(); &#xa;        Vector row = new Vector(); &#xa;&#xa;        while(rs.next()) { &#xa;            row = new Vector(c); &#xa;&#xa;            for(int i = 1; i &lt;= c; i++){&#xa;                row.add(rs.getString(i)); &#xa;            } &#xa;&#xa;            data.add(row); &#xa;        }"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTable2.getTableHeader().setFont(new Font(&quot;Felix Titling&quot;, 0, 18));"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -79,21 +84,10 @@
           <Font name="Bookman Old Style" size="24" style="0"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Tabela produtos"/>
+        <Property name="text" type="java.lang.String" value="Todos os Produtos"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Bookman Old Style" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Mostrar todos"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="Voltar">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Bookman Old Style" size="14" style="0"/>
@@ -101,7 +95,18 @@
         <Property name="text" type="java.lang.String" value="Voltar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="VoltarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="Atualizar">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Bookman Old Style" size="14" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Atualizar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AtualizarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

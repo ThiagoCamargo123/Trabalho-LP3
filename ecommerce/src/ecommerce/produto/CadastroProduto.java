@@ -6,9 +6,9 @@
 package ecommerce.produto;
 
 import bancoDados.BD;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JTextField;
 
 /**
  *
@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class CadastroProduto extends javax.swing.JFrame {
 
-        BD bd = new BD();
+    BD bd = new BD();
         
     public CadastroProduto() {
         initComponents();
@@ -46,6 +46,11 @@ public class CadastroProduto extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jDialog1 = new javax.swing.JDialog();
+        jDialog2 = new javax.swing.JDialog();
+        jPopupMenu2 = new javax.swing.JPopupMenu();
+        popupMenu1 = new java.awt.PopupMenu();
         descricao = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
@@ -56,13 +61,40 @@ public class CadastroProduto extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         preco_final = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        tipo = new javax.swing.JComboBox<>();
+        tipo = new javax.swing.JComboBox<String>();
         jLabel4 = new javax.swing.JLabel();
         altura = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         largura = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         profundidade = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
+        jDialog2.getContentPane().setLayout(jDialog2Layout);
+        jDialog2Layout.setHorizontalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog2Layout.setVerticalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        popupMenu1.setLabel("popupMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -136,6 +168,12 @@ public class CadastroProduto extends javax.swing.JFrame {
 
         profundidade.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
+        jLabel3.setText("cm");
+
+        jLabel7.setText("cm");
+
+        jLabel11.setText("cm");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,25 +194,36 @@ public class CadastroProduto extends javax.swing.JFrame {
                                 .addComponent(preco_final, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(altura, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel5)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(largura, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel10)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(profundidade))
-                                .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel2)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
                                     .addComponent(jLabel6)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel3)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel4)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(altura, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(largura, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel7))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel10)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(profundidade))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                            .addGap(0, 0, Short.MAX_VALUE)
+                                            .addComponent(jLabel11)))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(188, 188, 188)
                         .addComponent(jButton2)
@@ -193,7 +242,12 @@ public class CadastroProduto extends javax.swing.JFrame {
                     .addComponent(descricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(tipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel11))
+                .addGap(1, 1, 1)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(altura, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,7 +287,19 @@ public class CadastroProduto extends javax.swing.JFrame {
         }
             
         int tipo1 = Integer.parseInt(nome1);
-        bd.executa("INSERT INTO produto (tipo,descricao,altura,largura,profundidade,preco,estocado,preco_final,volume) VALUES('"+tipo1+"','"+descricao.getText()+"','"+altura.getText()+"','"+largura.getText()+"','"+profundidade.getText()+"','"+preco.getText()+"','"+"NAO"+"','"+preco_final.getText()+"','"+vol+"')");
+        
+        try{
+            bd.executa("INSERT INTO produto (tipo,descricao,altura,largura,profundidade,preco,estocado,preco_final,volume) VALUES('"+tipo1+"','"+descricao.getText()+"','"+altura.getText()+"','"+largura.getText()+"','"+profundidade.getText()+"','"+preco.getText()+"','"+"NAO"+"','"+preco_final.getText()+"','"+vol+"')");
+            descricao.setText("");
+            altura.setText("");
+            largura.setText("");
+            profundidade.setText("");
+            preco.setText("");
+            preco_final.setText("");
+            
+        }catch(Exception e){
+            System.err.println("Excessão: " + e.toString());
+        }
         
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -295,18 +361,30 @@ public class CadastroProduto extends javax.swing.JFrame {
     private javax.swing.JTextField descricao;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPopupMenu jPopupMenu2;
     private javax.swing.JTextField largura;
+    private java.awt.PopupMenu popupMenu1;
     private javax.swing.JTextField preco;
     private javax.swing.JTextField preco_final;
     private javax.swing.JTextField profundidade;
     private javax.swing.JComboBox<String> tipo;
     // End of variables declaration//GEN-END:variables
+
+    private String jTextField(JTextField descricao) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

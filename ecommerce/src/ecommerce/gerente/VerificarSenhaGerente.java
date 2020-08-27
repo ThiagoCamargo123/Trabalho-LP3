@@ -5,6 +5,10 @@
  */
 package ecommerce.gerente;
 
+import InteligenciaArtificial.OrganizarPrateleira;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -102,6 +106,16 @@ public class VerificarSenhaGerente extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         int senhaSistema = 1234;
+        OrganizarPrateleira organizar = new OrganizarPrateleira();
+        try {
+            organizar.calculaPrioridadeCategoriaPorMaisVendidaEMaiorLucroEMenorVolume();
+        } catch (SQLException ex) {
+            Logger.getLogger(VerificarSenhaGerente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(VerificarSenhaGerente.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (java.lang.Exception ex) {
+            Logger.getLogger(VerificarSenhaGerente.class.getName()).log(Level.SEVERE, null, ex);
+        }
         try{
             if(jTextField1.getText().equals("1234")){
           TelaInicialGerente telaInicial = new TelaInicialGerente();
