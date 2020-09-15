@@ -8,6 +8,7 @@ package ecommerce.compra;
 import bancoDados.BD;
 import ecommerce.cliente.AreaCliente;
 import ecommerce.usuario.session;
+import java.awt.Color;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -59,6 +60,8 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         cbtipo = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         Connection con = null;
@@ -103,8 +106,26 @@ public class PanelComprarProduto extends javax.swing.JPanel {
             lbErroID = new javax.swing.JLabel();
             jScrollPane3 = new javax.swing.JScrollPane();
             CompraSucesso = new javax.swing.JTextArea();
+            jScrollPane4 = new javax.swing.JScrollPane();
+            CompraRealizada = new javax.swing.JTextArea();
             jLabel1 = new javax.swing.JLabel();
             jLabel6 = new javax.swing.JLabel();
+
+            jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+            jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+            jScrollPane1.setEnabled(false);
+
+            jTextArea1.setEditable(false);
+            jTextArea1.setBackground(new java.awt.Color(240, 240, 240));
+            jTextArea1.setColumns(20);
+            jTextArea1.setFont(new java.awt.Font("Bookman Old Style", 0, 13)); // NOI18N
+            jTextArea1.setRows(5);
+            jTextArea1.setText("Escolha os produtos que deseja, com o  preço mais \nacessível do mercado!\nAbra a guia Compras > Escolha a opção Comprar");
+            jTextArea1.setBorder(null);
+            jTextArea1.setCaretColor(new java.awt.Color(240, 240, 240));
+            jTextArea1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+            jTextArea1.setEnabled(false);
+            jScrollPane1.setViewportView(jTextArea1);
 
             setMinimumSize(new java.awt.Dimension(823, 562));
             setPreferredSize(new java.awt.Dimension(823, 562));
@@ -193,6 +214,22 @@ public class PanelComprarProduto extends javax.swing.JPanel {
         CompraSucesso.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jScrollPane3.setViewportView(CompraSucesso);
 
+        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane4.setEnabled(false);
+
+        CompraRealizada.setEditable(false);
+        CompraRealizada.setBackground(new java.awt.Color(240, 240, 240));
+        CompraRealizada.setColumns(20);
+        CompraRealizada.setFont(new java.awt.Font("Bookman Old Style", 0, 13)); // NOI18N
+        CompraRealizada.setForeground(new java.awt.Color(255, 0, 0));
+        CompraRealizada.setRows(5);
+        CompraRealizada.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        CompraRealizada.setCaretColor(new java.awt.Color(240, 240, 240));
+        CompraRealizada.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        CompraRealizada.setEnabled(false);
+        jScrollPane4.setViewportView(CompraRealizada);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -201,24 +238,26 @@ public class PanelComprarProduto extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btlimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btadicionar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                            .addComponent(btlimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(20, 20, 20)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txquant)
-                            .addComponent(txid_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbErroID, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(20, 20, 20)))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txquant)
+                                    .addComponent(txid_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbErroID, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                            .addComponent(btadicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane3))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -226,16 +265,20 @@ public class PanelComprarProduto extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txid_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbErroID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txquant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbErroID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel3)
+                                .addComponent(txid_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txquant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btlimpar)
                     .addComponent(btadicionar))
@@ -297,18 +340,22 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     private void btlimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btlimparActionPerformed
         txid_prod.setText("");
         txquant.setValue(1);
+        CompraRealizada.setText("");
     }//GEN-LAST:event_btlimparActionPerformed
 
     private void txid_prodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txid_prodActionPerformed
         lbErroID.setText("");
+        CompraRealizada.setText("");
     }//GEN-LAST:event_txid_prodActionPerformed
 
     private void txid_prodMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txid_prodMouseClicked
         lbErroID.setText("");
+        CompraRealizada.setText("");
     }//GEN-LAST:event_txid_prodMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextArea CompraRealizada;
     private javax.swing.JTextArea CompraSucesso;
     private javax.swing.JButton btadicionar;
     private javax.swing.JButton btlimpar;
@@ -319,8 +366,11 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbErroID;
     private javax.swing.JTable tabela;
     private javax.swing.JTextField txid_prod;
@@ -415,6 +465,8 @@ public class PanelComprarProduto extends javax.swing.JPanel {
                 //atribuir valores padrão novamente as variáveis
                 txid_prod.setText("");
                 txquant.setValue(1);
+                CompraRealizada.setText("Compra realizada com sucesso!\nPara visualizar seu item:\nAbra a guia Compras>Opção Carrinho");
+                CompraRealizada.setForeground(Color.red);
             }
         }
     }
