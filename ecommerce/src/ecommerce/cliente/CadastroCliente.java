@@ -33,7 +33,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btCriar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -41,15 +41,15 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        nome = new javax.swing.JTextField();
-        rua = new javax.swing.JTextField();
-        bairro = new javax.swing.JTextField();
-        cidade = new javax.swing.JTextField();
-        senha = new javax.swing.JTextField();
+        txtnome = new javax.swing.JTextField();
+        txtrua = new javax.swing.JTextField();
+        txtbairro = new javax.swing.JTextField();
+        txtcidade = new javax.swing.JTextField();
+        txtsenha = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         cbestado = new javax.swing.JComboBox<>();
-        email = new javax.swing.JTextField();
+        txtemail = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txttelefone = new javax.swing.JFormattedTextField();
         txtcpf = new javax.swing.JFormattedTextField();
@@ -62,11 +62,16 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Cadastro Cliente");
 
-        jButton1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        jButton1.setText("Criar");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btCriar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        btCriar.setText("Criar");
+        btCriar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                btCriarMouseClicked(evt);
+            }
+        });
+        btCriar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCriarActionPerformed(evt);
             }
         });
 
@@ -91,15 +96,15 @@ public class CadastroCliente extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel13.setText("Cep");
 
-        nome.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        txtnome.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
-        rua.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        txtrua.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
-        bairro.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        txtbairro.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
-        cidade.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        txtcidade.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
-        senha.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        txtsenha.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel2.setText("Crie sua senha:");
@@ -110,7 +115,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         cbestado.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cbestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ES", "MG", "RJ", "SP" }));
 
-        email.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        txtemail.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel3.setText("Estado");
@@ -155,7 +160,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nome))
+                        .addComponent(txtnome))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -171,15 +176,15 @@ public class CadastroCliente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rua))
+                        .addComponent(txtrua))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bairro, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtbairro, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cidade))
+                        .addComponent(txtcidade))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -187,7 +192,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(email))
+                        .addComponent(txtemail))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -195,11 +200,11 @@ public class CadastroCliente extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(487, 487, 487)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(btCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -210,7 +215,7 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtnome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -222,47 +227,49 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(rua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtrua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(bairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtbairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel12)
-                        .addComponent(cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtcidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(cbestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
-                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar)
-                    .addComponent(jButton1))
+                    .addComponent(btCriar))
                 .addContainerGap(73, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void btCriarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btCriarMouseClicked
         String cpf = txtcpf.getText().replace(".","").replace("-","");
         String cep = txtcpf.getText().replace(".","").replace("-","");
         String telefone = txttelefone.getText().replace("(","").replace(")","").replace(" ","").replace("-","");
-        
-        bd.executa("INSERT INTO cliente VALUES('"+cpf+"','"+nome.getText()+"','"+telefone+"','"+rua.getText()+"','"+bairro.getText()+"','"+cidade.getText()+"','"+cep+"','"+email.getText()+"','"+senha.getText()+"','"+cbestado.getSelectedItem()+"')");
-        
+        cadastrar(cpf,cep,telefone);
         dispose();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_btCriarMouseClicked
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_btCancelarActionPerformed
+
+    private void btCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCriarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCriarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -300,12 +307,9 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bairro;
     private javax.swing.JButton btCancelar;
+    private javax.swing.JButton btCriar;
     private javax.swing.JComboBox<String> cbestado;
-    private javax.swing.JTextField cidade;
-    private javax.swing.JTextField email;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -317,11 +321,31 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField nome;
-    private javax.swing.JTextField rua;
-    private javax.swing.JTextField senha;
+    private javax.swing.JTextField txtbairro;
     private javax.swing.JFormattedTextField txtcep;
+    private javax.swing.JTextField txtcidade;
     private javax.swing.JFormattedTextField txtcpf;
+    private javax.swing.JTextField txtemail;
+    private javax.swing.JTextField txtnome;
+    private javax.swing.JTextField txtrua;
+    private javax.swing.JTextField txtsenha;
     private javax.swing.JFormattedTextField txttelefone;
     // End of variables declaration//GEN-END:variables
+
+    private void cadastrar(String cpf, String cep, String telefone) {
+        MCliente mc = new MCliente();
+        mc.setCpf(cpf);
+        mc.setNome(txtnome.getText());
+        mc.setBairro(txtbairro.getText());
+        mc.setCep(cep);
+        mc.setCidade(txtcidade.getText());
+        mc.setEmail(txtemail.getText());
+        mc.setRua(txtrua.getText());
+        mc.setSenha(txtsenha.getText());
+        mc.setTelefone(telefone);
+        mc.setEstado((String) cbestado.getSelectedItem());
+        
+        ClienteDAO dao = new ClienteDAO();
+        dao.cadastrarCliente(mc);
+    }
 }

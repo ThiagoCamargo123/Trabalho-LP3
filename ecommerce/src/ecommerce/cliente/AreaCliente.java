@@ -30,7 +30,6 @@ public class AreaCliente extends javax.swing.JFrame {
         initComponents();
         bd.conecta();
         nome.setText(session.getInstance().getnome().toUpperCase());
-        
     }
 
     public void setPainel(JPanel painel){ 

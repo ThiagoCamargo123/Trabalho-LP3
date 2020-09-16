@@ -9,6 +9,8 @@ import bancoDados.BD;
 import ecommerce.usuario.session;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -19,43 +21,28 @@ public class PanelPerfil extends javax.swing.JPanel {
     /**
      * Creates new form Perfil
      */
-    BD bd = new BD();
+    
+    ClienteDAO dao = new ClienteDAO();
     public PanelPerfil() {
         initComponents();
+        String cpf = session.getInstance().getCPF();
+        List<MCliente> listaClientes = dao.lerClientes();
+        List<MCliente> resultado = listaClientes
+                                                .stream()
+                                                .filter(e -> e.getCpf().equals(cpf))
+                                                .collect(Collectors.toList());
         
-        bd.conecta();
+        MCliente mc = resultado.get(0);
         
-        String sql = "select * from cliente where cpf = '" + session.getInstance().getCPF() + "'";
-        ResultSet rs = bd.consulta(sql);
-        String cpf=null, nome=null, rua=null, bairro=null, cidade=null, email=null, senha=null, telefone=null,cep=null, estado=null;
-	try{
-            while(rs.next()){
-		cpf = rs.getString("cpf");
-                nome = rs.getString("nome");
-                rua = rs.getString("rua");
-                bairro = rs.getString("bairro");
-                cidade = rs.getString("cidade");
-                email = rs.getString("email");
-                senha = rs.getString("senha");
-                telefone = rs.getString("telefone");
-                cep = rs.getString("cep");
-                estado = rs.getString("estado");
-            }   
-        }
-        catch(SQLException e){
-            System.err.println("Excessão: " + e.toString());
-        }
-        
-        txtcpf.setText(cpf);
-        txtnome.setText(nome);
-        txtrua.setText(rua);
-        txtbairro.setText(bairro);
-        txtcidade.setText(cidade);
-        txtemail.setText(email);
-        txtsenha.setText(senha);
-        txttelefone.setText(telefone);
-        txtcep.setText(cep);
-        cbestado.setSelectedItem(estado);
+        txtcpf.setText(mc.getCpf());
+        txtnome.setText(mc.getNome());
+        txtrua.setText(mc.getRua());
+        txtbairro.setText(mc.getBairro());
+        txtcidade.setText(mc.getCidade());
+        txtemail.setText(mc.getEmail());
+        txttelefone.setText(mc.getTelefone());
+        txtcep.setText(mc.getCep());
+        cbestado.setSelectedItem(mc.getEstado());
     }
 
     /**
@@ -82,9 +69,7 @@ public class PanelPerfil extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         txtemail = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        txtsenha = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cbestado = new javax.swing.JComboBox<>();
         txttelefone = new javax.swing.JFormattedTextField();
@@ -172,18 +157,8 @@ public class PanelPerfil extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel12.setText("Cidade");
 
-        txtsenha.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        txtsenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtsenhaActionPerformed(evt);
-            }
-        });
-
         jLabel13.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel13.setText("Cep");
-
-        jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        jLabel2.setText("Alterar senha:");
 
         jLabel3.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel3.setText("Estado");
@@ -271,15 +246,10 @@ public class PanelPerfil extends javax.swing.JPanel {
                         .addComponent(jLabel14)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtemail))
-                    .addComponent(atualizado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(atualizado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -316,14 +286,13 @@ public class PanelPerfil extends javax.swing.JPanel {
                     .addComponent(txtemail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(cbestado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(txtsenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btAtualizar)
-                .addGap(10, 10, 10)
-                .addComponent(atualizado, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(atualizado, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btAtualizar)))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -336,9 +305,7 @@ public class PanelPerfil extends javax.swing.JPanel {
         String cpf = txtcpf.getText().replace(".","").replace("-","");
         String cep = txtcpf.getText().replace(".","").replace("-","");
         String telefone = txttelefone.getText().replace("(","").replace(")","").replace(" ","").replace("-","");
-        bd.executa("update cliente set nome = '"+txtnome.getText()+"', telefone = '"+telefone+"', rua = '"+txtrua.getText()+"', bairro = '"+txtbairro.getText()+"', cidade = '"+txtcidade.getText()+"', cep = '"+cep+"', email = '"+txtemail.getText()+"', senha = '"+txtsenha.getText()+"', estado = '"+cbestado.getSelectedItem()+"' where cpf = '"+session.getInstance().getCPF()+"'");
-        atualizado.setVisible(true);
-        atualizado.setText("Atualizado com sucesso!");
+        atualizar(cpf,cep,telefone);
     }//GEN-LAST:event_btAtualizarActionPerformed
 
     private void txtnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnomeActionPerformed
@@ -369,10 +336,6 @@ public class PanelPerfil extends javax.swing.JPanel {
         atualizado.setVisible(false);
     }//GEN-LAST:event_txtemailActionPerformed
 
-    private void txtsenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsenhaActionPerformed
-        atualizado.setVisible(false);
-    }//GEN-LAST:event_txtsenhaActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel atualizado;
@@ -384,7 +347,6 @@ public class PanelPerfil extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -397,7 +359,22 @@ public class PanelPerfil extends javax.swing.JPanel {
     private javax.swing.JTextField txtemail;
     private javax.swing.JTextField txtnome;
     private javax.swing.JTextField txtrua;
-    private javax.swing.JTextField txtsenha;
     private javax.swing.JFormattedTextField txttelefone;
     // End of variables declaration//GEN-END:variables
+
+    private void atualizar(String cpf, String cep, String telefone) {
+        MCliente mc = new MCliente();
+        mc.setCpf(cpf);
+        mc.setNome(txtnome.getText());
+        mc.setTelefone(telefone);
+        mc.setRua(txtrua.getText());
+        mc.setBairro(txtbairro.getText());
+        mc.setCidade(txtcidade.getText());
+        mc.setEstado((String) cbestado.getSelectedItem());
+        mc.setCep(cep);
+        mc.setEmail(txtemail.getText());
+        
+        ClienteDAO dao = new ClienteDAO();
+        dao.alterarCliente(mc);
+    }
 }

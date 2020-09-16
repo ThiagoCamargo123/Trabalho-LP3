@@ -7,6 +7,10 @@ package ecommerce.compra;
 
 import bancoDados.BD;
 import ecommerce.cliente.AreaCliente;
+import ecommerce.cliente.MCliente;
+import ecommerce.produto.MProduto;
+import ecommerce.produto.MTipoProduto;
+import ecommerce.produto.ProdutoDAO;
 import ecommerce.usuario.session;
 import java.awt.Color;
 import java.awt.Font;
@@ -16,9 +20,12 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Vector;
+import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -31,24 +38,19 @@ public class PanelComprarProduto extends javax.swing.JPanel {
      */
     BD bd = new BD();
     AreaCliente ac = new AreaCliente();
+    ProdutoDAO pdao = new ProdutoDAO();
+    
     public PanelComprarProduto() {
         initComponents();
         initComponents();
         bd.conecta();
         
-        //atribui no cbtipo as categorias de produto
-        String sql = "select descricao from tipoProduto";
-        ResultSet rs = bd.consulta(sql);
+        List<MTipoProduto> atipo = pdao.lerTipo();
+        for(MTipoProduto tp : atipo){
+            System.out.println(tp.toString());
+            cbtipo.addItem(tp.getDescricao());
+        }
         
-	try{
-            while(rs.next()){
-		cbtipo.addItem(rs.getString("descricao"));
-            }   
-            
-        }
-        catch(SQLException e){
-            System.err.println("Excessão: " + e.toString());
-        }
     }
 
     /**
@@ -64,269 +66,252 @@ public class PanelComprarProduto extends javax.swing.JPanel {
         jTextArea1 = new javax.swing.JTextArea();
         cbtipo = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        Connection con = null;
-        Statement st = null;
-        ResultSet rs = null; String s;
+        tabela = new javax.swing.JTable();
+        btpesquisar = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txid_prod = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        btadicionar = new javax.swing.JButton();
+        btlimpar = new javax.swing.JButton();
+        txquant = new javax.swing.JSpinner();
+        lbErroID = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        CompraSucesso = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        CompraRealizada = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
-        try{
-            Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection("jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j","zuidrqukwykbwd","8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69");
-            st = con.createStatement();
-            s = "select produto.id,produto.descricao,tipoProduto.descricao,produto.preco_final from produto inner join tipoProduto on (produto.tipo = tipoProduto.id)";
-            rs = st.executeQuery(s);
-            ResultSetMetaData rsmt = rs.getMetaData();
-            int c = rsmt.getColumnCount();
-            Vector column = new Vector(c);
+        jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        jScrollPane1.setEnabled(false);
 
-            for(int i = 1; i <= c; i++) {
-                column.add(rsmt.getColumnName(i));
-            }
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(240, 240, 240));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Bookman Old Style", 0, 13)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Escolha os produtos que deseja, com o  preço mais \nacessível do mercado!\nAbra a guia Compras > Escolha a opção Comprar");
+        jTextArea1.setBorder(null);
+        jTextArea1.setCaretColor(new java.awt.Color(240, 240, 240));
+        jTextArea1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea1.setEnabled(false);
+        jScrollPane1.setViewportView(jTextArea1);
 
-            Vector data = new Vector();
-            Vector row = new Vector();
+        setMinimumSize(new java.awt.Dimension(823, 562));
+        setPreferredSize(new java.awt.Dimension(823, 562));
 
-            while(rs.next()) {
-                row = new Vector(c);
+        cbtipo.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        cbtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS" }));
 
-                for(int i = 1; i <= c; i++){
-                    row.add(rs.getString(i));
-                }
-
-                data.add(row);
-            }
-            tabela = new javax.swing.JTable(data,column);
-            btpesquisar = new javax.swing.JButton();
-            jPanel1 = new javax.swing.JPanel();
-            jLabel3 = new javax.swing.JLabel();
-            txid_prod = new javax.swing.JTextField();
-            jLabel4 = new javax.swing.JLabel();
-            btadicionar = new javax.swing.JButton();
-            btlimpar = new javax.swing.JButton();
-            txquant = new javax.swing.JSpinner();
-            lbErroID = new javax.swing.JLabel();
-            jScrollPane3 = new javax.swing.JScrollPane();
-            CompraSucesso = new javax.swing.JTextArea();
-            jScrollPane4 = new javax.swing.JScrollPane();
-            CompraRealizada = new javax.swing.JTextArea();
-            jLabel1 = new javax.swing.JLabel();
-            jLabel6 = new javax.swing.JLabel();
-
-            jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-            jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-            jScrollPane1.setEnabled(false);
-
-            jTextArea1.setEditable(false);
-            jTextArea1.setBackground(new java.awt.Color(240, 240, 240));
-            jTextArea1.setColumns(20);
-            jTextArea1.setFont(new java.awt.Font("Bookman Old Style", 0, 13)); // NOI18N
-            jTextArea1.setRows(5);
-            jTextArea1.setText("Escolha os produtos que deseja, com o  preço mais \nacessível do mercado!\nAbra a guia Compras > Escolha a opção Comprar");
-            jTextArea1.setBorder(null);
-            jTextArea1.setCaretColor(new java.awt.Color(240, 240, 240));
-            jTextArea1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-            jTextArea1.setEnabled(false);
-            jScrollPane1.setViewportView(jTextArea1);
-
-            setMinimumSize(new java.awt.Dimension(823, 562));
-            setPreferredSize(new java.awt.Dimension(823, 562));
-
-            cbtipo.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-            cbtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS" }));
-
-            tabela.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
-            tabela.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-            jScrollPane2.setViewportView(tabela);
-        }
-        catch(Exception e){ JOptionPane.showMessageDialog(null, "ERROR"); }
-        finally{
-            try{
-                st.close();
-                rs.close();
-                con.close();
-            }
-            catch(Exception e){
-                JOptionPane.showMessageDialog(null, "ERROR CLOSE");
-            }
-        }
-
-        btpesquisar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        btpesquisar.setText("Pesquisar");
-        btpesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btpesquisarActionPerformed(evt);
-            }
-        });
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ADICIONAR ITENS AO CARRINHO!", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bookman Old Style", 0, 18))); // NOI18N
-
-        jLabel3.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        jLabel3.setText("ID do produto:");
-
-        txid_prod.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        txid_prod.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txid_prodMouseClicked(evt);
+                tabelaMouseClicked(evt);
             }
         });
-        txid_prod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txid_prodActionPerformed(evt);
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Descrição","Categoria","Preço"
             }
+        )
+    );
+    tabela.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
+    tabela.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    jScrollPane2.setViewportView(tabela);
+    DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+    modelo.setNumRows(0);
+    List listaProdutos = pdao.lerProduto();
+    MProduto p;
+    for (int i = 0; i < listaProdutos.size(); i++) {
+        p = (MProduto) listaProdutos.get(i);
+        modelo.addRow(new Object[]{
+            p.getId(),p.getDescricao(),p.getTipo(),p.getPreco_final()
         });
+    }
 
-        jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        jLabel4.setText("Quantidade:");
+    btpesquisar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    btpesquisar.setText("Pesquisar");
+    btpesquisar.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btpesquisarActionPerformed(evt);
+        }
+    });
 
-        btadicionar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        btadicionar.setText("Adicionar item ao Carrinho");
-        btadicionar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btadicionarActionPerformed(evt);
-            }
-        });
+    jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "ADICIONAR ITENS AO CARRINHO!", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bookman Old Style", 0, 18))); // NOI18N
 
-        btlimpar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        btlimpar.setText("Limpar");
-        btlimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btlimparActionPerformed(evt);
-            }
-        });
+    jLabel3.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    jLabel3.setText("ID do produto:");
 
-        txquant.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        txquant.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+    txid_prod.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    txid_prod.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            txid_prodMouseClicked(evt);
+        }
+    });
+    txid_prod.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            txid_prodActionPerformed(evt);
+        }
+    });
 
-        lbErroID.setFont(new java.awt.Font("Bookman Old Style", 3, 14)); // NOI18N
-        lbErroID.setForeground(new java.awt.Color(255, 51, 51));
+    jLabel4.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    jLabel4.setText("Quantidade:");
 
-        jScrollPane3.setBorder(null);
-        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+    btadicionar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    btadicionar.setText("Adicionar item ao Carrinho");
+    btadicionar.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btadicionarActionPerformed(evt);
+        }
+    });
 
-        CompraSucesso.setEditable(false);
-        CompraSucesso.setBackground(new java.awt.Color(240, 240, 240));
-        CompraSucesso.setColumns(20);
-        CompraSucesso.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        CompraSucesso.setRows(1);
-        CompraSucesso.setText("Passo 1: Procure o produto que deseja\nPasso 2: Escreva o ID do produto no campo: ID do produto\nPasso 3: Selecione a quantidade que deseja comprar desse produto\nPasso 4: Clique no botão: Adicionar Item ao carrinho\nPasso 5: Para finalizar a compra, abra o menu Comprar e selecione a opção Carrinho.");
-        CompraSucesso.setToolTipText("");
-        CompraSucesso.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Passo a passo para comprar um produto:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bookman Old Style", 1, 18))); // NOI18N
-        CompraSucesso.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jScrollPane3.setViewportView(CompraSucesso);
+    btlimpar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    btlimpar.setText("Limpar");
+    btlimpar.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btlimparActionPerformed(evt);
+        }
+    });
 
-        jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        jScrollPane4.setEnabled(false);
+    txquant.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    txquant.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
-        CompraRealizada.setEditable(false);
-        CompraRealizada.setBackground(new java.awt.Color(240, 240, 240));
-        CompraRealizada.setColumns(20);
-        CompraRealizada.setFont(new java.awt.Font("Bookman Old Style", 0, 13)); // NOI18N
-        CompraRealizada.setForeground(new java.awt.Color(255, 0, 0));
-        CompraRealizada.setRows(5);
-        CompraRealizada.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-        CompraRealizada.setCaretColor(new java.awt.Color(240, 240, 240));
-        CompraRealizada.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        CompraRealizada.setEnabled(false);
-        jScrollPane4.setViewportView(CompraRealizada);
+    lbErroID.setFont(new java.awt.Font("Bookman Old Style", 3, 14)); // NOI18N
+    lbErroID.setForeground(new java.awt.Color(255, 51, 51));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btlimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(20, 20, 20)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(txquant)
-                                    .addComponent(txid_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbErroID, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                            .addComponent(btadicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane3))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbErroID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel3)
-                                .addComponent(txid_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+    jScrollPane3.setBorder(null);
+    jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+    CompraSucesso.setEditable(false);
+    CompraSucesso.setBackground(new java.awt.Color(240, 240, 240));
+    CompraSucesso.setColumns(20);
+    CompraSucesso.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    CompraSucesso.setRows(1);
+    CompraSucesso.setText("Passo 1: Procure o produto que deseja\nPasso 2: Escreva o ID do produto no campo: ID do produto\nPasso 3: Selecione a quantidade que deseja comprar desse produto\nPasso 4: Clique no botão: Adicionar Item ao carrinho\nPasso 5: Para finalizar a compra, abra o menu Comprar e selecione a opção Carrinho.");
+    CompraSucesso.setToolTipText("");
+    CompraSucesso.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Passo a passo para comprar um produto:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bookman Old Style", 1, 18))); // NOI18N
+    CompraSucesso.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+    jScrollPane3.setViewportView(CompraSucesso);
+
+    jScrollPane4.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+    jScrollPane4.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+    jScrollPane4.setEnabled(false);
+
+    CompraRealizada.setEditable(false);
+    CompraRealizada.setBackground(new java.awt.Color(240, 240, 240));
+    CompraRealizada.setColumns(20);
+    CompraRealizada.setFont(new java.awt.Font("Bookman Old Style", 0, 13)); // NOI18N
+    CompraRealizada.setForeground(new java.awt.Color(255, 0, 0));
+    CompraRealizada.setRows(3);
+    CompraRealizada.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+    CompraRealizada.setCaretColor(new java.awt.Color(240, 240, 240));
+    CompraRealizada.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+    CompraRealizada.setEnabled(false);
+    jScrollPane4.setViewportView(CompraRealizada);
+
+    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+    jPanel1.setLayout(jPanel1Layout);
+    jPanel1Layout.setHorizontalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(btlimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(20, 20, 20)))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txquant)
+                                .addComponent(txid_prod, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(lbErroID, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+                        .addComponent(btadicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(jScrollPane3))
+            .addContainerGap())
+    );
+    jPanel1Layout.setVerticalGroup(
+        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(jPanel1Layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lbErroID, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(txquant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btlimpar)
-                    .addComponent(btadicionar))
-                .addContainerGap())
-        );
+                            .addComponent(jLabel3)
+                            .addComponent(txid_prod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(txquant, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(btlimpar)
+                .addComponent(btadicionar))
+            .addContainerGap())
+    );
 
-        jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Comprar Itens");
+    jLabel1.setFont(new java.awt.Font("Bookman Old Style", 0, 24)); // NOI18N
+    jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel1.setText("Comprar Itens");
 
-        jLabel6.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        jLabel6.setText("Tipo");
+    jLabel6.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    jLabel6.setText("Tipo");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
-                        .addComponent(btpesquisar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+    javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+    this.setLayout(layout);
+    layout.setHorizontalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        .addGroup(layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2)
+                .addGroup(layout.createSequentialGroup()
                     .addComponent(jLabel6)
-                    .addComponent(cbtipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btpesquisar))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(cbtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(26, 26, 26)
+                    .addComponent(btpesquisar)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addContainerGap())
+    );
+    layout.setVerticalGroup(
+        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jLabel1)
+            .addGap(32, 32, 32)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(jLabel6)
+                .addComponent(cbtipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btpesquisar))
+            .addGap(18, 18, 18)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addContainerGap())
+    );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btpesquisarActionPerformed
@@ -353,6 +338,10 @@ public class PanelComprarProduto extends javax.swing.JPanel {
         CompraRealizada.setText("");
     }//GEN-LAST:event_txid_prodMouseClicked
 
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        
+    }//GEN-LAST:event_tabelaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea CompraRealizada;
@@ -378,7 +367,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void pesquisarTabela() {
-        Connection con = null;
+        /*Connection con = null;
         Statement st = null;
         ResultSet rs = null; 
         String s;
@@ -433,41 +422,73 @@ public class PanelComprarProduto extends javax.swing.JPanel {
             catch(Exception e){
                 JOptionPane.showMessageDialog(null, "ERROR CLOSE");
             }
+        }*/
+        //produto.id,produto.descricao,tipoProduto.descricao,produto.preco_final
+        
+        
+        /*
+        tabela = new javax.swing.JTable();
+
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Descrição","Categoria","Preço"
+            }
+        )
+        );
+        tabela.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
+        tabela.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        jScrollPane2.setViewportView(tabela);
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        modelo.setNumRows(0);
+        List<MProduto> listaProdutos = pdao.lerProduto();
+        List<MProduto> resultado = listaProdutos
+                                    .stream()
+                                    .filter(e -> e.getDescricao().equals("Automotivo"))
+                                    .collect(Collectors.toList());
+        MProduto p;
+        for (int i = 0; i < listaProdutos.size(); i++) {
+            p = (MProduto) resultado.get(i);
+            modelo.addRow(new Object[]{
+                p.getId(),p.getDescricao(),p.getTipo(),p.getPreco_final()
+            });
         }
+
+        
+        */
     }
 
     private void adicionarCarrinho() {
-        boolean erroid=false;
-        //busca o preço do produto
-        String sql = "select preco_final from produto where id = '"+txid_prod.getText()+"'";
-        ResultSet rs = bd.consulta(sql);
-        float preco_unit=0,preco_total = 0;
-        try{
-            while(rs.next()){
-                preco_unit = Float.parseFloat(rs.getString("preco_final"));
-                erroid=true;
-            }
-        }
-        catch(SQLException e){
-            System.err.println("Excessão: " + e.toString());
-        }
-        finally{
-            if(erroid==false){
-                lbErroID.setText("PRODUTO INVÁLIDO!");
-            }
-            else{
-                //descobre o preço total da compra desse produto
-                int quant = Integer.parseInt(txquant.getValue().toString());
-                preco_total = preco_unit*quant;
-
-                //insere no banco
-                bd.executa("INSERT INTO Carrinho (id_produto,cpf_cliente,quant,aberto,preco_total,preco_unit) VALUES('"+txid_prod.getText()+"','"+session.getInstance().getCPF()+"','"+quant+"','s','"+preco_total+"','"+preco_unit+"')");
-                //atribuir valores padrão novamente as variáveis
-                txid_prod.setText("");
-                txquant.setValue(1);
-                CompraRealizada.setText("Compra realizada com sucesso!\nPara visualizar seu item:\nAbra a guia Compras>Opção Carrinho");
-                CompraRealizada.setForeground(Color.red);
-            }
+        int id = Integer.parseInt(txid_prod.getText());
+        double preco_unit=0,preco_total = 0;
+        
+        preco_unit = pdao.lerPreco_unitario(id);
+        int quant = Integer.parseInt(txquant.getValue().toString());
+        preco_total = preco_unit*quant;
+        
+        CarrinhoDAO dao = new CarrinhoDAO();
+        MCarrinho c = new MCarrinho();
+        
+        c.setAberto("s");
+        c.setCpf_Cliente(session.getInstance().getCPF());
+        c.setId_produto(Integer.parseInt(txid_prod.getText()));
+        c.setPreco_total(preco_total);
+        c.setPreco_unit(preco_unit);
+        c.setQuant(quant);
+        
+        if(dao.addCarrinho(c)){
+            txid_prod.setText("");
+            txquant.setValue(1);
+            CompraRealizada.setText("Compra realizada com sucesso!\nPara visualizar seu item:\nAbra a guia Compras>Opção Carrinho");
+            CompraRealizada.setForeground(Color.red);
         }
     }
 }

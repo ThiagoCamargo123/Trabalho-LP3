@@ -127,11 +127,13 @@
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
         <Component class="javax.swing.JTable" name="tabela">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaMouseClicked"/>
+          </Events>
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="}&#xa;        catch(Exception e){ JOptionPane.showMessageDialog(null, &quot;ERROR&quot;); }&#xa;        finally{&#xa;            try{&#xa;                st.close(); &#xa;                rs.close(); &#xa;                con.close(); &#xa;            }&#xa;            catch(Exception e){ &#xa;                JOptionPane.showMessageDialog(null, &quot;ERROR CLOSE&quot;); &#xa;            } &#xa;        }"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(data,column)"/>
-            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Connection con = null;&#xa;    Statement st = null; &#xa;     ResultSet rs = null; String s;&#xa;&#xa;    try{ &#xa;        Class.forName(&quot;org.postgresql.Driver&quot;);&#xa;        con = DriverManager.getConnection(&quot;jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j&quot;,&quot;zuidrqukwykbwd&quot;,&quot;8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69&quot;);&#xa;        st = con.createStatement();&#xa;        s = &quot;select produto.id,produto.descricao,tipoProduto.descricao,produto.preco_final from produto inner join tipoProduto on (produto.tipo = tipoProduto.id)&quot;; &#xa;        rs = st.executeQuery(s);&#xa;        ResultSetMetaData rsmt = rs.getMetaData(); &#xa;        int c = rsmt.getColumnCount();&#xa;        Vector column = new Vector(c);&#xa;&#xa;        for(int i = 1; i &lt;= c; i++) {&#xa;            column.add(rsmt.getColumnName(i)); &#xa;        } &#xa;&#xa;        Vector data = new Vector(); &#xa;        Vector row = new Vector(); &#xa;&#xa;        while(rs.next()) { &#xa;            row = new Vector(c); &#xa;&#xa;            for(int i = 1; i &lt;= c; i++){&#xa;                row.add(rs.getString(i)); &#xa;            } &#xa;&#xa;            data.add(row); &#xa;        }"/>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="tabela.getTableHeader().setFont(new Font(&quot;Felix Titling&quot;, 0, 18));&#xa;tabela.setFont(new java.awt.Font(&quot;Bookman Old Style&quot;, 0, 14)); // NOI18N"/>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();&#xa;modelo.setNumRows(0);&#xa;List listaProdutos = pdao.lerProduto();&#xa;MProduto p;&#xa;for (int i = 0; i &lt; listaProdutos.size(); i++) {&#xa;    p = (MProduto) listaProdutos.get(i);&#xa;    modelo.addRow(new Object[]{&#xa;        p.getId(),p.getDescricao(),p.getTipo(),p.getPreco_final()&#xa;    });&#xa;}"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable()"/>
+            <AuxValue name="JavaCodeGenerator_ListenersCodePost" type="java.lang.String" value="tabela.setModel(new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;        {null, null, null, null, null},&#xa;        {null, null, null, null, null}&#xa;    },&#xa;    new String [] {&#xa;        &quot;ID&quot;, &quot;Descri&#xe7;&#xe3;o&quot;,&quot;Categoria&quot;,&quot;Pre&#xe7;o&quot;&#xa;    }&#xa;)&#xa;);&#xa;tabela.getTableHeader().setFont(new Font(&quot;Felix Titling&quot;, 0, 18));&#xa;tabela.setFont(new java.awt.Font(&quot;Bookman Old Style&quot;, 0, 14)); // NOI18N"/>
           </AuxValues>
         </Component>
       </SubComponents>
@@ -219,7 +221,7 @@
                               <Component id="txquant" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="jScrollPane4" alignment="0" min="-2" pref="64" max="-2" attributes="0"/>
+                      <Component id="jScrollPane4" min="-2" pref="75" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -367,7 +369,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>
                 </Property>
-                <Property name="rows" type="int" value="5"/>
+                <Property name="rows" type="int" value="3"/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
                     <TitledBorder/>

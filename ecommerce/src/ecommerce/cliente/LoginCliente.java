@@ -217,7 +217,8 @@ public class LoginCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btCadastrarMouseClicked
 
     private void btEntrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btEntrarMouseClicked
-        login();
+        String cpf = txtcpf.getText().replace(".","").replace("-","");
+        login(cpf);
     }//GEN-LAST:event_btEntrarMouseClicked
 
     private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
@@ -246,32 +247,18 @@ public class LoginCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
     
     
-    private void login(){
-        String cpf = txtcpf.getText().replace(".","").replace("-","");
-        boolean loginerrado=false;
-        try {
-            String sql = "select * from cliente where cpf = '" + cpf + "'";
-            ResultSet rs = bd.consulta(sql);
-            String senha = new String (txtsenha.getPassword());
-            while (rs.next()) {
-                if (senha.equals(rs.getString("senha"))) {
-                    session sessao = session.getInstance();
-                    sessao.setCPF(cpf);
-                    sessao.settipo("Cliente");
-                    AreaCliente ac = new AreaCliente();
-                    ac.setVisible(true);
-                    dispose();
-                } else {
-                    LabelLoginErrado.setText("CPF OU SENHA INCORRETOS");
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(VerificarSenhaEstoquista.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            if(loginerrado==false){
-                LabelLoginErrado.setText("CPF OU SENHA INCORRETOS");
-            }
+    private void login(String cpf){
+        ClienteDAO dao = new ClienteDAO();
+        String senha = new String (txtsenha.getPassword());
+        if (senha.equals(dao.ClienteSenha(cpf))) {
+            session sessao = session.getInstance();
+            sessao.setCPF(cpf);
+            sessao.settipo("Cliente");
+            AreaCliente ac = new AreaCliente();
+            ac.setVisible(true);
+            dispose();
+        } else {
+            LabelLoginErrado.setText("CPF OU SENHA INCORRETOS");
         }
     }
     /**

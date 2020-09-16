@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -181,7 +182,10 @@ public class JFAlterarSenha extends javax.swing.JFrame {
     }//GEN-LAST:event_txtsenhaconfirMouseClicked
 
     private void btalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btalterarActionPerformed
-        alterasenha();
+        String cpf = txtcpf.getText().replace(".","").replace("-","");
+        String senha = new String (txtsenha.getPassword());
+        String senhaconfir = new String (txtsenhaconfir.getPassword());
+        alterasenha(cpf,senha,senhaconfir);
     }//GEN-LAST:event_btalterarActionPerformed
 
     /**
@@ -219,39 +223,7 @@ public class JFAlterarSenha extends javax.swing.JFrame {
         });
     }
     
-    private void alterasenha(){
-        String cpf = txtcpf.getText().replace(".","").replace("-","");
-        String senha = new String (txtsenha.getPassword());
-        String senhaconfir = new String (txtsenhaconfir.getPassword());
-        boolean loginerrado=false;
-        if(senha.isEmpty()||cpf.isEmpty()){
-            lberro.setText("Necessário preencher todos os campos");
-        }
-        else{
-            if(senha.equals(senhaconfir)){
-                try {
-                    String sql = "select * from cliente where cpf = '" + cpf + "'";
-                    ResultSet rs = bd.consulta(sql);
-                    while (rs.next()) {
-                        bd.executa("update cliente set senha = '"+senha+"' where cpf = '"+cpf+"'");
-                        loginerrado=true;
-                    }
-                    dispose();
-                } catch (SQLException ex) {
-                    Logger.getLogger(VerificarSenhaEstoquista.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                finally{
-                    if(loginerrado==false){
-                        lberro.setText("CPF INCORRETO");
-                    }
-                }            
-            }
-            else{
-                lberro.setText("SENHAS DIFERENTES");
-            }
-        }
-        
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btalterar;
@@ -265,6 +237,30 @@ public class JFAlterarSenha extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtsenha;
     private javax.swing.JPasswordField txtsenhaconfir;
     // End of variables declaration//GEN-END:variables
+
+    private void alterasenha(String cpf, String senha, String senhaconfir) {
+        if(senha.isEmpty()||cpf.isEmpty()||senhaconfir.isEmpty()){
+            lberro.setText("Necessário preencher todos os campos");
+        }
+        else{
+            if(senha.equals(senhaconfir)){
+                MCliente mc = new MCliente();
+                mc.setCpf(cpf);
+                mc.setSenha(senha);
+                ClienteDAO dao = new ClienteDAO();
+                if(dao.ClienteEspecifico(mc)){
+                   dao.alterarSenha(mc);
+                   dispose();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, "CPF INVÁLIDO!!");
+                }
+            }
+            else{
+                lberro.setText("SENHAS DIFERENTES");
+            }
+        }
+    }
 }
 
 
