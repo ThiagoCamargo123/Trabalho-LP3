@@ -14,6 +14,6 @@ import java.util.List;
 public interface ICarrinho {
     public List lerCarrinho();
     boolean addCarrinho(MCarrinho c);
-    void atualizaCarrinho(MCarrinho c);
+    boolean atualizaCarrinho(MCarrinho c);
     void excluirCarrinho(MCarrinho c);
 }

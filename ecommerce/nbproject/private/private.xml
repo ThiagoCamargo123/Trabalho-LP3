@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/cliente/PanelPerfil.java</file>
+            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/CarrinhoDAO.java</file>
             <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/PanelCarrinho.java</file>
-            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/PanelHistorico.java</file>
-            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/produto/ProdutoDAO.java</file>
-            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/produto/MProduto.java</file>
             <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/PanelComprarProduto.java</file>
         </group>
     </open-files>

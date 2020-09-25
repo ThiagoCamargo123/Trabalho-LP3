@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -30,13 +32,16 @@ public class CarrinhoDAO implements ICarrinho{
         List<MCarrinho> listaCarrinho = new ArrayList<>();
         MCarrinho mc = null;
         try {
-            stm = con.prepareStatement("select id_produto AS ID, SUM(quant) AS Quantidade, SUM(preco_total) AS Preco from carrinho where cpf_cliente = '"+session.getInstance().getCPF()+"' AND aberto = 's' group by id_produto");
+            stm = con.prepareStatement("select * from carrinho where cpf_cliente = '"+session.getInstance().getCPF()+"' AND aberto = 's'");
             rs = stm.executeQuery();
             while (rs.next()) {
                 mc = new MCarrinho();
-                mc.setId_produto(rs.getInt("ID"));
-                mc.setQuant(rs.getInt("Quantidade"));
-                mc.setPreco_total(rs.getDouble("Preco"));
+                mc.setId_produto(rs.getInt("id_produto"));
+                mc.setQuant(rs.getInt("quant"));
+                mc.setPreco_total(rs.getDouble("preco_total"));
+                mc.setAberto(rs.getString("aberto"));
+                mc.setCpf_Cliente(rs.getString("cpf_cliente"));
+                mc.setPreco_unit(rs.getDouble("preco_unit"));
                 listaCarrinho.add(mc);
             }
         } catch (SQLException ex) {
@@ -46,7 +51,7 @@ public class CarrinhoDAO implements ICarrinho{
             return listaCarrinho;
         }
     }
-    
+    //Verifica se o produto existe
     public boolean ProdutoCarrinho(MCarrinho mc){
         Connection con = NovaConecta.getConnection();
         PreparedStatement stm = null;
@@ -72,41 +77,85 @@ public class CarrinhoDAO implements ICarrinho{
         }
         return false;
     }
-
+    //verifica se esse produto ja esta no carrinho
+    public int verificaProdutoCarrinho(int id){
+        List<MCarrinho> listacarrinho = lerCarrinho();
+        for(MCarrinho c : listacarrinho) {
+            if (c.getId_produto() == id) {
+               return c.getQuant();
+            }
+        }
+        return 0;
+    }
+    //atualiza quantidade ou insere produto no carrinho
     @Override
     public boolean addCarrinho(MCarrinho c) {
-        ProdutoDAO pdao = new ProdutoDAO();
-        Connection con = NovaConecta.getConnection();
-        PreparedStatement stm = null;
-        int id = c.getId_produto();
-        if(pdao.ProdutoExiste(id)){
+        int quant = verificaProdutoCarrinho(c.getId_produto());
+        if(quant==0){
+            Connection con = NovaConecta.getConnection();
+            PreparedStatement stm = null;
             try {
-                stm = con.prepareStatement("INSERT INTO Carrinho (id_produto,cpf_cliente,quant,aberto,preco_total,preco_unit) VALUES(?,?,?,?,?,?)");
+                stm = con.prepareStatement("INSERT INTO carrinho (id_produto,cpf_cliente,quant,aberto,preco_total,preco_unit) VALUES (?,?,?,?,?,?)");
                 stm.setInt(1, c.getId_produto());
                 stm.setString(2, c.getCpf_Cliente());
                 stm.setInt(3, c.getQuant());
-                stm.setString(4, c.getAberto());
+                stm.setString(4, "s");
                 stm.setDouble(5, c.getPreco_total());
-                stm.setDouble(6, c.getPreco_unit());            
+                stm.setDouble(6, c.getPreco_unit());
                 stm.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Salvo com sucesso!!");
                 return true;
             } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao salvar!!" + ex);
-                return false;
+                JOptionPane.showMessageDialog(null, "Erro ao apagar!!" + ex);
             } finally {
                 NovaConecta.closeConnection(con, stm);
             }
         }
         else{
-            JOptionPane.showMessageDialog(null, "Produto Inválido!!");
+            int quantTotal = quant+c.getQuant();
+            c.setQuant(quantTotal);
+            Connection con = NovaConecta.getConnection();
+            PreparedStatement stm = null;
+            try {
+                stm = con.prepareStatement("UPDATE carrinho SET quant=? WHERE id_produto = ? AND aberto = 's' AND cpf_cliente = '"+session.getInstance().getCPF()+"'");
+                stm.setInt(1, c.getQuant());
+                stm.setInt(2, c.getId_produto());
+                stm.executeUpdate();
+                return true;
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "Erro ao apagar!!" + ex);
+            } finally {
+                NovaConecta.closeConnection(con, stm);
+            }
         }
         return false;
     }
-
+    //executado sempre depois da compra para atualizar produto no carrinho para como comprado
+    public boolean alteraAberto(MCarrinho c){
+        Connection con = NovaConecta.getConnection();
+        PreparedStatement stm = null;
+        try {
+            stm = con.prepareStatement("UPDATE carrinho SET aberto='n' WHERE id_produto = ? AND aberto = 's' AND cpf_cliente = '"+session.getInstance().getCPF()+"'");
+            stm.setInt(1, c.getId_produto());
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao apagar!!" + ex);
+        } finally {
+            NovaConecta.closeConnection(con, stm);
+        }
+        return false;
+    }
+    //atualiza produto
     @Override
-    public void atualizaCarrinho(MCarrinho c) {
-        
+    public boolean atualizaCarrinho(MCarrinho c) {
+        excluirCarrinho(c);
+        if(c.getQuant()>0){
+            addCarrinho(c);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Apagado com sucesso!!");
+        }
+        return false;
     }
 
     @Override
@@ -114,16 +163,70 @@ public class CarrinhoDAO implements ICarrinho{
         Connection con = NovaConecta.getConnection();
         PreparedStatement stm = null;
         try {
-            stm = con.prepareStatement("DELETE FROM carrinho where id_produto = ? aberto = 's' cpf_cliente = ?");
+            stm = con.prepareStatement("DELETE FROM carrinho where id_produto = ? AND cpf_cliente = ? AND aberto ='s'");
             stm.setInt(1, c.getId_produto());
             stm.setString(2, c.getCpf_Cliente());
             stm.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Removido com sucesso!!");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao remover!!" + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao apagar!!" + ex);
         } finally {
             NovaConecta.closeConnection(con, stm);
         }
     }
     
+    public boolean comprar(MCarrinho c){
+        LocalDate dataLocal = LocalDate.now();
+        LocalTime horaLocal = LocalTime.now();
+        String horarioLocal = horaLocal.toString();
+        String DataLocal = dataLocal.toString();
+        Connection con = NovaConecta.getConnection();
+        PreparedStatement stm = null;
+        try {
+            stm = con.prepareStatement("INSERT INTO compra (id_produto,cpf_cliente,data_compra,hora_compra,valor_total,quantidade) VALUES (?,?,?,?,?,?)");
+            stm.setInt(1, c.getId_produto());
+            stm.setString(2, c.getCpf_Cliente());
+            stm.setString(3, DataLocal);
+            stm.setString(4, horarioLocal);
+            stm.setDouble(5, c.getPreco_total());
+            stm.setInt(6, c.getQuant());            
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao apagar!!" + ex);
+        } finally {
+            NovaConecta.closeConnection(con, stm);
+        }
+        return false;
+    }
+
+    private void CarrinhoFechado(MCarrinho mc) {
+        mc.setAberto("n");
+        mc.setCpf_Cliente(session.getInstance().getCPF());
+        addCarrinho(mc);
+    }
+
+    private MCarrinho ProdutoNoCarrinho(MCarrinho c) {
+        Connection con = NovaConecta.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = con.prepareStatement("SELECt * FROM carrinho WHERE id_produto = ? AND cpf_cliente = ? AND aberto = 's'");
+            stm.setInt(1, c.getId_produto());
+            stm.setString(2, c.getCpf_Cliente());
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                c.setId_produto(rs.getInt("id_produto"));
+                c.setQuant(rs.getInt("quant"));
+                c.setPreco_total(rs.getDouble("preco_total"));
+                c.setAberto(rs.getString("aberto"));
+                c.setCpf_Cliente(rs.getString("cpf_cliente"));
+                c.setPreco_unit(rs.getDouble("preco_unit"));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao ler do SGBD!!" + ex);
+        } finally {
+            NovaConecta.closeConnection(con, stm, rs);
+            return c;
+        }
+    }
 }

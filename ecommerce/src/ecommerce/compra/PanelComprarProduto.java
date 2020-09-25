@@ -7,24 +7,14 @@ package ecommerce.compra;
 
 import bancoDados.BD;
 import ecommerce.cliente.AreaCliente;
-import ecommerce.cliente.MCliente;
 import ecommerce.produto.MProduto;
 import ecommerce.produto.MTipoProduto;
 import ecommerce.produto.ProdutoDAO;
 import ecommerce.usuario.session;
 import java.awt.Color;
 import java.awt.Font;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
-import java.util.Vector;
-import java.util.stream.Collectors;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -51,6 +41,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
             cbtipo.addItem(tp.getDescricao());
         }
         
+        carregarTabela();
     }
 
     /**
@@ -66,7 +57,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
         jTextArea1 = new javax.swing.JTextArea();
         cbtipo = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         btpesquisar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
@@ -105,12 +96,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
         cbtipo.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         cbtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "TODOS" }));
 
-        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaMouseClicked(evt);
-            }
-        });
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null}
@@ -120,19 +106,14 @@ public class PanelComprarProduto extends javax.swing.JPanel {
             }
         )
     );
-    tabela.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
-    tabela.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-    jScrollPane2.setViewportView(tabela);
-    DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-    modelo.setNumRows(0);
-    List listaProdutos = pdao.lerProduto();
-    MProduto p;
-    for (int i = 0; i < listaProdutos.size(); i++) {
-        p = (MProduto) listaProdutos.get(i);
-        modelo.addRow(new Object[]{
-            p.getId(),p.getDescricao(),p.getTipo(),p.getPreco_final()
-        });
-    }
+    jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            jTable1MouseClicked(evt);
+        }
+    });
+    jTable1.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
+    jTable1.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    jScrollPane2.setViewportView(jTable1);
 
     btpesquisar.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
     btpesquisar.setText("Pesquisar");
@@ -148,6 +129,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     jLabel3.setText("ID do produto:");
 
     txid_prod.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+    txid_prod.setEnabled(false);
     txid_prod.addMouseListener(new java.awt.event.MouseAdapter() {
         public void mouseClicked(java.awt.event.MouseEvent evt) {
             txid_prodMouseClicked(evt);
@@ -193,7 +175,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     CompraSucesso.setColumns(20);
     CompraSucesso.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
     CompraSucesso.setRows(1);
-    CompraSucesso.setText("Passo 1: Procure o produto que deseja\nPasso 2: Escreva o ID do produto no campo: ID do produto\nPasso 3: Selecione a quantidade que deseja comprar desse produto\nPasso 4: Clique no botão: Adicionar Item ao carrinho\nPasso 5: Para finalizar a compra, abra o menu Comprar e selecione a opção Carrinho.");
+    CompraSucesso.setText("Passo 1: Selecione o produto que deseja\nPasso 2: Escolha a quantidade que deseja comprar desse produto\nPasso 3: Clique no botão: Adicionar Item ao carrinho\nPasso 4: Para finalizar a compra, abra o menu Comprar e selecione a opção Carrinho.");
     CompraSucesso.setToolTipText("");
     CompraSucesso.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Passo a passo para comprar um produto:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bookman Old Style", 1, 18))); // NOI18N
     CompraSucesso.setDisabledTextColor(new java.awt.Color(0, 0, 0));
@@ -315,7 +297,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btpesquisarActionPerformed
-        pesquisarTabela();
+        
     }//GEN-LAST:event_btpesquisarActionPerformed
 
     private void btadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btadicionarActionPerformed
@@ -338,9 +320,11 @@ public class PanelComprarProduto extends javax.swing.JPanel {
         CompraRealizada.setText("");
     }//GEN-LAST:event_txid_prodMouseClicked
 
-    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
-        
-    }//GEN-LAST:event_tabelaMouseClicked
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if (jTable1.getSelectedRow() != -1) {
+            txid_prod.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -359,112 +343,12 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lbErroID;
-    private javax.swing.JTable tabela;
     private javax.swing.JTextField txid_prod;
     private javax.swing.JSpinner txquant;
     // End of variables declaration//GEN-END:variables
-
-    private void pesquisarTabela() {
-        /*Connection con = null;
-        Statement st = null;
-        ResultSet rs = null; 
-        String s;
-        try{
-            
-            Class.forName("org.postgresql.Driver");
-            con = DriverManager.getConnection("jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j","zuidrqukwykbwd","8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69");
-            st = con.createStatement();
-            
-            if(cbtipo.getSelectedItem() == "TODOS"){
-                s = "select produto.id,produto.descricao,tipoProduto.descricao,produto.preco_final from produto inner join tipoProduto on (produto.tipo = tipoProduto.id)";
-            }
-            else{
-                s = "select produto.id,produto.descricao,tipoProduto.descricao,produto.preco_final from produto inner join tipoProduto on (produto.tipo = tipoProduto.id) where tipoProduto.descricao = '" + cbtipo.getSelectedItem() + "'";
-            }
-            
-            rs = st.executeQuery(s);
-            ResultSetMetaData rsmt = rs.getMetaData();
-            
-            int c = rsmt.getColumnCount();
-            Vector column = new Vector(c);
-
-            for(int i = 1; i <= c; i++) {
-                column.add(rsmt.getColumnName(i));
-            }
-
-            Vector data = new Vector();
-            Vector row = new Vector();
-
-            while(rs.next()) {
-                row = new Vector(c);
-
-                for(int i = 1; i <= c; i++){
-                    row.add(rs.getString(i));
-                }
-
-                data.add(row);
-            }
-            tabela = new javax.swing.JTable(data,column);
-            tabela.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
-            tabela.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-
-            jScrollPane2.setViewportView(tabela);
-        }
-        catch(Exception e){ JOptionPane.showMessageDialog(null, "ERROR"); }
-        finally{
-            try{
-                st.close();
-                rs.close();
-                con.close();
-            }
-            catch(Exception e){
-                JOptionPane.showMessageDialog(null, "ERROR CLOSE");
-            }
-        }*/
-        //produto.id,produto.descricao,tipoProduto.descricao,produto.preco_final
-        
-        
-        /*
-        tabela = new javax.swing.JTable();
-
-        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaMouseClicked(evt);
-            }
-        });
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Descrição","Categoria","Preço"
-            }
-        )
-        );
-        tabela.getTableHeader().setFont(new Font("Felix Titling", 0, 18));
-        tabela.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-        jScrollPane2.setViewportView(tabela);
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        modelo.setNumRows(0);
-        List<MProduto> listaProdutos = pdao.lerProduto();
-        List<MProduto> resultado = listaProdutos
-                                    .stream()
-                                    .filter(e -> e.getDescricao().equals("Automotivo"))
-                                    .collect(Collectors.toList());
-        MProduto p;
-        for (int i = 0; i < listaProdutos.size(); i++) {
-            p = (MProduto) resultado.get(i);
-            modelo.addRow(new Object[]{
-                p.getId(),p.getDescricao(),p.getTipo(),p.getPreco_final()
-            });
-        }
-
-        
-        */
-    }
 
     private void adicionarCarrinho() {
         int id = Integer.parseInt(txid_prod.getText());
@@ -477,18 +361,32 @@ public class PanelComprarProduto extends javax.swing.JPanel {
         CarrinhoDAO dao = new CarrinhoDAO();
         MCarrinho c = new MCarrinho();
         
-        c.setAberto("s");
         c.setCpf_Cliente(session.getInstance().getCPF());
         c.setId_produto(Integer.parseInt(txid_prod.getText()));
         c.setPreco_total(preco_total);
         c.setPreco_unit(preco_unit);
         c.setQuant(quant);
         
+        
         if(dao.addCarrinho(c)){
             txid_prod.setText("");
             txquant.setValue(1);
             CompraRealizada.setText("Compra realizada com sucesso!\nPara visualizar seu item:\nAbra a guia Compras>Opção Carrinho");
             CompraRealizada.setForeground(Color.red);
+        }
+        JOptionPane.showMessageDialog(null, "Adicionado ao carrinho!!");
+    }
+    
+    private void carregarTabela() {
+        DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+        modelo.setNumRows(0);
+        List<MProduto> listaProdutos = pdao.lerProduto();
+        MProduto p;
+        for (int i = 0; i < listaProdutos.size(); i++) {
+            p = listaProdutos.get(i);
+            modelo.addRow(new Object[]{
+                p.getId(),p.getDescricao(),p.getTipo(),p.getPreco_final()
+            });
         }
     }
 }

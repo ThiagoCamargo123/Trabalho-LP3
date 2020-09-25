@@ -6,7 +6,6 @@
 package ecommerce.produto;
 
 import bancoDados.NovaConecta;
-import ecommerce.compra.MCarrinho;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,37 +28,21 @@ public class ProdutoDAO implements IProduto{
         List<MProduto> listaProdutos = new ArrayList<>();
         MProduto mp = null;
         try {
-            stm = con.prepareStatement(
-                    "select "
-                            + "produto.id as id,"
-                            + "produto.altura as altura,"
-                            + "produto.descricao as descricao,"
-                            + "produto.estocado as estocado,"
-                            + "produto.largura as largura,"
-                            + "produto.naoestocado as naoestocado,"
-                            + "produto.preco as preco,"
-                            + "produto.preco_final as preco_final,"
-                            + "produto.profundidade as profundidade,"
-                            + "produto.volume as volume,"
-                            + "tipoProduto.descricao as tipo "
-                            + "from produto "
-                            + "inner join "
-                            + "tipoProduto "
-                            + "on (produto.tipo = tipoProduto.id)");
+            stm = con.prepareStatement("select * from produto inner join tipoProduto on (produto.tipo = tipoProduto.tipo_id)");
             rs = stm.executeQuery();
             while (rs.next()) {
                 mp = new MProduto();
-                mp.setId(rs.getInt("id"));
-                mp.setAltura(rs.getInt("altura"));
-                mp.setDescricao(rs.getString("descricao"));
+                mp.setAltura(rs.getDouble("altura"));
+                mp.setDescricao(rs.getString("descricao_produto"));
                 mp.setEstocado(rs.getInt("estocado"));
-                mp.setLargura(rs.getInt("largura"));
+                mp.setId(rs.getInt("id"));
+                mp.setLargura(rs.getDouble("estocado"));
                 mp.setNaoestocado(rs.getInt("naoestocado"));
                 mp.setPreco(rs.getDouble("preco"));
                 mp.setPreco_final(rs.getDouble("preco_final"));
-                mp.setProfundidade(rs.getInt("profundidade"));
+                mp.setProfundidade(rs.getDouble("profundidade"));
+                mp.setTipo(rs.getString("tipo_descricao"));
                 mp.setVolume(rs.getDouble("volume"));
-                mp.setTipo(rs.getString("tipo"));
                 listaProdutos.add(mp);
             }
         } catch (SQLException ex) {
@@ -77,11 +60,11 @@ public class ProdutoDAO implements IProduto{
         List<MTipoProduto> listaTipoProduto = new ArrayList<>();
         MTipoProduto mtp = null;
         try {
-            stm = con.prepareStatement("SELECT descricao FROM tipoProduto");
+            stm = con.prepareStatement("SELECT tipo_descricao FROM tipoProduto");
             rs = stm.executeQuery();
             while (rs.next()) {
                 mtp = new MTipoProduto();
-                mtp.setDescricao(rs.getString("descricao"));
+                mtp.setDescricao(rs.getString("tipo_descricao"));
                 listaTipoProduto.add(mtp);
             }
         } catch (SQLException ex) {
