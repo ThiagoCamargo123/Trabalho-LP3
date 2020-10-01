@@ -92,8 +92,10 @@ public class CarrinhoDAO implements ICarrinho{
     @Override
     public boolean addCarrinho(MCarrinho c) {
         int quant = verificaProdutoCarrinho(c.getId_produto());
-        if(quant==0){
-            Connection con = NovaConecta.getConnection();
+        if(quant!=0){
+            excluirCarrinho(c);
+        }
+        Connection con = NovaConecta.getConnection();
             PreparedStatement stm = null;
             try {
                 stm = con.prepareStatement("INSERT INTO carrinho (id_produto,cpf_cliente,quant,aberto,preco_total,preco_unit) VALUES (?,?,?,?,?,?)");
@@ -110,26 +112,9 @@ public class CarrinhoDAO implements ICarrinho{
             } finally {
                 NovaConecta.closeConnection(con, stm);
             }
-        }
-        else{
-            int quantTotal = quant+c.getQuant();
-            c.setQuant(quantTotal);
-            Connection con = NovaConecta.getConnection();
-            PreparedStatement stm = null;
-            try {
-                stm = con.prepareStatement("UPDATE carrinho SET quant=? WHERE id_produto = ? AND aberto = 's' AND cpf_cliente = '"+session.getInstance().getCPF()+"'");
-                stm.setInt(1, c.getQuant());
-                stm.setInt(2, c.getId_produto());
-                stm.executeUpdate();
-                return true;
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "Erro ao apagar!!" + ex);
-            } finally {
-                NovaConecta.closeConnection(con, stm);
-            }
-        }
         return false;
     }
+    
     //atualiza produto
     @Override
     public boolean atualizaCarrinho(MCarrinho c) {
@@ -159,37 +144,6 @@ public class CarrinhoDAO implements ICarrinho{
         }
     }
     
-    private void CarrinhoFechado(MCarrinho mc) {
-        mc.setAberto("n");
-        mc.setCpf_Cliente(session.getInstance().getCPF());
-        addCarrinho(mc);
-    }
-
-    private MCarrinho ProdutoNoCarrinho(MCarrinho c) {
-        Connection con = NovaConecta.getConnection();
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            stm = con.prepareStatement("SELECt * FROM carrinho WHERE id_produto = ? AND cpf_cliente = ? AND aberto = 's'");
-            stm.setInt(1, c.getId_produto());
-            stm.setString(2, c.getCpf_Cliente());
-            rs = stm.executeQuery();
-            while (rs.next()) {
-                c.setId_produto(rs.getInt("id_produto"));
-                c.setQuant(rs.getInt("quant"));
-                c.setPreco_total(rs.getDouble("preco_total"));
-                c.setAberto(rs.getString("aberto"));
-                c.setCpf_Cliente(rs.getString("cpf_cliente"));
-                c.setPreco_unit(rs.getDouble("preco_unit"));
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao ler do SGBD!!" + ex);
-        } finally {
-            NovaConecta.closeConnection(con, stm, rs);
-            return c;
-        }
-    }
-    
     //executado sempre depois da compra para atualizar produto no carrinho para como comprado
     public void alteraAberto(MCarrinho c){
         MVender mv = new MVender();
@@ -215,4 +169,33 @@ public class CarrinhoDAO implements ICarrinho{
         VenderDAO vdao = new VenderDAO();
         vdao.incluirVenda(mv);
     }
+    
+    public void atualizaEstoque(MCarrinho c){
+        int estoque = this.getEstoque(c);
+        estoque = estoque - c.getQuant();
+        VenderDAO vdao = new VenderDAO();
+        vdao.atualizaEstoque(c.getId_produto(), estoque);
+    }
+    
+    private int getEstoque(MCarrinho c){
+        Connection con = NovaConecta.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            stm = con.prepareStatement("SELECT estocado FROM produto where id = ?");
+            stm.setInt(1, c.getId_produto());
+            rs = stm.executeQuery();
+            int estocado = 0;
+            while (rs.next()) {
+                estocado=rs.getInt("estocado");
+                return estocado;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao ler do SGBD!!" + ex);
+        } finally {
+            NovaConecta.closeConnection(con, stm, rs);
+        }
+        return 0;
+    }
+    
 }

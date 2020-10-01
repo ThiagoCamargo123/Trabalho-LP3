@@ -52,4 +52,19 @@ public class VenderDAO implements IVender{
             NovaConecta.closeConnection(con, stm);
         }
     }
+    
+    public void atualizaEstoque(int id,int estocado){
+        Connection con = NovaConecta.getConnection();
+        PreparedStatement stm = null;
+        try {
+            stm = con.prepareStatement("UPDATE produto SET estocado=? WHERE id = ?");
+            stm.setInt(1, estocado);
+            stm.setInt(2, id);
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar estoque!!" + ex);
+        } finally {
+            NovaConecta.closeConnection(con, stm);
+        }
+    }
 }

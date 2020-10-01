@@ -5,21 +5,11 @@
  */
 package ecommerce.cliente;
 
-import bancoDados.BD;
-import bancoDados.BD;
-import ecommerce.estoquista.VerificarSenhaEstoquista;
-import ecommerce.prateleira.GerenciarPrateleira;
 import ecommerce.usuario.session;
-import java.awt.Component;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 /**
  *
- * @author Thiago
+ * 
  */
 public class LoginCliente extends javax.swing.JFrame {
 
@@ -27,11 +17,11 @@ public class LoginCliente extends javax.swing.JFrame {
      * Creates new form LoginCliente
      */
     
-    BD bd = new BD();
+    
     public LoginCliente() {
         initComponents();
         setLocationRelativeTo(null);
-        bd.conecta();
+        
         txtsenha.setEchoChar('*');
     }
 

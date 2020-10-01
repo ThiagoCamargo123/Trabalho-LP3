@@ -17,6 +17,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,7 +32,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     BD bd = new BD();
     AreaCliente ac = new AreaCliente();
     ProdutoDAO pdao = new ProdutoDAO();
-    
+    int estocadoGlobal;
     public PanelComprarProduto() {
         initComponents();
         initComponents();
@@ -39,7 +40,6 @@ public class PanelComprarProduto extends javax.swing.JPanel {
         
         List<MTipoProduto> atipo = pdao.lerTipo();
         for(MTipoProduto tp : atipo){
-            System.out.println(tp.toString());
             cbtipo.addItem(tp.getDescricao());
         }
         
@@ -104,7 +104,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Descrição","Categoria","Preço"
+                "ID", "Descrição","Categoria","Preço","Em estoque"
             }
         )
     );
@@ -164,6 +164,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
 
     txquant.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
     txquant.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+    txquant.setEnabled(false);
 
     lbErroID.setFont(new java.awt.Font("Bookman Old Style", 3, 14)); // NOI18N
     lbErroID.setForeground(new java.awt.Color(255, 51, 51));
@@ -299,7 +300,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btpesquisarActionPerformed
-        
+        carregarTabela();
     }//GEN-LAST:event_btpesquisarActionPerformed
 
     private void btadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btadicionarActionPerformed
@@ -325,6 +326,16 @@ public class PanelComprarProduto extends javax.swing.JPanel {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (jTable1.getSelectedRow() != -1) {
             txid_prod.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
+            int estocado = Integer.parseInt(jTable1.getValueAt(jTable1.getSelectedRow(), 4).toString());
+            if(estocado!=0){
+                txquant.enable(true);
+                txquant.setModel(new SpinnerNumberModel(1,1,estocado,1));
+                this.estocadoGlobal=estocado;
+            }
+            else{
+                FrameSolicitaCompraGer sg = new FrameSolicitaCompraGer();
+                sg.setVisible(true);
+            }
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -375,8 +386,10 @@ public class PanelComprarProduto extends javax.swing.JPanel {
             txquant.setValue(1);
             CompraRealizada.setText("Compra realizada com sucesso!\nPara visualizar seu item:\nAbra a guia Compras>Opção Carrinho");
             CompraRealizada.setForeground(Color.red);
+            JOptionPane.showMessageDialog(null, "Adicionado ao carrinho!!");
+            txquant.enable(false);
         }
-        JOptionPane.showMessageDialog(null, "Adicionado ao carrinho!!");
+        
     }
     
     private void carregarTabela() {
@@ -385,10 +398,20 @@ public class PanelComprarProduto extends javax.swing.JPanel {
         List<MProduto> listaProdutos = pdao.lerProduto();
         MProduto p;
         for (int i = 0; i < listaProdutos.size(); i++) {
-            p = listaProdutos.get(i);
-            modelo.addRow(new Object[]{
-                p.getId(),p.getDescricao(),p.getTipo(),p.getPreco_final()
-            });
+            if(cbtipo.getSelectedItem().equals("TODOS")){
+                p = listaProdutos.get(i);
+                modelo.addRow(new Object[]{
+                    p.getId(),p.getDescricao(),p.getTipo(),p.getPreco_final(),p.getEstocado()
+                });
+            }
+            else{
+                if(listaProdutos.get(i).getTipo().equals(cbtipo.getSelectedItem())){
+                    p = listaProdutos.get(i);
+                    modelo.addRow(new Object[]{
+                        p.getId(),p.getDescricao(),p.getTipo(),p.getPreco_final(),p.getEstocado()
+                    });
+                }
+            }
         }
     }
 }
