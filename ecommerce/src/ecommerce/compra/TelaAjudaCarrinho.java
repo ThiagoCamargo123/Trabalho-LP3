@@ -42,7 +42,7 @@ public class TelaAjudaCarrinho extends javax.swing.JFrame {
         jTextArea3.setColumns(20);
         jTextArea3.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jTextArea3.setRows(5);
-        jTextArea3.setText("Remover produto do carrinho:\nPasso 1: Procure o produto que deseja \nPasso 2: Escreva o ID do produto no campo: ID do produto \nPasso 3: No campo quantidade, escolha a opção \"0\" (zero)\nPasso 4: Clique no botão: Atualizar\n\nAumentar ou diminuir quantidade do item no carrinho:\nPasso 1: Procure o produto que deseja \nPasso 2: Escreva o ID do produto no campo: ID do produto \nPasso 3: Selecione a quantidade que deseja comprar desse produto \nPasso 4: Clique no botão: Atualizar");
+        jTextArea3.setText("Remover produto do carrinho:\nPasso 1: Selecione o produto que deseja \nPasso 2: No campo quantidade, escolha a opção \"0\" (zero)\nPasso 3: Clique no botão: Atualizar\n\nAumentar ou diminuir quantidade do item no carrinho:\nPasso 1: Selecione o produto que deseja \nPasso 2: Selecione a quantidade que deseja comprar desse produto \nPasso 3: Clique no botão: Atualizar");
         jTextArea3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jTextArea3.setEnabled(false);
         jScrollPane5.setViewportView(jTextArea3);

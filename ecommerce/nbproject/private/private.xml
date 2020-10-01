@@ -5,7 +5,9 @@
         <group>
             <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/CarrinhoDAO.java</file>
             <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/PanelCarrinho.java</file>
-            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/PanelComprarProduto.java</file>
+            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/VenderDAO.java</file>
+            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/IVender.java</file>
+            <file>file:/C:/Users/Ivan%20Farina/Desktop/IFSP/3%20sem/LP3/Trabalho-LP3/ecommerce/src/ecommerce/compra/MVender.java</file>
         </group>
     </open-files>
 </project-private>

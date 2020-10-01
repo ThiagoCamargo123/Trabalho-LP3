@@ -105,7 +105,7 @@
                   <Font name="Bookman Old Style" size="14" style="0"/>
                 </Property>
                 <Property name="rows" type="int" value="5"/>
-                <Property name="text" type="java.lang.String" value="Remover produto do carrinho:&#xa;Passo 1: Procure o produto que deseja &#xa;Passo 2: Escreva o ID do produto no campo: ID do produto &#xa;Passo 3: No campo quantidade, escolha a op&#xe7;&#xe3;o &quot;0&quot; (zero)&#xa;Passo 4: Clique no bot&#xe3;o: Atualizar&#xa;&#xa;Aumentar ou diminuir quantidade do item no carrinho:&#xa;Passo 1: Procure o produto que deseja &#xa;Passo 2: Escreva o ID do produto no campo: ID do produto &#xa;Passo 3: Selecione a quantidade que deseja comprar desse produto &#xa;Passo 4: Clique no bot&#xe3;o: Atualizar"/>
+                <Property name="text" type="java.lang.String" value="Remover produto do carrinho:&#xa;Passo 1: Selecione o produto que deseja &#xa;Passo 2: No campo quantidade, escolha a op&#xe7;&#xe3;o &quot;0&quot; (zero)&#xa;Passo 3: Clique no bot&#xe3;o: Atualizar&#xa;&#xa;Aumentar ou diminuir quantidade do item no carrinho:&#xa;Passo 1: Selecione o produto que deseja &#xa;Passo 2: Selecione a quantidade que deseja comprar desse produto &#xa;Passo 3: Clique no bot&#xe3;o: Atualizar"/>
                 <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>

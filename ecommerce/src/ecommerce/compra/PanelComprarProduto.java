@@ -5,6 +5,8 @@
  */
 package ecommerce.compra;
 
+import ecommerce.compra.Carrinho.MCarrinho;
+import ecommerce.compra.Carrinho.CarrinhoDAO;
 import bancoDados.BD;
 import ecommerce.cliente.AreaCliente;
 import ecommerce.produto.MProduto;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ecommerce.compra;
+package ecommerce.compra.Carrinho;
 
 import java.util.List;
 

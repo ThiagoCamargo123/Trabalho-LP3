@@ -5,9 +5,9 @@
  */
 package ecommerce.compra;
 
-import bancoDados.BD;
+import ecommerce.compra.Carrinho.CarrinhoDAO;
+import ecommerce.compra.Carrinho.MCarrinho;
 import ecommerce.cliente.AreaCliente;
-import ecommerce.compra.MCarrinho;
 import ecommerce.produto.ProdutoDAO;
 import ecommerce.usuario.session;
 import java.awt.Font;

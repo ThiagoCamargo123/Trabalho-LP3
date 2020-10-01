@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ecommerce.compra;
+package ecommerce.compra.Carrinho;
 
 import bancoDados.NovaConecta;
-import ecommerce.produto.ProdutoDAO;
+import ecommerce.compra.Vender.MVender;
+import ecommerce.compra.Vender.VenderDAO;
 import ecommerce.usuario.session;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -129,22 +130,6 @@ public class CarrinhoDAO implements ICarrinho{
         }
         return false;
     }
-    //executado sempre depois da compra para atualizar produto no carrinho para como comprado
-    public boolean alteraAberto(MCarrinho c){
-        Connection con = NovaConecta.getConnection();
-        PreparedStatement stm = null;
-        try {
-            stm = con.prepareStatement("UPDATE carrinho SET aberto='n' WHERE id_produto = ? AND aberto = 's' AND cpf_cliente = '"+session.getInstance().getCPF()+"'");
-            stm.setInt(1, c.getId_produto());
-            stm.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao apagar!!" + ex);
-        } finally {
-            NovaConecta.closeConnection(con, stm);
-        }
-        return false;
-    }
     //atualiza produto
     @Override
     public boolean atualizaCarrinho(MCarrinho c) {
@@ -174,31 +159,6 @@ public class CarrinhoDAO implements ICarrinho{
         }
     }
     
-    public boolean comprar(MCarrinho c){
-        LocalDate dataLocal = LocalDate.now();
-        LocalTime horaLocal = LocalTime.now();
-        String horarioLocal = horaLocal.toString();
-        String DataLocal = dataLocal.toString();
-        Connection con = NovaConecta.getConnection();
-        PreparedStatement stm = null;
-        try {
-            stm = con.prepareStatement("INSERT INTO compra (id_produto,cpf_cliente,data_compra,hora_compra,valor_total,quantidade) VALUES (?,?,?,?,?,?)");
-            stm.setInt(1, c.getId_produto());
-            stm.setString(2, c.getCpf_Cliente());
-            stm.setString(3, DataLocal);
-            stm.setString(4, horarioLocal);
-            stm.setDouble(5, c.getPreco_total());
-            stm.setInt(6, c.getQuant());            
-            stm.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao apagar!!" + ex);
-        } finally {
-            NovaConecta.closeConnection(con, stm);
-        }
-        return false;
-    }
-
     private void CarrinhoFechado(MCarrinho mc) {
         mc.setAberto("n");
         mc.setCpf_Cliente(session.getInstance().getCPF());
@@ -228,5 +188,31 @@ public class CarrinhoDAO implements ICarrinho{
             NovaConecta.closeConnection(con, stm, rs);
             return c;
         }
+    }
+    
+    //executado sempre depois da compra para atualizar produto no carrinho para como comprado
+    public void alteraAberto(MCarrinho c){
+        MVender mv = new MVender();
+        mv.setId_produto(c.getId_produto());
+        VenderDAO vdao = new VenderDAO();
+        vdao.alteraAbertoAtualizado(mv);
+    }
+    
+    public void comprar(MCarrinho c){
+        LocalDate dataLocal = LocalDate.now();
+        LocalTime horaLocal = LocalTime.now();
+        String horarioLocal = horaLocal.toString();
+        String DataLocal = dataLocal.toString();
+        
+        MVender mv = new MVender();
+        mv.setCpf_Cliente(c.getCpf_Cliente());
+        mv.setDataLocal(DataLocal);
+        mv.setHorarioLocal(horarioLocal);
+        mv.setId_produto(c.getId_produto());
+        mv.setPreco_total(c.getPreco_total());
+        mv.setQuant(c.getQuant());
+        
+        VenderDAO vdao = new VenderDAO();
+        vdao.incluirVenda(mv);
     }
 }
