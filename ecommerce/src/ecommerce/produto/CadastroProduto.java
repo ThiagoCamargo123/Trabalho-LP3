@@ -289,13 +289,23 @@ public class CadastroProduto extends javax.swing.JFrame {
         int tipo1 = Integer.parseInt(nome1);
         
         try{
-            bd.executa("INSERT INTO produto (tipo,descricao,altura,largura,profundidade,preco,estocado,preco_final,volume) VALUES('"+tipo1+"','"+descricao.getText()+"','"+altura.getText()+"','"+largura.getText()+"','"+profundidade.getText()+"','"+preco.getText()+"','"+"NAO"+"','"+preco_final.getText()+"','"+vol+"')");
+            bd.executa("INSERT INTO produto (tipo,descricao,altura,largura,profundidade,preco,preco_final,volume,estocado,naoEstocado) " +
+                    "VALUES('"+tipo1+"','"+descricao.getText()+"','"+altura.getText()+"','"+largura.getText()+"','"
+                    +profundidade.getText()+"','"+preco.getText()+"','"+preco_final.getText()+"','"+vol+"',0,0)");
             descricao.setText("");
             altura.setText("");
             largura.setText("");
             profundidade.setText("");
             preco.setText("");
             preco_final.setText("");
+             
+            rs = bd.consulta("select max(id) from produto");
+            int idProduto = 0;
+            while(rs.next()){
+		    idProduto = rs.getInt(1);
+            }  
+            
+//            bd.executa("INSERT INTO produto_prateleira (id_produto,id_prateleira) values ('"+idProduto+"','0')"); //0 Significa nenhum Prateleira
             
         }catch(Exception e){
             System.err.println("Excessão: " + e.toString());

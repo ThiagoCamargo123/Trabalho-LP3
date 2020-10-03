@@ -106,21 +106,11 @@ public class VerificarSenhaGerente extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         int senhaSistema = 1234;
-        OrganizarPrateleira organizar = new OrganizarPrateleira();
-        try {
-            organizar.calculaPrioridadeCategoriaPorMaisVendidaEMaiorLucroEMenorVolume();
-        } catch (SQLException ex) {
-            Logger.getLogger(VerificarSenhaGerente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(VerificarSenhaGerente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (java.lang.Exception ex) {
-            Logger.getLogger(VerificarSenhaGerente.class.getName()).log(Level.SEVERE, null, ex);
-        }
         try{
             if(jTextField1.getText().equals("1234")){
-          TelaInicialGerente telaInicial = new TelaInicialGerente();
-          telaInicial.setVisible(true);
-          dispose();
+            TelaInicialGerente telaInicial = new TelaInicialGerente();
+            telaInicial.setVisible(true);
+            dispose();
         }
         }catch(Exception e){
             System.out.println("Senha incorreta");

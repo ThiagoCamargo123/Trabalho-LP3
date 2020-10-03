@@ -11,12 +11,39 @@ package InteligenciaArtificial.model;
  */
 public class ProdutoBanco {
     Integer idProduto;
+    String descricao;
     Double volumeProduto;
     Integer idCategoria;
+    String descricaoCategoria;
     Double preco;
     Double precoFinal;
     Double lucro;
+    Integer quantidadeEstocado;
 
+    public String getDescricaoCategoria() {
+        return descricaoCategoria;
+    }
+
+    public void setDescricaoCategoria(String descricaoCategoria) {
+        this.descricaoCategoria = descricaoCategoria;
+    }
+    
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Integer getQuantidadeEstocado() {
+        return quantidadeEstocado;
+    }
+
+    public void setQuantidadeEstocado(Integer quantidadeEstocado) {
+        this.quantidadeEstocado = quantidadeEstocado;
+    }
+    
     public Double getLucro() {
         return lucro;
     }
