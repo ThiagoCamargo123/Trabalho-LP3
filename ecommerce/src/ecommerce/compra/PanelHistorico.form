@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Bookman Old Style" size="24" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Hist&#xf3;rico de compras"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTable" name="jTable1">
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="}&#xa;        catch(Exception e){ JOptionPane.showMessageDialog(null, &quot;ERROR&quot;); }&#xa;        finally{&#xa;            try{&#xa;                st.close(); &#xa;                rs.close(); &#xa;                con.close(); &#xa;            }&#xa;            catch(Exception e){ &#xa;                JOptionPane.showMessageDialog(null, &quot;ERROR CLOSE&quot;); &#xa;            } &#xa;        }"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTable(data,column)"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="Connection con = null;&#xa;    Statement st = null; &#xa;     ResultSet rs = null; String s;&#xa;&#xa;&#xa;    //connect your app to mysql database &#xa;&#xa;    try{ &#xa;        Class.forName(&quot;org.postgresql.Driver&quot;);&#xa;        con = DriverManager.getConnection(&quot;jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j&quot;,&quot;zuidrqukwykbwd&quot;,&quot;8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69&quot;);&#xa;        st = con.createStatement();&#xa;        s = &quot;select id_produto as ID, cpf_cliente as CPF, data_compra as Data,hora_compra as Hora, valor_total as Pre&#xe7;o, quantidade from compra where cpf_cliente = &apos;&quot;+session.getInstance().getCPF()+&quot;&apos;&quot;; &#xa;        rs = st.executeQuery(s);&#xa;        ResultSetMetaData rsmt = rs.getMetaData(); &#xa;        int c = rsmt.getColumnCount();&#xa;        Vector column = new Vector(c);&#xa;&#xa;        for(int i = 1; i &lt;= c; i++) {&#xa;            column.add(rsmt.getColumnName(i)); &#xa;        } &#xa;&#xa;        Vector data = new Vector(); &#xa;        Vector row = new Vector(); &#xa;&#xa;        while(rs.next()) { &#xa;            row = new Vector(c); &#xa;&#xa;            for(int i = 1; i &lt;= c; i++){&#xa;                row.add(rs.getString(i)); &#xa;            } &#xa;&#xa;            data.add(row); &#xa;        }"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="jTable1.getTableHeader().setFont(new Font(&quot;Felix Titling&quot;, 0, 18));&#xa;jTable1.setFont(new java.awt.Font(&quot;Bookman Old Style&quot;, 0, 14)); // NOI18N"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

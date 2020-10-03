@@ -16,6 +16,6 @@ Video para criar a SSH KEY: https://www.youtube.com/watch?v=tjZEplICR5g
 
 	git add .
 	git commit -m "escreva a versao"
-	git push origin thiago
+	git push origin ivan
 
 	**nota: digite seu nome, pois assim o projeto ficara na sua pasta com as alteracoes feitas

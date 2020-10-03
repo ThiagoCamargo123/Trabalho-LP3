@@ -104,6 +104,18 @@ CREATE TABLE Carrinho(
 	cpf_cliente varchar(20) not null,
 	quant INT,
 	aberto varchar(1),
+	valor_unit float,
+	valor_total float,
 	FOREIGN KEY(id_produto) REFERENCES Produto(id),
 	FOREIGN KEY(cpf_cliente) REFERENCES Cliente(cpf)
 );
+
+alter table cliente add column estado varchar(2)
+
+alter table cliente alter column telefone type varchar(20)
+
+alter table cliente alter column cep type varchar(20)
+
+alter table cliente alter column cpf type varchar(20)
+
+update cliente set estado = 'SP'

@@ -5,6 +5,7 @@
  */
 package ecommerce.gerente;
 
+import ecommerce.estoquista.CadastrarEstoquista;
 import empresa.AplicacaoEmpresa;
 
 /**
@@ -155,7 +156,7 @@ public class TelaInicialGerente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        GerenciarEstoquista estoquista = new GerenciarEstoquista();
+        GerenciarEstoquistas estoquista = new GerenciarEstoquistas();
         estoquista.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2MouseClicked
