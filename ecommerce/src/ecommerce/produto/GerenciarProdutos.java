@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ecommerce.gerente;
+package ecommerce.produto;
 
 import InteligenciaArtificial.OrganizarPrateleiraJFrame;
+import ecommerce.gerente.TelaInicialGerente;
 import ecommerce.produto.CadastroProduto;
 import ecommerce.produto.MostrarProdutos;
 

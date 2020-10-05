@@ -12,7 +12,7 @@ import ecommerce.cliente.AreaCliente;
 import ecommerce.produto.MProduto;
 import ecommerce.produto.MTipoProduto;
 import ecommerce.produto.ProdutoDAO;
-import ecommerce.usuario.session;
+import ecommerce.usuario.Session;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.List;
@@ -374,7 +374,7 @@ public class PanelComprarProduto extends javax.swing.JPanel {
         CarrinhoDAO dao = new CarrinhoDAO();
         MCarrinho c = new MCarrinho();
         
-        c.setCpf_Cliente(session.getInstance().getCPF());
+        c.setCpf_Cliente(Session.getInstance().getCPF());
         c.setId_produto(Integer.parseInt(txid_prod.getText()));
         c.setPreco_total(preco_total);
         c.setPreco_unit(preco_unit);

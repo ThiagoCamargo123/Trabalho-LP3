@@ -1,5 +1,5 @@
 
-package ecommerce.estoquista;
+package ecommerce.estoquista.dao;
 
 import java.util.List;
 

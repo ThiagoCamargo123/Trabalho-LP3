@@ -5,7 +5,7 @@
  */
 package ecommerce.cliente;
 
-import ecommerce.usuario.session;
+import ecommerce.usuario.Session;
 
 /**
  *
@@ -241,7 +241,7 @@ public class LoginCliente extends javax.swing.JFrame {
         ClienteDAO dao = new ClienteDAO();
         String senha = new String (txtsenha.getPassword());
         if (senha.equals(dao.ClienteSenha(cpf))) {
-            session sessao = session.getInstance();
+            Session sessao = Session.getInstance();
             sessao.setCPF(cpf);
             sessao.settipo("Cliente");
             AreaCliente ac = new AreaCliente();

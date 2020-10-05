@@ -5,8 +5,11 @@
  */
 package ecommerce.estoquista;
 
+import ecommerce.estoquista.dao.MEstoquista;
+import ecommerce.estoquista.dao.EstoquistaDAO;
 import bancoDados.BD;
 import ecommerce.gerente.TelaInicialGerente;
+import ecommerce.usuario.Session;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -23,6 +26,9 @@ public class CadastrarEstoquista extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         
+        Session sessao = Session.getInstance();
+        
+        cpf.setText(sessao.getCPF());
     }
     
     public void limparCampos(){
@@ -74,7 +80,7 @@ public class CadastrarEstoquista extends javax.swing.JFrame {
 
         jLabel6.setText("Numero contrato");
 
-        jLabel7.setText("Digite o CPF do gerente para confirmar");
+        jLabel7.setText("CPF gerente:");
 
         jButton1.setText("Enviar");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {

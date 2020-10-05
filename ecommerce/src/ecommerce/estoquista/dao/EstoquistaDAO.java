@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ecommerce.estoquista;
+package ecommerce.estoquista.dao;
 
 import bancoDados.NovaConecta;
 import ecommerce.produto.MProduto;

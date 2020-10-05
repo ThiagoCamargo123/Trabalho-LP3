@@ -5,7 +5,6 @@
  */
 package ecommerce.produto;
 
-import ecommerce.gerente.GerenciarProdutos;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 

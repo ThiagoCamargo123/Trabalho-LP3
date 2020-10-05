@@ -17,12 +17,12 @@ import java.sql.SQLException;
 
 
 //Usar "session.getInstance().getCPF()" para pegar o CPF
-public class session {
-   private static session instance = null;
+public class Session {
+   private static Session instance = null;
    private String cpf,tipo;
    
    BD bd = new BD();
-   public session(){
+   public Session(){
        bd.conecta();
    }
 
@@ -57,13 +57,13 @@ public class session {
         return nome;
    }
    
-    public static session logoff(){
+    public static Session logoff(){
         instance = null;
         return instance;
     }
-    public static session getInstance(){
+    public static Session getInstance(){
          if(instance == null){
-               instance = new session();
+               instance = new Session();
          }
         return instance;
     }

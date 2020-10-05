@@ -7,7 +7,7 @@ package ecommerce.cliente;
 
 import bancoDados.BD;
 import ecommerce.estoquista.VerificarSenhaEstoquista;
-import ecommerce.usuario.session;
+import ecommerce.usuario.Session;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;

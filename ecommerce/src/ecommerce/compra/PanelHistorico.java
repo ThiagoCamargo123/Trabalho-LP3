@@ -7,7 +7,7 @@ package ecommerce.compra;
 
 import bancoDados.BD;
 import ecommerce.cliente.AreaCliente;
-import ecommerce.usuario.session;
+import ecommerce.usuario.Session;
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -54,7 +54,7 @@ public class PanelHistorico extends javax.swing.JPanel {
             Class.forName("org.postgresql.Driver");
             con = DriverManager.getConnection("jdbc:postgresql://ec2-34-195-115-225.compute-1.amazonaws.com:5432/d7gbh9tbts0r7j","zuidrqukwykbwd","8f82c803a029137f140288c3d133e854bdf76d61b948c7ad1365552d7f058d69");
             st = con.createStatement();
-            s = "select id_produto as ID, cpf_cliente as CPF, data_compra as Data,hora_compra as Hora, valor_total as Preço, quantidade from compra where cpf_cliente = '"+session.getInstance().getCPF()+"'";
+            s = "select id_produto as ID, cpf_cliente as CPF, data_compra as Data,hora_compra as Hora, valor_total as Preço, quantidade from compra where cpf_cliente = '"+Session.getInstance().getCPF()+"'";
             rs = st.executeQuery(s);
             ResultSetMetaData rsmt = rs.getMetaData();
             int c = rsmt.getColumnCount();

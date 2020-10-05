@@ -9,7 +9,7 @@ import ecommerce.compra.Carrinho.CarrinhoDAO;
 import ecommerce.compra.Carrinho.MCarrinho;
 import ecommerce.cliente.AreaCliente;
 import ecommerce.produto.ProdutoDAO;
-import ecommerce.usuario.session;
+import ecommerce.usuario.Session;
 import java.awt.Font;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -378,7 +378,7 @@ public class PanelCarrinho extends javax.swing.JPanel {
         int id = Integer.parseInt(txid_prod.getText());
         MCarrinho c = new MCarrinho();
         c.setAberto("s");
-        c.setCpf_Cliente(session.getInstance().getCPF());
+        c.setCpf_Cliente(Session.getInstance().getCPF());
         c.setId_produto(id);
         cdao.excluirCarrinho(c);
         txid_prod.setText("");

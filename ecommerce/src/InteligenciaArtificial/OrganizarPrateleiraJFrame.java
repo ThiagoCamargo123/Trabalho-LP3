@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,9 +29,9 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
         
         //Considere 12000000 = 100%
         for(Prateleira pra: prateleiraList){
-            double divisor = 12000000;
+            double divisor = 1200000;
             double volumeDisponivel = pra.getVolumeDisponivel();
-            double divisao = volumeDisponivel / 12000000;
+            double divisao = volumeDisponivel / 1200000;
             double porcentagem = divisao * 100;
             String porcentagemString = String.valueOf(porcentagem);
             if(porcentagemString.length()>5){
@@ -98,6 +99,8 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
         b2 = new javax.swing.JLabel();
         b4 = new javax.swing.JLabel();
         b5 = new javax.swing.JLabel();
+        totalNaoEstocado = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -114,17 +117,17 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nome", "Categoria", "Total Estocado", "Lucro"
+                "Nome", "Categoria", "Total Estocado", "Total Não Estocado", "Lucro"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -247,6 +250,12 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
         b5.setFont(new java.awt.Font("Book Antiqua", 0, 18)); // NOI18N
         b5.setText("0 %");
 
+        totalNaoEstocado.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
+        totalNaoEstocado.setText("Nenhum Selecionado");
+
+        jLabel21.setFont(new java.awt.Font("Book Antiqua", 1, 14)); // NOI18N
+        jLabel21.setText("Não Estocado:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -273,22 +282,30 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(101, 101, 101)
                                 .addComponent(jButton2)))
-                        .addGap(42, 42, 42)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addGap(10, 10, 10)
-                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(categoriaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, 0)
+                                .addComponent(jButton1)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(totalEstocadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jButton1))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(categoriaLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(nomeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel4)
+                                            .addComponent(totalEstocadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(totalNaoEstocado, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -299,51 +316,50 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel11))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(198, 198, 198)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(a2)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addComponent(jLabel14)
+                                                .addGap(147, 147, 147)
+                                                .addComponent(jLabel15))
+                                            .addComponent(b2))
+                                        .addGap(115, 115, 115)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(a4))
+                                                .addComponent(b3)
+                                                .addGap(119, 119, 119)
+                                                .addComponent(b4))
                                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(91, 91, 91)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel13)
-                                                    .addComponent(jLabel12))
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                                        .addGap(78, 78, 78)
-                                                        .addComponent(b1)
-                                                        .addGap(137, 137, 137))
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(a1)
-                                                        .addGap(139, 139, 139)))
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(b2)
-                                                    .addComponent(a2))
-                                                .addGap(117, 117, 117)
-                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addComponent(b3)
-                                                    .addComponent(a3))
+                                                    .addComponent(a3)
+                                                    .addComponent(jLabel16))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(b4)))
-                                        .addGap(136, 136, 136)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(a5)
-                                            .addComponent(b5)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addGap(198, 198, 198)
-                                        .addComponent(jLabel14)
-                                        .addGap(147, 147, 147)
-                                        .addComponent(jLabel15)
-                                        .addGap(131, 131, 131)
-                                        .addComponent(jLabel16)
-                                        .addGap(151, 151, 151)
-                                        .addComponent(jLabel17)
-                                        .addGap(152, 152, 152)
-                                        .addComponent(jLabel18)))
-                                .addGap(52, 52, 52)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(a4, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                        .addGap(233, 233, 233))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(91, 91, 91)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel13)
+                                            .addComponent(jLabel12))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(78, 78, 78)
+                                                .addComponent(b1))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(a1)
+                                                .addGap(2, 2, 2)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(b5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(a5, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addGap(87, 87, 87)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel20)
                                     .addComponent(jLabel19))
@@ -360,11 +376,11 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6))
-                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel8))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addGap(1, 1, 1)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -387,7 +403,11 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(totalEstocadoLabel)
                             .addComponent(jLabel10))
-                        .addGap(27, 27, 27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(totalNaoEstocado)
+                            .addComponent(jLabel21))
+                        .addGap(18, 18, 18)
                         .addComponent(jButton1)))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -426,7 +446,9 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,32 +465,58 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
             try {
                 throw new Exception("Data inicio ou fim devem estar preenchidas");
             } catch (Exception ex) {
-                Logger.getLogger(OrganizarPrateleiraJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Erro: " + ex);
             }
         }
-        
+
         String inicioData = getDataInicio();
         String fimData = getDataFim();
-        
+
         try {
             produtos = organizarPrateleira.calculaPrioridadeCategoriaPorMaisVendidaEMaiorLucroEMenorVolume(inicioData,fimData);
         } catch (Exception ex) {
-            Logger.getLogger(OrganizarPrateleiraJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
         }
-        
+
         carregarTabela(produtos);
         try {
             inicializarPrateleira();
         } catch (SQLException ex) {
-            Logger.getLogger(OrganizarPrateleiraJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        int indice = jTable1.getSelectedRow();
+        Prateleira prateleiraAtualizada = null;
+        try {
+            prateleiraAtualizada = organizarPrateleira.armazenaOsProdutos(produtos.get(indice));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro: " + ex);
+        }
+
+        for(Prateleira pra: prateleiraList){
+            if(pra.getId().equals(prateleiraAtualizada.getId())){
+                pra.setId(prateleiraAtualizada.getId());
+                pra.setPorcentagem(prateleiraAtualizada.getPorcentagem());
+                pra.setVolumeDisponivel(prateleiraAtualizada.getVolumeDisponivel());
+            }
+        }
+
+        atualizarPrateleiras();
+        JOptionPane.showMessageDialog(null,"Produto "+produtos.get(indice).getDescricao() +" inserido na Prateleira "+prateleiraAtualizada.getId());
+    }//GEN-LAST:event_jButton1MouseClicked
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         if (jTable1.getSelectedRow() != -1) {
             nomeLabel.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 0).toString());
             categoriaLabel.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString());
             totalEstocadoLabel.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 2).toString());
+            totalNaoEstocado.setText(jTable1.getValueAt(jTable1.getSelectedRow(), 3).toString());
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -485,38 +533,14 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
         b4.setText(String.valueOf(prateleiraList.get(7).getPorcentagem()));
         b5.setText(String.valueOf(prateleiraList.get(9).getPorcentagem()));
     }
-    
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        int indice = jTable1.getSelectedRow();
-        Prateleira prateleiraAtualizada = null; 
-        try {
-             prateleiraAtualizada = organizarPrateleira.armazenaOsProdutos(produtos.get(indice));
-        } catch (Exception ex) {
-            Logger.getLogger(OrganizarPrateleiraJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        for(Prateleira pra: prateleiraList){
-            if(pra.getId().equals(prateleiraAtualizada.getId())){
-                pra.setId(prateleiraAtualizada.getId());
-                pra.setPorcentagem(prateleiraAtualizada.getPorcentagem());
-                pra.setVolumeDisponivel(prateleiraAtualizada.getVolumeDisponivel());
-            }
-        }
-        
-        atualizarPrateleiras();
-    }//GEN-LAST:event_jButton1MouseClicked
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-    private void carregarTabela(List<ProdutoBanco> produtos) {
+        private void carregarTabela(List<ProdutoBanco> produtos) {
             DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
             modelo.setNumRows(0);
             ProdutoBanco p;
             for (ProdutoBanco produto: produtos) {
                 p = (ProdutoBanco) produto;
                 modelo.addRow(new Object[]{
-                    p.getDescricao(),p.getDescricaoCategoria(),p.getQuantidadeEstocado(),p.getLucro()
+                    p.getDescricao(),p.getDescricaoCategoria(),p.getQuantidadeEstocado(),p.getQuantidadeNaoEstocado(),p.getLucro()
                 });
             }
     }
@@ -599,6 +623,7 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -611,5 +636,6 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel nomeLabel;
     private javax.swing.JLabel totalEstocadoLabel;
+    private javax.swing.JLabel totalNaoEstocado;
     // End of variables declaration//GEN-END:variables
 }

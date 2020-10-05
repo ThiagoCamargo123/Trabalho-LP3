@@ -6,7 +6,7 @@
 package ecommerce.cliente;
 
 import bancoDados.BD;
-import ecommerce.usuario.session;
+import ecommerce.usuario.Session;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,7 +25,7 @@ public class PanelPerfil extends javax.swing.JPanel {
     ClienteDAO dao = new ClienteDAO();
     public PanelPerfil() {
         initComponents();
-        String cpf = session.getInstance().getCPF();
+        String cpf = Session.getInstance().getCPF();
         List<MCliente> listaClientes = dao.lerClientes();
         List<MCliente> resultado = listaClientes
                                                 .stream()

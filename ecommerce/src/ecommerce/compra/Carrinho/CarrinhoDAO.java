@@ -8,7 +8,7 @@ package ecommerce.compra.Carrinho;
 import bancoDados.NovaConecta;
 import ecommerce.compra.Vender.MVender;
 import ecommerce.compra.Vender.VenderDAO;
-import ecommerce.usuario.session;
+import ecommerce.usuario.Session;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +33,7 @@ public class CarrinhoDAO implements ICarrinho{
         List<MCarrinho> listaCarrinho = new ArrayList<>();
         MCarrinho mc = null;
         try {
-            stm = con.prepareStatement("select * from carrinho where cpf_cliente = '"+session.getInstance().getCPF()+"' AND aberto = 's'");
+            stm = con.prepareStatement("select * from carrinho where cpf_cliente = '"+Session.getInstance().getCPF()+"' AND aberto = 's'");
             rs = stm.executeQuery();
             while (rs.next()) {
                 mc = new MCarrinho();

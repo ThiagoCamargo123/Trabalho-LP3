@@ -38,7 +38,7 @@ public class OrganizarPrateleira {
             if(prateleiras.get(indicePrateleira).getVolumeDisponivel() > produto.getVolumeProduto()){
                 Integer idProduto = produto.getIdProduto();
                 String id = prateleiras.get(indicePrateleira).getId();
-                String sql = "INSERT INTO produto_prateleira (id_produto,id_prateleira) values ("+idProduto+",'"+id+"')";
+                String sql = "INSERT INTO produto_prateleira (id_produto,id_prateleira,estocado) values ("+idProduto+",'"+id+"','NAO')";
                 statment.executeUpdate(sql);
                 
                 double volumeAtualPrateleira = prateleiras.get(indicePrateleira).getVolumeDisponivel();
@@ -48,13 +48,14 @@ public class OrganizarPrateleira {
                 
                 statment.executeUpdate("UPDATE prateleira SET volume= '"+volumeResultante+"' where id ='"+prateleiras.get(indicePrateleira).getId()+"'");
                 
-//                bd.executa("UPDATE produto SET estocado = "++"");
-                //TODO atualizar o numero estocado
+                //Dando erro
+                statment.executeUpdate("UPDATE produto SET naoestocado = "+produto.getQuantidadeNaoEstocado()+ 1 +" where id ="+produto.getIdProduto()+"");
+                
                 
                 retornoPrateleira.setId(prateleiras.get(indicePrateleira).getId());
                 retornoPrateleira.setVolumeDisponivel(volumeResultante);
                 
-                double porcentagem = (prateleiras.get(indicePrateleira).getVolumeDisponivel() / 12000000) * 100;
+                double porcentagem = (prateleiras.get(indicePrateleira).getVolumeDisponivel() / 1200000) * 100;
                 String porcentagemString = String.valueOf(porcentagem);
                 String res = porcentagemString+" %";
                 if(porcentagemString.length()>5){
@@ -184,7 +185,7 @@ public class OrganizarPrateleira {
     }
 
     public List<ProdutoBanco> consultaTodosProdutos() throws SQLException{
-        String produtoNaoEstocado = "select p.id,p.descricao_produto,p.volume,p.tipo,tipoproduto.tipo_descricao as descricaoTipo,p.preco,preco_final,p.estocado\n" +
+        String produtoNaoEstocado = "select p.id,p.descricao_produto,p.volume,p.tipo,tipoproduto.tipo_descricao as descricaoTipo,p.preco,preco_final,p.estocado,p.naoestocado\n" +
                                     "from produto p\n" +
                                     "inner join tipoproduto on tipoproduto.tipo_id = p.tipo";
 
@@ -205,6 +206,7 @@ public class OrganizarPrateleira {
             produtoBanco.setDescricaoCategoria(resultSet.getString("descricaoTipo"));
             produtoBanco.setPreco(Double.valueOf(resultSet.getString("preco")));
             produtoBanco.setPrecoFinal(Double.valueOf(resultSet.getString("preco_final")));
+            produtoBanco.setQuantidadeNaoEstocado(resultSet.getInt("naoestocado"));
             if(resultSet.getString("estocado")!= null){
                 produtoBanco.setQuantidadeEstocado(Integer.valueOf(resultSet.getString("estocado")));
             }
@@ -232,33 +234,5 @@ public class OrganizarPrateleira {
 
         return prateleiras;
     }
-
-//    public List<CategoriaLucro> calculoLucroPorCategoria() throws SQLException{ //Essa formula ta errada
-//        String categoriaLucroSql = "select p.tipo as Categoria,sum(p.preco_final-p.preco) as Lucro\n" +
-//                "from	produto p\n" +
-//                "inner join\n" +
-//                "		compra c\n" +
-//                "on(p.id=c.id_produto)\n" +
-//                "GROUP BY p.tipo\n" +
-//                "ORDER BY Lucro desc";
-//
-//        resultSet = statment.executeQuery(categoriaLucroSql);
-//
-//        ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
-//        int numeroColunas = resultSetMetaData.getColumnCount();
-//
-//        List<CategoriaLucro> categoriaLucroList = new ArrayList();
-//
-//        while(resultSet.next()) {
-//            CategoriaLucro categoriaLucro = new CategoriaLucro();
-//
-//            categoriaLucro.setIdCategoria(resultSet.getString(1));
-//            categoriaLucro.setLucro(Double.valueOf(resultSet.getString(2)));
-//
-//            categoriaLucroList.add(categoriaLucro);
-//        }
-//
-//        return categoriaLucroList;
-//    }
 }
     

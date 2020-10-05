@@ -2,7 +2,7 @@ package ecommerce.compra.Vender;
 
 
 import bancoDados.NovaConecta;
-import ecommerce.usuario.session;
+import ecommerce.usuario.Session;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -43,7 +43,7 @@ public class VenderDAO implements IVender{
         Connection con = NovaConecta.getConnection();
         PreparedStatement stm = null;
         try {
-            stm = con.prepareStatement("UPDATE carrinho SET aberto='n' WHERE id_produto = ? AND aberto = 's' AND cpf_cliente = '"+session.getInstance().getCPF()+"'");
+            stm = con.prepareStatement("UPDATE carrinho SET aberto='n' WHERE id_produto = ? AND aberto = 's' AND cpf_cliente = '"+Session.getInstance().getCPF()+"'");
             stm.setInt(1, mv.getId_produto());
             stm.executeUpdate();
         } catch (SQLException ex) {

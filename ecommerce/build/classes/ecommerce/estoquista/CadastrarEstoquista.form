@@ -157,7 +157,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Digite o CPF do gerente para confirmar"/>
+        <Property name="text" type="java.lang.String" value="CPF gerente:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="cpf">

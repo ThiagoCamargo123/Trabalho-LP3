@@ -19,6 +19,15 @@ public class ProdutoBanco {
     Double precoFinal;
     Double lucro;
     Integer quantidadeEstocado;
+    Integer quantidadeNaoEstocado;
+
+    public Integer getQuantidadeNaoEstocado() {
+        return quantidadeNaoEstocado;
+    }
+
+    public void setQuantidadeNaoEstocado(Integer quantidadeNaoEstocado) {
+        this.quantidadeNaoEstocado = quantidadeNaoEstocado;
+    }
 
     public String getDescricaoCategoria() {
         return descricaoCategoria;

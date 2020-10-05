@@ -10,7 +10,7 @@ import ecommerce.aplicacao.Main;
 import ecommerce.compra.PanelCarrinho;
 import ecommerce.compra.PanelComprarProduto;
 import ecommerce.compra.PanelHistorico;
-import ecommerce.usuario.session;
+import ecommerce.usuario.Session;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JFrame;
@@ -29,7 +29,7 @@ public class AreaCliente extends javax.swing.JFrame {
     public AreaCliente() {
         initComponents();
         bd.conecta();
-        nome.setText(session.getInstance().getnome().toUpperCase());
+        nome.setText(Session.getInstance().getnome().toUpperCase());
     }
 
     public void setPainel(JPanel painel){ 
@@ -408,7 +408,7 @@ public class AreaCliente extends javax.swing.JFrame {
     }    
 
     private void logoff() {
-        session.logoff();
+        Session.logoff();
         Main Inicio = new Main();
         Inicio.setVisible(true);
         dispose();
