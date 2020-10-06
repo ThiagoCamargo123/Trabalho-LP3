@@ -203,6 +203,7 @@ public class GerenciarGerentes extends javax.swing.JFrame {
         gerente.setSenha(jTextField3.getText());
         
         gerenteDAO.atualizarGerente(gerente);
+        carregarTabela();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**

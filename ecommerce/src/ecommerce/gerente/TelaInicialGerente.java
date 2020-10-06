@@ -5,7 +5,7 @@
  */
 package ecommerce.gerente;
 
-import ecommerce.produto.GerenciarProdutos;
+import ecommerce.produto.GerenciarProduto;
 import ecommerce.estoquista.CadastrarEstoquista;
 import empresa.AplicacaoEmpresa;
 
@@ -64,6 +64,11 @@ public class TelaInicialGerente extends javax.swing.JFrame {
                 jButton1MouseClicked(evt);
             }
         });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jButton2.setText("Funcionarios");
@@ -100,7 +105,7 @@ public class TelaInicialGerente extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addGap(51, 51, 51))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(26, 26, 26)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
@@ -151,7 +156,7 @@ public class TelaInicialGerente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        GerenciarProdutos produto = new GerenciarProdutos();
+        GerenciarProduto produto = new GerenciarProduto();
         produto.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1MouseClicked
@@ -165,6 +170,10 @@ public class TelaInicialGerente extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

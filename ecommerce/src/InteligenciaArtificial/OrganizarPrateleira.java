@@ -35,6 +35,10 @@ public class OrganizarPrateleira {
         int indicePrateleira = 0;
         
         while(verificador == false){
+            if(indicePrateleira == prateleiras.size()){
+                retornoPrateleira.setPorcentagem("excedido");
+                return retornoPrateleira;
+            }
             if(prateleiras.get(indicePrateleira).getVolumeDisponivel() > produto.getVolumeProduto()){
                 Integer idProduto = produto.getIdProduto();
                 String id = prateleiras.get(indicePrateleira).getId();
@@ -53,19 +57,20 @@ public class OrganizarPrateleira {
                 
                 
                 retornoPrateleira.setId(prateleiras.get(indicePrateleira).getId());
-                retornoPrateleira.setVolumeDisponivel(volumeResultante);
-                
-                double porcentagem = (prateleiras.get(indicePrateleira).getVolumeDisponivel() / 1200000) * 100;
-                String porcentagemString = String.valueOf(porcentagem);
-                String res = porcentagemString+" %";
-                if(porcentagemString.length()>5){
-                    porcentagemString = porcentagemString.substring(0,5);
-                }
-                retornoPrateleira.setPorcentagem(res);
+//                retornoPrateleira.setVolumeDisponivel(volumeResultante);
+//                
+//                double porcentagem = (prateleiras.get(indicePrateleira).getVolumeDisponivel() / 1200000) * 100;
+//                String porcentagemString = String.valueOf(porcentagem);
+//                String res = porcentagemString+" %";
+//                if(porcentagemString.length()>5){
+//                    porcentagemString = porcentagemString.substring(0,5);
+//                }
+                retornoPrateleira.setPorcentagem("");
                 
                 verificador = true;
             }else{
                 indicePrateleira++;
+                
             }
         }
         

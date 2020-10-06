@@ -5,7 +5,7 @@
  */
 package ecommerce.gerente;
 
-import ecommerce.produto.GerenciarProdutos;
+import ecommerce.produto.GerenciarProduto;
 import ecommerce.estoquista.GerenciarEstoquistas;
 
 /**
