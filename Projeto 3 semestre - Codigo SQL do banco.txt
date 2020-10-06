@@ -69,9 +69,10 @@ CREATE TABLE Compra(
 	FOREIGN KEY(cpf_cliente) REFERENCES Cliente(cpf)
 );
 
-CREATE TABLE Prateleira(
-	id SERIAl PRIMARY KEY,
-	volume int
+create table prateleira(
+	id SERIAL,
+	volume float,
+	volume_max float
 );
 
 CREATE TABLE Produto_Prateleira(
