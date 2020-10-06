@@ -9,7 +9,7 @@ import ecommerce.estoquista.CadastrarEstoquista;
 import ecommerce.estoquista.dao.EstoquistaDAO;
 import ecommerce.estoquista.dao.MEstoquista;
 import ecommerce.gerente.TelaInicialGerente;
-import ecommerce.produto.MProduto;
+import ecommerce.produto.dao.MProduto;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 

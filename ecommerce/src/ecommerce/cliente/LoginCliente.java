@@ -5,6 +5,7 @@
  */
 package ecommerce.cliente;
 
+import ecommerce.cliente.dao.ClienteDAO;
 import ecommerce.usuario.Session;
 
 /**

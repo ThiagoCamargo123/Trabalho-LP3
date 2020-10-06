@@ -1,5 +1,5 @@
 
-package ecommerce.produto;
+package ecommerce.produto.dao;
 
 public class MTipoProduto {
     private String descricao;

@@ -3,8 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ecommerce.produto;
+package ecommerce.produto.dao;
 
+import ecommerce.produto.dao.MProduto;
+import ecommerce.produto.dao.MTipoProduto;
+import ecommerce.produto.dao.IProduto;
 import bancoDados.NovaConecta;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

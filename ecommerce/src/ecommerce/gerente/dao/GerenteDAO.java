@@ -25,9 +25,14 @@ public class GerenteDAO implements IGerente{
     public boolean incluirGerente(MGerente gerente) {
         Connection con = NovaConecta.getConnection();
         PreparedStatement stm = null;
-        
+        ResultSet rs = null;
+        int id = 0;
         try {
-            stm = con.prepareStatement("INSERT INTO gerente (id,nome,cpf,senha) VALUES('"+gerente.getLogin()+"','"+gerente.getNome()+"','"+gerente.getCpf()+"','"+gerente.getSenha()+"')");
+            stm = con.prepareStatement("select max(id) as id from gerente");
+            rs = stm.executeQuery();
+            while(rs.next()) id = rs.getInt("id");
+            id = id + 1;
+            stm = con.prepareStatement("INSERT INTO gerente (id,nome,cpf,senha) VALUES('"+id+"','"+gerente.getNome()+"','"+gerente.getCpf()+"','"+gerente.getSenha()+"')");
             stm.executeUpdate();
             
             JOptionPane.showMessageDialog(null, gerente.getNome()+ " Salvo com Sucesso" );
@@ -40,7 +45,21 @@ public class GerenteDAO implements IGerente{
 
     @Override
     public boolean atualizarGerente(MGerente gerente) {
-        
+        Connection con = NovaConecta.getConnection();
+        PreparedStatement stm = null;
+        try {
+            stm = con.prepareStatement("UPDATE gerente SET nome=?,cpf=?,senha=? WHERE cpf = ?");
+            stm.setString(1, gerente.getNome());
+            stm.setString(2, gerente.getCpf());
+            stm.setString(3, gerente.getSenha());
+            stm.setString(4, gerente.getCpf());
+            stm.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!!");
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao atualizar!!" + ex);
+        } finally {
+            NovaConecta.closeConnection(con, stm);
+        }
         
         return true;
     }

@@ -5,6 +5,8 @@
  */
 package ecommerce.cliente;
 
+import ecommerce.cliente.dao.MCliente;
+import ecommerce.cliente.dao.ClienteDAO;
 import bancoDados.BD;
 
 /**

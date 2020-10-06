@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ecommerce.produto;
+package ecommerce.cliente.dao;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import java.util.List;
  *
  * @author Ivan Farina
  */
-public interface IProduto {
-    public List lerProduto();
-    void CadProduto(MProduto mp);
-    void atualizaProduto(MProduto mp);
-    void excluirProduto(MProduto mp);
+public interface ICliente {
+    public List lerClientes();
+    void cadastrarCliente(MCliente mc);
+    void alterarCliente(MCliente mc);
+    void exluirCliente(MCliente mc);
 }

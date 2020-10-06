@@ -5,6 +5,8 @@
  */
 package ecommerce.produto;
 
+import ecommerce.produto.dao.ProdutoDAO;
+import ecommerce.produto.dao.MProduto;
 import bancoDados.BD;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -7,7 +7,7 @@ package ecommerce.gerente;
 
 import InteligenciaArtificial.OrganizarPrateleira;
 import ecommerce.cliente.AreaCliente;
-import ecommerce.cliente.ClienteDAO;
+import ecommerce.cliente.dao.ClienteDAO;
 import ecommerce.gerente.dao.GerenteDAO;
 import ecommerce.usuario.Session;
 import java.sql.SQLException;

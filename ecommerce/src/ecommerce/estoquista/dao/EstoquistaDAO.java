@@ -6,7 +6,7 @@
 package ecommerce.estoquista.dao;
 
 import bancoDados.NovaConecta;
-import ecommerce.produto.MProduto;
+import ecommerce.produto.dao.MProduto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

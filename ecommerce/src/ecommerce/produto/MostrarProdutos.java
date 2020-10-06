@@ -5,6 +5,8 @@
  */
 package ecommerce.produto;
 
+import ecommerce.produto.dao.ProdutoDAO;
+import ecommerce.produto.dao.MProduto;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 

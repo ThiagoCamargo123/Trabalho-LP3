@@ -8,7 +8,7 @@ package ecommerce.compra;
 import ecommerce.compra.Carrinho.CarrinhoDAO;
 import ecommerce.compra.Carrinho.MCarrinho;
 import ecommerce.cliente.AreaCliente;
-import ecommerce.produto.ProdutoDAO;
+import ecommerce.produto.dao.ProdutoDAO;
 import ecommerce.usuario.Session;
 import java.awt.Font;
 import java.util.List;
