@@ -22,7 +22,8 @@ public class ProdutosPorPrateleira extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         produtos = produtoDAO.produtosPorPrateleira();
-        carregarTabelaPrimeiraPrateleira();
+        if(produtos.size()>0)
+            carregarTabelaPrimeiraPrateleira();
         inserirTiposNoSelect();
         
     }

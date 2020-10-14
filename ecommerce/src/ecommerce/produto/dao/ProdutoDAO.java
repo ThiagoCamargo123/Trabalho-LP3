@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ecommerce.produto.dao;
 
 import ecommerce.produto.dao.MProduto;
@@ -188,7 +183,8 @@ public class ProdutoDAO implements IProduto{
         try {
             stm = con.prepareStatement("select produto.descricao_produto,tipoproduto.tipo_descricao,produto_prateleira.id_prateleira from produto_prateleira\n" +
                                         "inner join produto on produto.id = produto_prateleira.id_produto\n" +
-                                        "inner join tipoproduto on tipoproduto.tipo_id = produto.tipo\n" +
+                                        "inner join tipoproduto on tipoproduto.tipo_id = produto.tipo\n"
+                                        + "where produto_prateleira.estocado='SIM'" +
                                         "order by id_prateleira");
             rs = stm.executeQuery();
             while (rs.next()) {
@@ -208,7 +204,32 @@ public class ProdutoDAO implements IProduto{
 
     @Override
     public List produtosNaoEstocado() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection con = NovaConecta.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<MProduto> listaProdutos = new ArrayList<>();
+        MProduto mp = null;
+        try {
+            stm = con.prepareStatement("select produto.descricao_produto,tipoproduto.tipo_descricao,produto_prateleira.id_prateleira,produto_prateleira.estocado from produto_prateleira\n" +
+                                            "inner join produto on produto.id = produto_prateleira.id_produto\n" +
+                                            "inner join tipoproduto on tipoproduto.tipo_id = produto.tipo\n" +
+                                            "where produto_prateleira.estocado='NAO'"
+                                            + " order by produto_prateleira.id_prateleira");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                mp = new MProduto();
+                mp.setDescricao(rs.getString("descricao_produto"));
+                mp.setDescricaoTipo(rs.getString("tipo_descricao"));
+                mp.setIdPrateleira(rs.getString("id_prateleira"));
+                mp.setJaEstocado(rs.getString("estocado"));
+                listaProdutos.add(mp);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao ler do SGBD!!" + ex);
+        } finally {
+            NovaConecta.closeConnection(con, stm, rs);
+            return listaProdutos;
+        }
     }
 
     @Override
@@ -220,10 +241,9 @@ public class ProdutoDAO implements IProduto{
         MProduto mp = null;
         try {
             stm = con.prepareStatement("select produto.descricao_produto,tipoproduto.tipo_descricao,produto_prateleira.id_prateleira from produto_prateleira\n" +
-                                        "inner join produto on produto.id = produto_prateleira.id_produto\n" +
-                                        "inner join tipoproduto on tipoproduto.tipo_id = produto.tipo\n" +
-                                        "where id_prateleira = '"+tipo+"'\n" +
-                                        "order by id_prateleira");
+                                            "inner join produto on produto.id = produto_prateleira.id_produto\n" +
+                                            "inner join tipoproduto on tipoproduto.tipo_id = produto.tipo\n" +
+                                            "where tipoproduto.tipo_descricao = '"+tipo+"' and produto_prateleira.estocado='NAO'");
             rs = stm.executeQuery();
             while (rs.next()) {
                 mp = new MProduto();

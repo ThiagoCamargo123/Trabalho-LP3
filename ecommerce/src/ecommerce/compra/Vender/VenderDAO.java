@@ -2,10 +2,15 @@ package ecommerce.compra.Vender;
 
 
 import bancoDados.NovaConecta;
+import ecommerce.prateleira.dao.PrateleiraDAO;
+import ecommerce.produto.dao.MProduto;
 import ecommerce.usuario.Session;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /*
@@ -32,6 +37,25 @@ public class VenderDAO implements IVender{
             stm.setDouble(5, mv.getPreco_total());
             stm.setInt(6, mv.getQuant());            
             stm.executeUpdate();
+            
+            stm = con.prepareStatement("select produto_prateleira.id_produto,produto_prateleira.id_prateleira,volume from produto_prateleira \n" +
+                                        "inner join produto on produto.id = produto_prateleira.id_produto\n" +
+                                        "where id_produto = "+mv.getId_produto()+" and produto_prateleira.estocado = 'SIM' \n" +
+                                        "order by id_prateleira");
+            ResultSet rs = stm.executeQuery();
+            List<MProduto> produtos = new ArrayList();
+            while(rs.next()){
+                MProduto produto = new MProduto();
+                produto.setId(rs.getInt("id_produto"));
+                produto.setIdPrateleira("id_prateleira");
+                produto.setVolume(rs.getDouble("volume"));
+                produtos.add(produto);
+                
+                if(produtos.size() < 1){
+                    PrateleiraDAO prateleira = new PrateleiraDAO();
+                    prateleira.mudarStatusParaVendidoo(produto);
+                }
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao comprar!!" + ex);
         } finally {

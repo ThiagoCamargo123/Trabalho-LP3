@@ -216,8 +216,8 @@ public class GerenciarEstoquistas extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jCheckBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBox1MouseClicked
-        boolean SerieCostas = jCheckBox1.isSelected();
-        if (SerieCostas) {
+        boolean senhaSelecionada = jCheckBox1.isSelected();
+        if (senhaSelecionada) {
             senha.setEditable(true);
         } else {
             senha.setEditable(false);
