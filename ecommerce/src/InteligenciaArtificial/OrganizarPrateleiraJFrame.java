@@ -3,6 +3,7 @@ package InteligenciaArtificial;
 
 import InteligenciaArtificial.model.Prateleira;
 import InteligenciaArtificial.model.ProdutoBanco;
+import ecommerce.gerente.TelaInicialGerente;
 import ecommerce.prateleira.ListarPrateleira;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -72,6 +73,7 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -176,6 +178,13 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
 
         jLabel11.setText("___________________________________________________________");
 
+        jButton4.setText("Voltar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -233,12 +242,14 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
                                             .addComponent(jLabel4)
                                             .addComponent(totalEstocadoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(totalNaoEstocado, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addContainerGap())
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11)
-                        .addContainerGap(20, Short.MAX_VALUE))))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton4)
+                            .addComponent(jLabel11))
+                        .addGap(0, 10, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,7 +298,9 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
                         .addComponent(jLabel11))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
                 .addContainerGap(256, Short.MAX_VALUE))
         );
 
@@ -309,6 +322,11 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        ListarPrateleira listarPrateleira = new ListarPrateleira();
+        listarPrateleira.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(dataInicio == null || dataFim == null) {
             try {
@@ -326,12 +344,16 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Erro: " + ex);
         }
-
-        carregarTabela(produtos);
+        
+        if(produtos == null){
+            JOptionPane.showMessageDialog(null, "Não foi realizada nenhuma venda nas datas informadas");
+        } else {
+            carregarTabela(produtos);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -343,13 +365,13 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro: " + ex);
         }
 
-//        for(Prateleira pra: prateleiraList){
-//            if(pra.getId().equals(prateleiraAtualizada.getId())){
-//                pra.setId(prateleiraAtualizada.getId());
-//                pra.setPorcentagem(prateleiraAtualizada.getPorcentagem());
-//                pra.setVolumeDisponivel(prateleiraAtualizada.getVolumeDisponivel());
-//            }
-//        }
+        //        for(Prateleira pra: prateleiraList){
+            //            if(pra.getId().equals(prateleiraAtualizada.getId())){
+                //                pra.setId(prateleiraAtualizada.getId());
+                //                pra.setPorcentagem(prateleiraAtualizada.getPorcentagem());
+                //                pra.setVolumeDisponivel(prateleiraAtualizada.getVolumeDisponivel());
+                //            }
+            //        }
 
         if(prateleiraAtualizada.getPorcentagem().equals("excedido")) JOptionPane.showMessageDialog(null,"Você não possui espaço no estoque para armazenar esse produto!");
         else JOptionPane.showMessageDialog(null,"Produto "+produtos.get(indice).getDescricao() +" inserido na Prateleira "+prateleiraAtualizada.getId());
@@ -364,10 +386,11 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        ListarPrateleira listarPrateleira = new ListarPrateleira();
-        listarPrateleira.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        TelaInicialGerente telaInicioGerente = new TelaInicialGerente();
+        telaInicioGerente.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
    
         private void carregarTabela(List<ProdutoBanco> produtos) {
@@ -436,6 +459,7 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;

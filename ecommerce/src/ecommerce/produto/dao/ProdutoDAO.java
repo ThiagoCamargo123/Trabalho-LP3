@@ -177,5 +177,67 @@ public class ProdutoDAO implements IProduto{
     public void excluirProduto(MProduto mp) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List produtosPorPrateleira() {
+        Connection con = NovaConecta.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<MProduto> listaProdutos = new ArrayList<>();
+        MProduto mp = null;
+        try {
+            stm = con.prepareStatement("select produto.descricao_produto,tipoproduto.tipo_descricao,produto_prateleira.id_prateleira from produto_prateleira\n" +
+                                        "inner join produto on produto.id = produto_prateleira.id_produto\n" +
+                                        "inner join tipoproduto on tipoproduto.tipo_id = produto.tipo\n" +
+                                        "order by id_prateleira");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                mp = new MProduto();
+                mp.setDescricao(rs.getString("descricao_produto"));
+                mp.setDescricaoTipo(rs.getString("tipo_descricao"));
+                mp.setIdPrateleira(rs.getString("id_prateleira"));
+                listaProdutos.add(mp);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao ler do SGBD!!" + ex);
+        } finally {
+            NovaConecta.closeConnection(con, stm, rs);
+            return listaProdutos;
+        }
+    }
+
+    @Override
+    public List produtosNaoEstocado() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List buscarProdutoPorTipo(String tipo) {
+        Connection con = NovaConecta.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<MProduto> listaProdutos = new ArrayList<>();
+        MProduto mp = null;
+        try {
+            stm = con.prepareStatement("select produto.descricao_produto,tipoproduto.tipo_descricao,produto_prateleira.id_prateleira from produto_prateleira\n" +
+                                        "inner join produto on produto.id = produto_prateleira.id_produto\n" +
+                                        "inner join tipoproduto on tipoproduto.tipo_id = produto.tipo\n" +
+                                        "where id_prateleira = '"+tipo+"'\n" +
+                                        "order by id_prateleira");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                mp = new MProduto();
+                mp.setDescricao(rs.getString("descricao_produto"));
+                mp.setDescricaoTipo(rs.getString("tipo_descricao"));
+                mp.setIdPrateleira(rs.getString("id_prateleira"));
+                listaProdutos.add(mp);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao ler do SGBD!!" + ex);
+        } finally {
+            NovaConecta.closeConnection(con, stm, rs);
+            return listaProdutos;
+        }
+    }
     
 }

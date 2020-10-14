@@ -86,6 +86,8 @@ public class OrganizarPrateleira {
         
         List<MaisVendido> categoriaMaisVendida = calculaMaisVendido(dataInicio,dataFim);
         
+        if(categoriaMaisVendida == null) return null;
+        
         List<ProdutoBanco> resultadoPrioridade = new ArrayList();
         
         List<ProdutoBanco> produtoPorMaiorLucro = calculaMaiorLucroPorProduto();
@@ -158,17 +160,23 @@ public class OrganizarPrateleira {
         resultSet = statment.executeQuery(categoriaVendida);
         
         ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
+        
         int numeroColunas = resultSetMetaData.getColumnCount();
         
         List<MaisVendido> categoriaMaisVendida = new ArrayList();
         
+        
+        if(resultSet.next()){
             while(resultSet.next()) {
                 MaisVendido produtoAtual = new MaisVendido();
                 produtoAtual.setIdCategoria(Integer.valueOf(resultSet.getString("tipoId")));
                 produtoAtual.setVezesVendido(resultSet.getString("conta"));
                 categoriaMaisVendida.add(produtoAtual);
             }
-            
+        } else {
+            return null;
+        }
+        
         return categoriaMaisVendida;
     }
     

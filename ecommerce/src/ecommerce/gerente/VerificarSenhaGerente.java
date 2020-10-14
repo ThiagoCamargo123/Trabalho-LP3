@@ -186,7 +186,7 @@ public class VerificarSenhaGerente extends javax.swing.JFrame {
             ac.setVisible(true);
             dispose();
         } else {
-            LabelLoginErrado.setText("");
+            JOptionPane.showMessageDialog(null,"Login ou senha incorretos");
         }
     }
     

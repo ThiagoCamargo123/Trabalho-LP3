@@ -16,6 +16,17 @@ public class MEstoquista {
     private Integer numeroContrato;
     private String cpfGerente;
     private Integer senhaAcesso;
+    private String cpfAntigo;
+
+    public String getCpfAntigo() {
+        return cpfAntigo;
+    }
+
+    public void setCpfAntigo(String cpfAntigo) {
+        this.cpfAntigo = cpfAntigo;
+    }
+    
+    
 
     public Integer getId() {
         return id;

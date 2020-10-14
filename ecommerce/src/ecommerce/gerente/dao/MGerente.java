@@ -10,9 +10,19 @@ package ecommerce.gerente.dao;
  * @author Thiago
  */
 public class MGerente {
-    private String nome, cpf, senha;
+    private String nome, cpf, senha,cpfAntigo;
     
     private Integer login;
+
+    public String getCpfAntigo() {
+        return cpfAntigo;
+    }
+
+    public void setCpfAntigo(String cpfAntigo) {
+        this.cpfAntigo = cpfAntigo;
+    }
+    
+    
 
     public Integer getLogin() {
         return login;

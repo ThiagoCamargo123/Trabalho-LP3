@@ -197,10 +197,11 @@ public class GerenciarGerentes extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         MGerente gerente = new MGerente();
-        
+        String cpfAntigo = jTable1.getValueAt(jTable1.getSelectedRow(), 1).toString();
         gerente.setNome(jTextField1.getText());
         gerente.setCpf(jTextField2.getText());
         gerente.setSenha(jTextField3.getText());
+        gerente.setCpfAntigo(cpfAntigo);
         
         gerenteDAO.atualizarGerente(gerente);
         carregarTabela();

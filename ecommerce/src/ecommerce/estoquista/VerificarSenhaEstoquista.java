@@ -22,8 +22,9 @@ public class VerificarSenhaEstoquista extends javax.swing.JFrame {
     BD bd = new BD();
     
     public VerificarSenhaEstoquista() {
-        setLocationRelativeTo(null);
+        
         initComponents();
+        setLocationRelativeTo(null);
         bd.conecta();
     }
 
@@ -39,10 +40,11 @@ public class VerificarSenhaEstoquista extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         Entrar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Cancelar = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JPasswordField();
+        LabelLoginErrado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,8 +67,6 @@ public class VerificarSenhaEstoquista extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Login Estoquista");
 
-        jTextField2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
-
         jLabel2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel2.setText("IDENTIFICAÇÃO");
 
@@ -81,6 +81,13 @@ public class VerificarSenhaEstoquista extends javax.swing.JFrame {
             }
         });
 
+        jTextField2.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
+        jTextField2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField2MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,20 +97,23 @@ public class VerificarSenhaEstoquista extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(100, 100, 100)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Cancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Entrar))
-                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Entrar)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(LabelLoginErrado)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                                .addComponent(jTextField2)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,13 +126,15 @@ public class VerificarSenhaEstoquista extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(48, 48, 48)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField2))
+                .addGap(18, 18, 18)
+                .addComponent(LabelLoginErrado)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Entrar)
                     .addComponent(Cancelar))
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         pack();
@@ -137,24 +149,29 @@ public class VerificarSenhaEstoquista extends javax.swing.JFrame {
         try {
             String sql = "select * from estoquista where id = " + jTextField1.getText() + "";
             ResultSet rs = bd.consulta(sql);
+            String senha = new String (jTextField2.getPassword());
             while (rs.next()) {
-                if (rs.getString("senha_acesso").equals(jTextField2.getText())) {
+                if (rs.getString("senha_acesso").equals(senha)) {
                     GerenciarPrateleira prateleira = new GerenciarPrateleira();
                     prateleira.setVisible(true);
                     dispose();
 
                 } else {
-                    JOptionPane.showMessageDialog((Component) rs, "INVALIDO");
+                    JOptionPane.showMessageDialog(null,"Login ou senha incorretos");
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(VerificarSenhaEstoquista.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"INVALIDO");
         }
     }//GEN-LAST:event_EntrarMouseClicked
 
     private void CancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelarMouseClicked
         dispose();
     }//GEN-LAST:event_CancelarMouseClicked
+
+    private void jTextField2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField2MouseClicked
+        LabelLoginErrado.setText("");
+    }//GEN-LAST:event_jTextField2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -194,10 +211,12 @@ public class VerificarSenhaEstoquista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Cancelar;
     private javax.swing.JButton Entrar;
+    private javax.swing.JLabel LabelLoginErrado;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JPasswordField jTextField2;
+    private javax.swing.JPasswordField txtsenha;
     // End of variables declaration//GEN-END:variables
 }

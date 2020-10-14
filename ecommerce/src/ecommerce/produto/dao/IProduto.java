@@ -16,4 +16,7 @@ public interface IProduto {
     void CadProduto(MProduto mp);
     void atualizaProduto(MProduto mp);
     void excluirProduto(MProduto mp);
+    public List produtosPorPrateleira();
+    public List produtosNaoEstocado();
+    public List buscarProdutoPorTipo(String tipo);
 }

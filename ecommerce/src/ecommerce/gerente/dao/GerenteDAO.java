@@ -52,7 +52,7 @@ public class GerenteDAO implements IGerente{
             stm.setString(1, gerente.getNome());
             stm.setString(2, gerente.getCpf());
             stm.setString(3, gerente.getSenha());
-            stm.setString(4, gerente.getCpf());
+            stm.setString(4, gerente.getCpfAntigo());
             stm.executeUpdate();
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!!");
         } catch (SQLException ex) {

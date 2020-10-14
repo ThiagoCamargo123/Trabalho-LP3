@@ -30,12 +30,15 @@ public class ListarPrateleira extends javax.swing.JFrame {
         modelo.setNumRows(0);
         listaPrateleira = prateleiraDAO.listarPrateleira();
         for (MPrateleira prateleira: listaPrateleira) {
-            double volumePorcentagem = (prateleira.getVolume() / prateleira.getVolumeMaximo()) * 100;
+            double volume = Double.parseDouble(prateleira.getVolumeString());
+            double volumeMax = Double.parseDouble(prateleira.getVolumeMaximoString());
+            
+            double volumePorcentagem = (volume / volumeMax) * 100;
             String volumeString = String.valueOf(volumePorcentagem);
             if(volumeString.length() > 5) volumeString = volumeString.substring(0,6) + " %";
             
             modelo.addRow(new Object[]{
-                prateleira.getId(),prateleira.getVolume(),prateleira.getVolumeMaximo(),volumeString
+                prateleira.getId(),prateleira.getVolumeString(),prateleira.getVolumeMaximoString(),volumeString
             });
         }
     }

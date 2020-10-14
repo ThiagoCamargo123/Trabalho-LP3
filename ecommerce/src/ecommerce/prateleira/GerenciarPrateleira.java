@@ -5,8 +5,10 @@
  */
 package ecommerce.prateleira;
 
+import ecommerce.produto.BuscarProduto;
+import ecommerce.produto.ProdutosNaoEstocado;
+import ecommerce.produto.ProdutosPorPrateleira;
 import empresa.AplicacaoEmpresa;
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -53,12 +55,14 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jButton2 = new javax.swing.JButton();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         Itens = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -145,6 +149,8 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
 
         jButton2.setText("jButton2");
 
+        jMenuItem5.setText("jMenuItem5");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("jButton1");
@@ -163,7 +169,7 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
 
         Itens.setText("PRODUTOS");
 
-        jMenuItem4.setText("Cadastrados");
+        jMenuItem4.setText("Todos");
         jMenuItem4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenuItem4MouseClicked(evt);
@@ -175,6 +181,14 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
             }
         });
         Itens.add(jMenuItem4);
+
+        jMenuItem6.setText("Buscar");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        Itens.add(jMenuItem6);
 
         jMenuBar1.add(Itens);
 
@@ -217,13 +231,19 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4MouseClicked
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        ProdutosCadastrados produto = new ProdutosCadastrados();
+        ProdutosPorPrateleira produto = new ProdutosPorPrateleira();
         produto.setVisible(true);
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        
+        ProdutosNaoEstocado produtos = new ProdutosNaoEstocado();
+        produtos.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        BuscarProduto produtos = new BuscarProduto();
+        produtos.setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -281,6 +301,8 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     // End of variables declaration//GEN-END:variables

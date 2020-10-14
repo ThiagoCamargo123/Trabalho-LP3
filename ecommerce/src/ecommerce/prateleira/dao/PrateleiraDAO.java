@@ -58,13 +58,13 @@ public class PrateleiraDAO implements IPrateleira{
         MPrateleira prateleira;
         
         try {
-            stm = con.prepareStatement("select * from prateleira");
+            stm = con.prepareStatement("select * from prateleira order by id");
             rs = stm.executeQuery();
             while (rs.next()) {
                 prateleira = new MPrateleira();
                 prateleira.setId(rs.getInt("id"));
-                prateleira.setVolume(rs.getDouble("volume"));
-                prateleira.setVolumeMaximo(rs.getDouble("volume_max"));
+                prateleira.setVolumeString(rs.getString("volume"));
+                prateleira.setVolumeMaximoString(rs.getString("volume_max"));
                 listaPrateleiras.add(prateleira);
             }
         } catch (SQLException ex) {

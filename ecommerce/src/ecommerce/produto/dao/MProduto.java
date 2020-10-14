@@ -11,8 +11,26 @@ package ecommerce.produto.dao;
  */
 public class MProduto {
     private int id, estocado,naoestocado;
-    private String descricao,tipo;
+    private String descricao,tipo,descricaoTipo,idPrateleira;
     private double altura,largura,profundidade, preco, preco_final, volume;
+
+    public String getDescricaoTipo() {
+        return descricaoTipo;
+    }
+
+    public void setDescricaoTipo(String descricaoTipo) {
+        this.descricaoTipo = descricaoTipo;
+    }
+
+    public String getIdPrateleira() {
+        return idPrateleira;
+    }
+
+    public void setIdPrateleira(String idPrateleira) {
+        this.idPrateleira = idPrateleira;
+    }
+
+   
 
     public int getId() {
         return id;
