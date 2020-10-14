@@ -63,8 +63,6 @@ public class ProdutosPorPrateleira extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         prateleira = new javax.swing.JComboBox<String>();
@@ -85,11 +83,12 @@ public class ProdutosPorPrateleira extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jButton1.setText("Proximo");
-
-        jButton2.setText("Anterior");
-
         jButton3.setText("Voltar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
         jLabel1.setText("Produtos Estocados");
@@ -103,6 +102,11 @@ public class ProdutosPorPrateleira extends javax.swing.JFrame {
                 prateleiraMouseExited(evt);
             }
         });
+        prateleira.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prateleiraActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Bookman Old Style", 0, 14)); // NOI18N
         jLabel8.setText("Prateleira");
@@ -114,16 +118,12 @@ public class ProdutosPorPrateleira extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addContainerGap())
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createSequentialGroup()
                             .addComponent(jButton3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2)
-                            .addGap(18, 18, 18)
-                            .addComponent(jButton1)
                             .addGap(20, 20, 20)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -147,10 +147,7 @@ public class ProdutosPorPrateleira extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                .addComponent(jButton3)
                 .addGap(19, 19, 19))
         );
 
@@ -162,7 +159,15 @@ public class ProdutosPorPrateleira extends javax.swing.JFrame {
     }//GEN-LAST:event_prateleiraMouseClicked
 
     private void prateleiraMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prateleiraMouseExited
-       String prateleiraString = prateleira.getSelectedItem().toString();
+       
+    }//GEN-LAST:event_prateleiraMouseExited
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void prateleiraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prateleiraActionPerformed
+        String prateleiraString = prateleira.getSelectedItem().toString();
 
         List<MProduto> filtroPorTipo = produtos.stream().filter(p -> p.getIdPrateleira().equals(prateleiraString)).collect(Collectors.toList());
         
@@ -174,7 +179,7 @@ public class ProdutosPorPrateleira extends javax.swing.JFrame {
                 produto.getIdPrateleira(), produto.getDescricaoTipo(), produto.getDescricao()
             });
         }
-    }//GEN-LAST:event_prateleiraMouseExited
+    }//GEN-LAST:event_prateleiraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,8 +217,6 @@ public class ProdutosPorPrateleira extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
