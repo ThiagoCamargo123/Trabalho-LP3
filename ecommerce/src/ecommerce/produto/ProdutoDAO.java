@@ -36,7 +36,7 @@ public class ProdutoDAO implements IProduto{
                 mp.setDescricao(rs.getString("descricao_produto"));
                 mp.setEstocado(rs.getInt("estocado"));
                 mp.setId(rs.getInt("id"));
-                mp.setLargura(rs.getDouble("estocado"));
+                mp.setLargura(rs.getDouble("largura"));
                 mp.setNaoestocado(rs.getInt("naoestocado"));
                 mp.setPreco(rs.getDouble("preco"));
                 mp.setPreco_final(rs.getDouble("preco_final"));
