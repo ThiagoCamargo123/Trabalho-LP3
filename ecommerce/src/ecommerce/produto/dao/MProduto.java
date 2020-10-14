@@ -13,7 +13,25 @@ public class MProduto {
     private int id, estocado,naoestocado;
     private String descricao,tipo,descricaoTipo,idPrateleira,jaEstocado;
     private double altura,largura,profundidade, preco, preco_final, volume;
+    private String data, hora;
 
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
+    }
+    
+    
     public String getJaEstocado() {
         return jaEstocado;
     }

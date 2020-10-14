@@ -95,6 +95,7 @@ public class PrateleiraDAO implements IPrateleira {
         try {
             stm = con.prepareStatement("update produto_prateleira set estocado = 'SIM' where id_prateleira = '"+idPrateleira+"'");
             stm.executeUpdate();
+            
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar!!" + ex);

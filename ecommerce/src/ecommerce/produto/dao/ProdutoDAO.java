@@ -240,16 +240,47 @@ public class ProdutoDAO implements IProduto{
         List<MProduto> listaProdutos = new ArrayList<>();
         MProduto mp = null;
         try {
-            stm = con.prepareStatement("select produto.descricao_produto,tipoproduto.tipo_descricao,produto_prateleira.id_prateleira from produto_prateleira\n" +
+            stm = con.prepareStatement("select produto.descricao_produto,tipoproduto.tipo_descricao,produto_prateleira.id_prateleira,produto_prateleira.estocado from produto_prateleira\n" +
                                             "inner join produto on produto.id = produto_prateleira.id_produto\n" +
                                             "inner join tipoproduto on tipoproduto.tipo_id = produto.tipo\n" +
-                                            "where tipoproduto.tipo_descricao = '"+tipo+"' and produto_prateleira.estocado='NAO'");
+                                            "where tipoproduto.tipo_descricao = '"+tipo+"'");
             rs = stm.executeQuery();
             while (rs.next()) {
                 mp = new MProduto();
                 mp.setDescricao(rs.getString("descricao_produto"));
                 mp.setDescricaoTipo(rs.getString("tipo_descricao"));
                 mp.setIdPrateleira(rs.getString("id_prateleira"));
+                mp.setJaEstocado(rs.getString("estocado"));
+                listaProdutos.add(mp);
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao ler do SGBD!!" + ex);
+        } finally {
+            NovaConecta.closeConnection(con, stm, rs);
+            return listaProdutos;
+        }
+    }
+
+    @Override
+    public List produtosVendidos(String dataCompra) {
+        Connection con = NovaConecta.getConnection();
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<MProduto> listaProdutos = new ArrayList<>();
+        MProduto mp = null;
+        try {
+            stm = con.prepareStatement("select produto.descricao_produto,produto_prateleira.id_prateleira,data_compra, hora_compra from compra\n" +
+                                        "inner join produto_prateleira on produto_prateleira.id_produto = compra.id_produto\n" +
+                                        "inner join produto on produto.id = produto_prateleira.id_produto\n" +
+                                        "where produto_prateleira.estocado = 'VEN' and data_compra > '"+dataCompra+"'\n" +
+                                        "order by data_compra");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                mp = new MProduto();
+                mp.setDescricao(rs.getString("descricao_produto"));
+                mp.setIdPrateleira(rs.getString("id_prateleira"));
+                mp.setData(rs.getString("data_compra"));
+                mp.setHora(rs.getString("hora_compra"));
                 listaProdutos.add(mp);
             }
         } catch (SQLException ex) {

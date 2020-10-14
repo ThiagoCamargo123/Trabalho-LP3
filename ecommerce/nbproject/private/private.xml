@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/Z:/Users/Thiago/Area%20Trabalho/ecommerce/src/ecommerce/produto/ProdutosNaoEstocado.java</file>
+            <file>file:/Z:/Users/Thiago/Area%20Trabalho/ecommerce/src/InteligenciaArtificial/OrganizarPrateleiraJFrame.java</file>
+            <file>file:/Z:/Users/Thiago/Area%20Trabalho/ecommerce/src/ecommerce/produto/dao/ProdutoDAO.java</file>
+            <file>file:/Z:/Users/Thiago/Area%20Trabalho/ecommerce/src/ecommerce/produto/ProdutosVendidos.java</file>
+        </group>
     </open-files>
 </project-private>

@@ -76,13 +76,13 @@ public class BuscarProduto extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Produto", "Prateleira"
+                "Produto", "Prateleira", "Estocado"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -143,7 +143,7 @@ public class BuscarProduto extends javax.swing.JFrame {
 
         for (MProduto p : produtos) {
             modelo.addRow(new Object[]{
-                p.getDescricao(), p.getIdPrateleira(),});
+                p.getDescricao(), p.getIdPrateleira(),p.getJaEstocado()});
         }
     }//GEN-LAST:event_tipoActionPerformed
 

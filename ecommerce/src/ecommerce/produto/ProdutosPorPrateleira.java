@@ -1,12 +1,10 @@
 package ecommerce.produto;
 
 import bancoDados.BD;
-import ecommerce.estoquista.dao.MEstoquista;
 import ecommerce.produto.dao.MProduto;
 import ecommerce.produto.dao.ProdutoDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JOptionPane;

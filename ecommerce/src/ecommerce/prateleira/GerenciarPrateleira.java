@@ -8,6 +8,7 @@ package ecommerce.prateleira;
 import ecommerce.produto.BuscarProduto;
 import ecommerce.produto.ProdutosNaoEstocado;
 import ecommerce.produto.ProdutosPorPrateleira;
+import ecommerce.produto.ProdutosVendidos;
 import empresa.AplicacaoEmpresa;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -63,6 +64,7 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
         Itens = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -163,6 +165,11 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
                 jMenuItem2MouseClicked(evt);
             }
         });
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu3.add(jMenuItem2);
 
         jMenuBar1.add(jMenu3);
@@ -189,6 +196,14 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
             }
         });
         Itens.add(jMenuItem6);
+
+        jMenuItem7.setText("Vendidos");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        Itens.add(jMenuItem7);
 
         jMenuBar1.add(Itens);
 
@@ -244,6 +259,15 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
         BuscarProduto produtos = new BuscarProduto();
         produtos.setVisible(true);
     }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        dispose();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        ProdutosVendidos produtos = new ProdutosVendidos();
+        produtos.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -303,6 +327,7 @@ public class GerenciarPrateleira extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JPopupMenu jPopupMenu2;
     // End of variables declaration//GEN-END:variables

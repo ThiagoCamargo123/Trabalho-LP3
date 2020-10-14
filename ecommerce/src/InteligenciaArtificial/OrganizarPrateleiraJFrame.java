@@ -434,7 +434,7 @@ public class OrganizarPrateleiraJFrame extends javax.swing.JFrame {
         
         String resultadoFim = null;
         
-        if(mesFim.equals("11") || mesFim.equals("12")){
+        if(mesFim.equals("10") || mesFim.equals("11") || mesFim.equals("12")){
             resultadoFim = anoFim + "-" + mesFim + "-" + diaFim;
         } else {
             resultadoFim = anoFim + "-0" + mesFim + "-" + diaFim;

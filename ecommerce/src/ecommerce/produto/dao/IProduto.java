@@ -19,4 +19,5 @@ public interface IProduto {
     public List produtosPorPrateleira();
     public List produtosNaoEstocado();
     public List buscarProdutoPorTipo(String tipo);
+    public List produtosVendidos(String dataCompra);
 }
